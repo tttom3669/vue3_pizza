@@ -1,30 +1,24 @@
 <template>
+  <AdminNavbar></AdminNavbar>
   <div class="container">
-    <h1>這是後台首頁</h1>
-    <router-link to="/admin/products">產品管理列表</router-link> |
-    <router-link to="/">回前台首頁</router-link> |
-    <a href="#" @click.prevent="logout">登出</a> |
-    <hr />
+    <AdminNavTabs></AdminNavTabs>
     <router-view></router-view>
   </div>
 </template>
 <script>
 import Swal from 'sweetalert2';
+import AdminNavTabs from '../components/AdminNavTabs.vue';
+import AdminNavbar from '../components/admin/AdminNavbar.vue';
 
 const { VITE_APP_URL } = import.meta.env;
 export default {
   methods: {
-    logout() {
-      document.cookie = `yoToken=; expires=${new Date()}`;
-      this.$router.push('/login');
-    },
     // 檢查登入驗證
     checkLogin() {
-      // const token = document.cookie
-      //   .split('; ')
-      //   .find((row) => row.startsWith('yoToken='))
-      //   ?.split('=')[1];
-      const token = document.cookie.replace(/(?:(?:^|.*;\s*)yoToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('yoToken='))
+        ?.split('=')[1];
       this.$http.defaults.headers.common.Authorization = token;
       if (token) {
         this.$http
@@ -50,6 +44,7 @@ export default {
       }
     },
   },
+  components: { AdminNavTabs, AdminNavbar },
   created() {
     this.checkLogin();
   },

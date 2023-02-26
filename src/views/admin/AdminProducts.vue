@@ -1,5 +1,4 @@
 <template>
-  <div>後台產品管理列表</div>
   <div>
     <div class="text-end mt-4">
       <button class="btn btn-primary" @click="openModal('create')">建立新的產品</button>
@@ -22,9 +21,9 @@
           <!--產品名稱-->
           <td>{{ product.title }}</td>
           <!--原價-->
-          <td class="text-end">{{ product.origin_price }}</td>
+          <td class="text-start">{{ product.origin_price }}</td>
           <!--售價-->
-          <td class="text-end">{{ product.price }}</td>
+          <td class="text-start">{{ product.price }}</td>
           <!--是否啟用-->
           <td>
             <span class="text-success" v-if="product.is_enabled">啟用</span>

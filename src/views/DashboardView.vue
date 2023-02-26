@@ -20,31 +20,37 @@ export default {
     },
     // 檢查登入驗證
     checkLogin() {
-      const cookieValue = document.cookie
-        .split(';')
-        .find((row) => row.startsWith('yoToken='))
-        ?.split('=')[1];
-
-      this.$http.defaults.headers.common.Authorization = cookieValue;
-
-      const url = `${VITE_APP_URL}/api/user/check`;
-      this.$http
-        .post(url)
-        .then((res) => {
-          if (!res.data.success) {
+      // const token = document.cookie
+      //   .split('; ')
+      //   .find((row) => row.startsWith('yoToken='))
+      //   ?.split('=')[1];
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)yoToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      this.$http.defaults.headers.common.Authorization = token;
+      if (token) {
+        this.$http
+          .post(`${VITE_APP_URL}/api/user/check`)
+          .then((res) => {
+            if (!res.data.success) {
+              this.$router.push('/login');
+            }
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: '沒有權限，請重新登入',
+            });
             this.$router.push('/login');
-          }
-        })
-        .catch(() => {
-          Swal.fire({
-            icon: 'error',
-            title: '請重新登入',
           });
-          this.$router.push('/login');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: '請先登入',
         });
+        this.$router.push('/login');
+      }
     },
   },
-  mounted() {
+  created() {
     this.checkLogin();
   },
 };

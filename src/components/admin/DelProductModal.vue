@@ -22,8 +22,15 @@
         </div>
         <div class="modal-body">
           是否刪除
-          <strong class="text-danger">{{ tempProduct.title }}</strong>
-          商品(刪除後將無法恢復)。
+          <!-- 刪除商品 -->
+          <template v-if="tempItem.title">
+            <strong class="text-danger">{{ tempItem.title }}</strong>
+            商品(刪除後將無法恢復)。
+          </template>
+          <template v-else> <!-- 刪除訂單 -->
+            <strong class="text-danger">{{ tempItem.id }}</strong>
+            訂單(刪除後將無法恢復)。
+          </template>
         </div>
         <div class="modal-footer">
           <button
@@ -33,7 +40,11 @@
           >
             取消
           </button>
-          <button type="button" class="btn btn-danger" @click="$emit('delProduct')">
+          <button
+            type="button"
+            class="btn btn-danger"
+            @click="$emit('delItem')"
+          >
             確認刪除
           </button>
         </div>
@@ -45,7 +56,7 @@
 import Modal from 'bootstrap/js/dist/modal';
 
 export default {
-  props: ['tempProduct'],
+  props: ['tempItem'],
   methods: {
     openModal() {
       this.modal.show();

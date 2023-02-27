@@ -7,7 +7,7 @@
 </template>
 <script>
 import Swal from 'sweetalert2';
-import AdminNavTabs from '../components/AdminNavTabs.vue';
+import AdminNavTabs from '../components/admin/AdminNavTabs.vue';
 import AdminNavbar from '../components/admin/AdminNavbar.vue';
 
 const { VITE_APP_URL } = import.meta.env;

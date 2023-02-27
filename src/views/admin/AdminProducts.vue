@@ -62,15 +62,15 @@
     <!-- 刪除產品 Modal -->
     <DelProductModal
       ref="delProductModal"
-      :temp-product="tempProduct"
-      @del-product="delProduct"
+      :temp-item="tempProduct"
+      @del-item="delProduct"
     ></DelProductModal>
   </div>
 </template>
 <script>
-import AdminPagination from '@/components/AdminPagination.vue';
-import ProductModal from '@/components/ProductModal.vue';
-import DelProductModal from '@/components/DelProductModal.vue';
+import AdminPagination from '@/components/admin/AdminPagination.vue';
+import ProductModal from '@/components/admin/ProductModal.vue';
+import DelProductModal from '@/components/admin/DelProductModal.vue';
 
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
@@ -143,6 +143,7 @@ export default {
         })
         .catch((err) => {
           this.swalShow(`${err.data.message}`, 'error');
+          this.isLoading = false;
         });
     },
     // 開啟Modal

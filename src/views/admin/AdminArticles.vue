@@ -1,3 +1,3 @@
 <template>
-  <div>文章管理列表</div>
+  <div>文章管理更新列表</div>
 </template>

@@ -13,10 +13,10 @@
           <router-link to="/admin/orders" class="nav-link" href="#">後台訂單管理列表</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <router-link to="/admin/coupons" class="nav-link" href="#">後台優惠券管理列表</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <router-link to="/admin/articles" class="nav-link" href="#">後台文章管理列表</router-link>
         </li>
       </ul>
     </div>

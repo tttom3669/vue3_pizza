@@ -60,17 +60,18 @@
       @create-images="createImages"
     ></ProductModal>
     <!-- 刪除產品 Modal -->
-    <DelProductModal
+    <DelItemModal
       ref="delProductModal"
       :temp-item="tempProduct"
+      :del-modal-type="delModalType"
       @del-item="delProduct"
-    ></DelProductModal>
+    ></DelItemModal>
   </div>
 </template>
 <script>
 import AdminPagination from '@/components/admin/AdminPagination.vue';
 import ProductModal from '@/components/admin/ProductModal.vue';
-import DelProductModal from '@/components/admin/DelProductModal.vue';
+import DelItemModal from '@/components/admin/DelItemModal.vue';
 
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
@@ -87,9 +88,10 @@ export default {
       isNew: true, // 確認是編輯或新增所使用
       page: {},
       isLoading: false,
+      delModalType: 'products',
     };
   },
-  components: { AdminPagination, ProductModal, DelProductModal },
+  components: { AdminPagination, ProductModal, DelItemModal },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
     // 取得產品資料
@@ -127,8 +129,8 @@ export default {
           this.swalShow(`${res.data.message}`, 'success', 'toast');
         })
         .catch((err) => {
-          this.swalShow(`${err.data.message}`, 'error');
-          this.$router.push('/login');
+          this.swalShow(`${err.response.data.message}`, 'error');
+          this.isLoading = false;
         });
     },
     // 刪除產品資料

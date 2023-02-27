@@ -1,91 +1,97 @@
 <template>
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th>購買時間</th>
-        <th>Email</th>
-        <th>購買款項</th>
-        <th>應付金額</th>
-        <th>是否付款</th>
-        <th>編輯</th>
-      </tr>
-    </thead>
-    <tbody>
-      <template v-for="order in orders" :key="order.id">
-        <tr v-if="orders.length" :class="{ 'text-secondary': !order.is_paid }">
-          <!--購買時間-->
-          <td>{{ $filters.date(order.create_at) }}</td>
-          <!--Email-->
-          <td>
-            <span v-if="order.user">{{ order.user.email }}</span>
-          </td>
-          <!--購買款項-->
-          <td>
-            <ul class="list-unstyled">
-              <li v-for="(product, i) in order.products" :key="i">
-                {{ product.product.title }} 數量：{{ product.qty }}
-                {{ product.product.unit }}
-              </li>
-            </ul>
-          </td>
-          <!--應付金額-->
-          <td class="text-start">{{ order.total }}</td>
-          <td>
-            <!--是否付款-->
-            <div class="form-check form-switch">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                v-model="order.is_paid"
-                :id="`paidSwitch${order.id}`"
-                @change="updatePaid(order)"
-              />
-              <label class="form-check-label" :for="`paidSwitch${order.id}`">
-                <span> {{ order.is_paid ? '已付款' : '未付款' }}</span>
-              </label>
-            </div>
-          </td>
-          <td>
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-outline-primary btn-sm"
-                @click="openModal('view', order)"
-              >
-                檢視
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-danger btn-sm"
-                @click="openModal('delete', order)"
-              >
-                刪除
-              </button>
-            </div>
-          </td>
+  <div>
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>購買時間</th>
+          <th>Email</th>
+          <th>購買款項</th>
+          <th>應付金額</th>
+          <th>是否付款</th>
+          <th>編輯</th>
         </tr>
-      </template>
-    </tbody>
-  </table>
-  <VueLoading v-model:active="isLoading"></VueLoading>
-  <AdminPagination :pages="page" @change-page="getOrders"></AdminPagination>
-  <OrderModal
-    :order="tempOrder"
-    ref="orderModal"
-    @update-paid="updatePaid"
-  ></OrderModal>
-  <DelProductModal
-    ref="delProductModal"
-    :temp-item="tempOrder"
-    @del-item="delOrder"
-  ></DelProductModal>
+      </thead>
+      <tbody>
+        <template v-for="order in orders" :key="order.id">
+          <tr
+            v-if="orders.length"
+            :class="{ 'text-secondary': !order.is_paid }"
+          >
+            <!--購買時間-->
+            <td>{{ $filters.date(order.create_at) }}</td>
+            <!--Email-->
+            <td>
+              <span v-if="order.user">{{ order.user.email }}</span>
+            </td>
+            <!--購買款項-->
+            <td>
+              <ul class="list-unstyled">
+                <li v-for="(product, i) in order.products" :key="i">
+                  {{ product.product.title }} 數量：{{ product.qty }}
+                  {{ product.product.unit }}
+                </li>
+              </ul>
+            </td>
+            <!--應付金額-->
+            <td class="text-start">{{ order.total }}</td>
+            <td>
+              <!--是否付款-->
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  v-model="order.is_paid"
+                  :id="`paidSwitch${order.id}`"
+                  @change="updatePaid(order)"
+                />
+                <label class="form-check-label" :for="`paidSwitch${order.id}`">
+                  <span> {{ order.is_paid ? '已付款' : '未付款' }}</span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  @click="openModal('view', order)"
+                >
+                  檢視
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  @click="openModal('delete', order)"
+                >
+                  刪除
+                </button>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+    <VueLoading v-model:active="isLoading"></VueLoading>
+    <AdminPagination :pages="page" @change-page="getOrders"></AdminPagination>
+    <OrderModal
+      :order="tempOrder"
+      ref="orderModal"
+      @update-paid="updatePaid"
+    ></OrderModal>
+    <DelItemModal
+      ref="delProductModal"
+      :temp-item="tempOrder"
+      :del-modal-type="delModalType"
+      @del-item="delOrder"
+    ></DelItemModal>
+  </div>
 </template>
 
 <script>
 import OrderModal from '@/components/admin/OrderModal.vue';
 import AdminPagination from '@/components/admin/AdminPagination.vue';
-import DelProductModal from '@/components/admin/DelProductModal.vue';
+import DelItemModal from '@/components/admin/DelItemModal.vue';
 
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
@@ -99,6 +105,7 @@ export default {
       tempOrder: {},
       page: {},
       isLoading: false,
+      delModalType: 'orders',
     };
   },
   methods: {
@@ -167,7 +174,7 @@ export default {
         });
     },
   },
-  components: { OrderModal, AdminPagination, DelProductModal },
+  components: { OrderModal, AdminPagination, DelItemModal },
   mounted() {
     this.isLoading = true;
     this.getOrders();

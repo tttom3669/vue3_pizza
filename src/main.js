@@ -2,8 +2,12 @@ import { createApp } from 'vue';
 // axios、 vue-axios
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-// 自定義 bootstrap
+// 自定義 bootstrap scss
 import './assets/all.scss';
+// bootstrap js
+import 'bootstrap';
+// bootstrap-icons
+import 'bootstrap-icons/font/bootstrap-icons.css';
 // Vue loading 插件
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';

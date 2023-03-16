@@ -24,14 +24,27 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-2">
+                <h3 class="mb-3">主要圖片</h3>
                 <div class="mb-3">
                   <!-- 主要圖片(單圖) -->
-                  <label for="imageUrl" class="form-label">主要圖片</label>
+                  <label for="imageUrl" class="form-label">圖片網址</label>
                   <input
                     type="text"
                     class="form-control"
                     placeholder="請輸入圖片連結"
                     v-model="tempProduct.imageUrl"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="mainImgFile" class="form-label"
+                    >或 上傳圖片</label
+                  >
+                  <input
+                    class="form-control"
+                    type="file"
+                    id="mainImgFile"
+                    ref="mainImgFile"
+                    @change="uploadFile"
                   />
                 </div>
                 <img class="img-fluid" :src="tempProduct.imageUrl" />
@@ -67,9 +80,9 @@
                   </button>
 
                   <button
-                    class="btn btn-outline-danger btn-sm d-block w-100"
+                    class="btn btn-outline-danger btn-sm mt-2 d-block w-100"
                     @click="tempProduct.imagesUrl.pop()"
-                    v-else
+                    v-if="tempProduct.imagesUrl.length"
                   >
                     刪除圖片
                   </button>
@@ -96,16 +109,37 @@
                   v-model="tempProduct.title"
                 />
               </div>
+              <div class="mb-3">
+                <label for="category" class="form-label">分類</label>
+                <input
+                  id="category"
+                  type="text"
+                  class="form-control"
+                  placeholder="請輸入分類"
+                  v-model="tempProduct.category"
+                />
+              </div>
               <div class="row">
                 <div class="mb-3 col-md-6">
-                  <label for="category" class="form-label">分類</label>
-                  <input
-                    id="category"
-                    type="text"
-                    class="form-control"
-                    placeholder="請輸入分類"
-                    v-model="tempProduct.category"
-                  />
+                  <label for="productCategory" class="form-label">細項分類</label>
+                  <select
+                    id="productCategory"
+                    class="form-select"
+                    aria-label="Product category select"
+                    v-model="tempProduct.productCategory"
+                  >
+                    <option selected disabled hidden>請選擇</option>
+                    <template v-if="tempProduct.category === '披薩' || isNew">
+                      <option value="無肉不歡">無肉不歡</option>
+                      <option value="蔬食首選">蔬食首選</option>
+                      <option value="海鮮至上">海鮮至上</option>
+                      <option value="甜食主義">甜食主義</option>
+                    </template>
+                    <template v-if="tempProduct.category === '副食' || isNew">
+                      <option value="炸物">炸物</option>
+                      <option value="飲料">飲料</option>
+                    </template>
+                  </select>
                 </div>
                 <div class="mb-3 col-md-6">
                   <label for="price" class="form-label">單位</label>
@@ -157,12 +191,12 @@
                 </textarea>
               </div>
               <div class="mb-3">
-                <label for="content" class="form-label">說明內容</label>
+                <label for="content" class="form-label">產品內容物</label>
                 <textarea
                   id="description"
                   type="text"
                   class="form-control"
-                  placeholder="請輸入說明內容"
+                  placeholder="請輸入產品內容物"
                   v-model="tempProduct.content"
                 >
                 </textarea>
@@ -177,17 +211,27 @@
                     :false-value="0"
                     v-model="tempProduct.is_enabled"
                   />
-                  <label class="form-check-label" for="is_enabled">是否啟用</label>
+                  <label class="form-check-label" for="is_enabled"
+                    >是否啟用</label
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
             取消
           </button>
-          <button type="button" class="btn btn-primary" @click="$emit('updateProduct')">
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="$emit('updateProduct')"
+          >
             確認
           </button>
         </div>
@@ -198,6 +242,10 @@
 
 <script>
 import Modal from 'bootstrap/js/dist/modal';
+import { mapActions } from 'pinia';
+import swalMessage from '@/stores/swalMessage';
+
+const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
 export default {
   data() {
@@ -213,6 +261,12 @@ export default {
         return {};
       },
     },
+    isNew: {
+      type: Boolean,
+      default() {
+        return true;
+      },
+    },
   },
   watch: {
     product() {
@@ -223,11 +277,27 @@ export default {
     },
   },
   methods: {
+    ...mapActions(swalMessage, ['swalShow']),
     openModal() {
       this.modal.show();
     },
     closeModal() {
       this.modal.hide();
+    },
+    uploadFile() {
+      const uploadedFile = this.$refs.mainImgFile.files[0];
+      const formData = new FormData();
+      formData.append('mainImgFile', uploadedFile);
+      this.$http
+        .post(`${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/upload`, formData)
+        .then((res) => {
+          this.tempProduct.imageUrl = res.data.imageUrl;
+          this.$refs.mainImgFile.value = '';
+          this.swalShow('圖片上傳成功', 'success', 'toast');
+        })
+        .catch(() => {
+          this.swalShow('檔案格式不符', 'error');
+        });
     },
   },
   mounted() {

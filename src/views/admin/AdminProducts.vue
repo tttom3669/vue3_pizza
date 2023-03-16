@@ -8,6 +8,7 @@
         <tr>
           <th width="120">分類</th>
           <th>產品名稱</th>
+          <th>細項分類</th>
           <th width="120">原價</th>
           <th width="120">售價</th>
           <th width="100">是否啟用</th>
@@ -20,6 +21,8 @@
           <td>{{ product.category }}</td>
           <!--產品名稱-->
           <td>{{ product.title }}</td>
+          <!-- 細項分類 -->
+          <td>{{ product.productCategory }}</td>
           <!--原價-->
           <td class="text-start">{{ product.origin_price }}</td>
           <!--售價-->
@@ -56,6 +59,7 @@
     <ProductModal
       ref="productModal"
       :product="tempProduct"
+      :is-new="isNew"
       @update-product="updateProduct"
       @create-images="createImages"
     ></ProductModal>
@@ -95,9 +99,13 @@ export default {
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
     // 取得產品資料
-    getProducts(page = 1) {
+    getProducts(page = 1, category = '') {
+      let url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/products/?page=${page}`;
+      if (category !== '') {
+        url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/products/category=${category}?&page=${page}`;
+      }
       this.$http
-        .get(`${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/products/?page=${page}`)
+        .get(url)
         .then((res) => {
           this.products = res.data.products;
           this.page = res.data.pagination; // 取得頁數
@@ -125,7 +133,7 @@ export default {
       this.isLoading = true;
       this.$http[apiMethod](apiUrl, { data: this.tempProduct })
         .then((res) => {
-          this.getProducts();
+          this.getProducts(this.page.current_page); // 更新完，不會跳頁
           this.swalShow(`${res.data.message}`, 'success', 'toast');
         })
         .catch((err) => {
@@ -155,6 +163,7 @@ export default {
         // 帶入初始化資料
         this.tempProduct = {
           imagesUrl: [],
+          productCategory: '請選擇',
         };
         this.isNew = true;
         this.$refs.productModal.openModal();

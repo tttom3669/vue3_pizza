@@ -1,6 +1,4 @@
 <template>
-  <!-- 導覽列 -->
-  <FrontNavbar></FrontNavbar>
   <!-- Landing 網站到達頁 -->
   <LandingPage></LandingPage>
   <!--關於我們-->
@@ -19,6 +17,7 @@
       </div>
       <div
         class="row d-flex flex-column flex-md-row flex-md-row-reverse align-items-center g-0"
+        data-aos="fade-left"
       >
         <div class="col-md-6">
           <img
@@ -39,7 +38,10 @@
           </div>
         </div>
       </div>
-      <div class="row flex-column flex-md-row align-items-center g-0 mt-5">
+      <div
+        class="row flex-column flex-md-row align-items-center g-0 mt-5"
+        data-aos="fade-right"
+      >
         <div class="col-md-6">
           <img
             src="@/assets/img/about_img_2.png"
@@ -75,11 +77,18 @@
           >
         </h3>
       </div>
-      <div class="row d-flex flex-md-row flex-column g-4">
+      <div class="row d-flex flex-md-row flex-column g-4" data-aos="fade-left">
         <div class="col-md-4">
           <div class="row d-flex flex-row flex-md-column g-3">
             <div class="col">
-              <div class="text-white border-5 h-100 position-relative">
+              <div
+                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+              >
+                <router-link
+                  class="nav-item nav-link me-4 stretched-link"
+                  to="/products"
+                  @click="() => changeCategory('蔬食首選')"
+                ></router-link>
                 <img
                   src="@/assets/img/vege.png"
                   class="w-100 h-100 object-fit-cover bg-dark-gradient"
@@ -94,7 +103,14 @@
               </div>
             </div>
             <div class="col">
-              <div class="text-white border-5 h-100 position-relative">
+              <div
+                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+              >
+                <router-link
+                  class="nav-item nav-link me-4 stretched-link"
+                  to="/products"
+                  @click="() => changeCategory('海鮮至上')"
+                ></router-link>
                 <img
                   src="@/assets/img/seafood.png"
                   class="w-100 h-100 object-fit-cover"
@@ -111,7 +127,14 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="text-white border-5 h-100 position-relative">
+          <div
+            class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+          >
+            <router-link
+              class="nav-item nav-link me-4 stretched-link"
+              to="/products"
+              @click="() => changeCategory('無肉不歡')"
+            ></router-link>
             <img
               src="@/assets/img/meet.png"
               class="w-100 object-fit-cover d-md-block d-none"
@@ -120,7 +143,7 @@
             <img
               src="@/assets/img/meet.png"
               class="w-100 object-fit-cover d-block d-md-none"
-              height="200px"
+              height="200"
               alt="meet"
             />
             <div
@@ -134,7 +157,14 @@
         <div class="col-md-4">
           <div class="row d-flex lex-row flex-md-column g-3">
             <div class="col">
-              <div class="text-white border-5 h-100 position-relative">
+              <div
+                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+              >
+                <router-link
+                  class="nav-item nav-link me-4 stretched-link"
+                  to="/products"
+                  @click="() => changeCategory('炸物')"
+                ></router-link>
                 <img
                   src="@/assets/img/sidemeal.png"
                   class="w-100 object-fit-cover"
@@ -149,16 +179,24 @@
               </div>
             </div>
             <div class="col">
-              <div class="text-white border-5 h-100 position-relative">
+              <div
+                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+              >
                 <img
                   src="@/assets/img/dessert.png"
                   class="w-100 h-100 object-fit-cover"
                   alt="dessertPizza"
+                  to="/products"
                 />
+                <router-link
+                  class="stretched-link"
+                  to="/products"
+                  @click="() => changeCategory('甜食主義')"
+                ></router-link>
                 <div
                   class="position-absolute top-0 start-10 w-100 bg-dark-gradient p-2"
                 >
-                  <h5>甜點披薩</h5>
+                  <h5>甜食主義</h5>
                   <p>DESSERT</p>
                 </div>
               </div>
@@ -192,8 +230,8 @@
           >
             <img
               src="@/assets/img/pizza1.png"
-              class="card-img-top w-75 top-0 start-50 translate-middle
-              position-absolute object-fit-cover"
+              class="card-img-top w-75 top-0 start-50
+              translate-middle position-absolute object-fit-cover"
               alt="pizza"
             />
             <div class="card-body text-center mt-5">
@@ -218,8 +256,8 @@
           >
             <img
               src="@/assets/img/pizza1.png"
-              class="card-img-top w-75 top-0 start-50 translate-middle
-              position-absolute object-fit-cover"
+              class="card-img-top w-75 top-0 start-50
+              translate-middle position-absolute object-fit-cover"
               alt="pizza"
             />
             <div class="card-body text-center mt-5">
@@ -244,8 +282,8 @@
           >
             <img
               src="@/assets/img/pizza1.png"
-              class="card-img-top w-75 top-0 start-50 translate-middle
-              position-absolute object-fit-cover"
+              class="card-img-top w-75 top-0 start-50
+              translate-middle position-absolute object-fit-cover"
               alt="pizza"
             />
             <div class="card-body text-center mt-5">
@@ -270,8 +308,8 @@
           >
             <img
               src="@/assets/img/pizza1.png"
-              class="card-img-top w-75 top-0 start-50 translate-middle
-              position-absolute object-fit-cover"
+              class="card-img-top w-75 top-0 start-50
+              translate-middle position-absolute object-fit-cover"
               alt="pizza"
             />
             <div class="card-body text-center mt-5">
@@ -292,8 +330,6 @@
       </div>
     </div>
   </div>
-  <!-- footer -->
-  <FrontFooter></FrontFooter>
 </template>
 
 <style>
@@ -323,14 +359,39 @@
     rgb(0, 0, 0, 0) 80%
   );
 }
+
+.swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
 </style>
 
 <script>
-import FrontNavbar from '@/components/front/FrontNavbar.vue';
-import FrontFooter from '@/components/front/FrontFooter.vue';
+import { mapActions } from 'pinia';
+import productsStore from '@/stores/productsStore';
 import LandingPage from '@/components/front/LandingPage.vue';
 
 export default {
-  components: { FrontNavbar, FrontFooter, LandingPage },
+  components: { LandingPage },
+  methods: {
+    ...mapActions(productsStore, ['changeCategory']),
+  },
 };
 </script>

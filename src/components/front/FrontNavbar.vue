@@ -13,7 +13,6 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div
         class="d-none d-lg-block justify-content-end"
         id="navbarNavAltMarkup"
@@ -25,26 +24,20 @@
           <router-link class="nav-item nav-link me-4" to="/"
             >最新消息</router-link
           >
-          <router-link class="nav-item nav-link me-4" to="/"
+          <router-link class="nav-item nav-link me-4" to="/products"
             >美味菜單</router-link
-          >
-          <router-link class="nav-item nav-link me-4" to="/"
-            >常見問題</router-link
-          >
-          <router-link class="nav-item nav-link me-4" to="/login">
-            登入後台</router-link
           >
           <router-link class="nav-item nav-link me-4" to="/login">
             <i class="bi bi-heart"></i
           ></router-link>
-          <a class="nav-item nav-link position-relative" href="./cart.html"
+          <router-link class="nav-item nav-link position-relative" to="/cart"
             ><i class="bi bi-bag"></i>
             <span
-              class="badge rounded-pill
-              bg-danger position-absolute top-0 start-100 translate-middle"
-              >11</span
+              class="badge rounded-pill bg-danger
+              position-absolute top-0 start-100 translate-middle"
+              >{{ cart.carts?.length }}</span
             >
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -55,8 +48,19 @@
 
 <script>
 import NavOffcanvas from '@/components/front/NavOffcanvas.vue';
+import { mapState, mapActions } from 'pinia';
+import cartStore from '@/stores/cartStore';
 
 export default {
   components: { NavOffcanvas },
+  methods: {
+    ...mapActions(cartStore, ['getCart']),
+  },
+  computed: {
+    ...mapState(cartStore, ['cart']),
+  },
+  mounted() {
+    this.getCart();
+  },
 };
 </script>

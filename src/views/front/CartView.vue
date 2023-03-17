@@ -62,7 +62,8 @@
           <template v-if="cart.carts">
             <tr v-for="item in cart.carts" :key="item.id">
               <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
+                <button type="button" class="btn btn-outline-danger btn-sm"
+                @click.prevent="deleteCartItem(item)">
                   <i class="fas fa-spinner fa-pulse"></i>
                   x
                 </button>
@@ -88,13 +89,15 @@
                   <!-- 商品數量/單位 -->
                   <div class="input-group mb-3">
                     <button type="button" class="
-                    input-group-text" id="basic-addon1">
+                    input-group-text" id="basic-addon1"
+                    @click.prevent="()=>updateCartItem(item,item.qty-1)">
                       <i class="bi bi-dash"></i>
                     </button>
                     <input type="text" class="form-control text-center"
-                    v-model.number="item.qty">
+                    :value="item.qty">
                     <button type="button" class="
-                     input-group-text" id="basic-addon2">
+                     input-group-text" id="basic-addon2"
+                     @click.prevent="()=>updateCartItem(item,item.qty+1)">
                       <i class="bi bi-plus"></i>
                     </button>
                   </div>
@@ -124,7 +127,10 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"><button class="btn btn-outline-danger" type="button">清空購物車</button></td>
+            <td colspan="2">
+              <button class="btn btn-outline-danger" type="button"
+              @click.prevent="()=>deleteCart()">清空購物車</button>
+            </td>
             <td colspan="3" class="text-end">總計</td>
             <td class="text-end">{{ cart.total }}</td>
           </tr>
@@ -235,7 +241,7 @@ export default {
     ...mapState(loadingStore, ['isLoading']),
   },
   methods: {
-    ...mapActions(cartStore, ['getCart']),
+    ...mapActions(cartStore, ['getCart', 'updateCartItem', 'deleteCartItem', 'deleteCart']),
   },
   mounted() {
     this.getCart();

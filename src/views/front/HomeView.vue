@@ -207,12 +207,12 @@
     </div>
   </div>
   <!-- 精選口味 -->
-  <div class="py-5">
+  <!-- <div class="py-5">
     <div class="container">
       <div
         class="d-flex flex-column align-items-center justify-content-center my-5"
       >
-        <p class="fw-bold mb-n1 text-cusGray">CATEGORIES</p>
+        <p class="fw-bold mb-n1 text-cusGray">TOP FLAVORS</p>
         <h3 class="h1 fw-bold mt-1">
           <span class="text-primary me-5">—</span>精選口味<span
             class="text-primary ms-5"
@@ -329,7 +329,8 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <SwiperTopFlavors></SwiperTopFlavors>
 </template>
 
 <style>
@@ -360,36 +361,21 @@
   );
 }
 
-.swiper {
-      width: 100%;
-      height: 100%;
-    }
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
 </style>
 
 <script>
 import { mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
 import LandingPage from '@/components/front/LandingPage.vue';
+import SwiperTopFlavors from '@/components/front/SwiperTopFlavors.vue';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default {
-  components: { LandingPage },
+  components: { LandingPage, SwiperTopFlavors },
   methods: {
     ...mapActions(productsStore, ['changeCategory']),
   },

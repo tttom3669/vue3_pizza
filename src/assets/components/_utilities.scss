@@ -7,3 +7,7 @@
         transform: scale(1.1);
     }
 }
+// 產品卡片跳動效果
+.boxTranslate:hover {
+    transform: translate(5px, -5px);
+}

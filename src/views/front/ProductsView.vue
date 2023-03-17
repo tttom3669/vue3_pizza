@@ -156,7 +156,7 @@
               v-for="product in filterProducts"
               :key="product.id"
             >
-              <div class="card h-100 py-2 shadow-sm overflow-hidden box1">
+              <div class="card h-100 py-2 shadow-sm overflow-hidden boxTranslate">
                 <img
                   :src="product.imageUrl"
                   class="card-img-top  w-75 mx-auto object-fit-cover"
@@ -352,8 +352,5 @@ export default {
 .allProductActive {
   color: var(--bs-accordion-active-color);
   background-color: var(--bs-accordion-active-bg);
-}
-.box1:hover {
-  transform: translate(5px, -5px);
 }
 </style>

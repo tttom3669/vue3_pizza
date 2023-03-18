@@ -27,19 +27,21 @@ export default defineStore('cart', {
     },
     // 加入購物車
     addToCart(productId, qty = 1) {
+      loadingStatus.loadingItem = productId;
       const data = {
         product_id: productId,
         qty,
       };
-      loadingStatus.isLoading = true;
       axios
         .post(`${VITE_APP_URL}/api/${VITE_APP_PATH}/cart`, { data })
         .then((res) => {
           this.swalShow(`${res.data.message}`, 'success', 'toast');
+          loadingStatus.loadingItem = '';
           this.getCart();
         })
         .catch((err) => {
           this.swalShow(`${err.response.data.message}`, 'error');
+          loadingStatus.loadingItem = '';
         });
     },
     // 更新購物車
@@ -48,51 +50,47 @@ export default defineStore('cart', {
         product_id: item.product.id, // 產品的 id
         qty,
       };
-      // this.loadingStatus.loadingItem = item.id; // 購物車的 id
-      // console.log(item, this.loadingStatus);
+      loadingStatus.loadingItem = item.id;// 購物車的 id
       axios
         .put(`${VITE_APP_URL}/api/${VITE_APP_PATH}/cart/${item.id}`, { data })
         .then((res) => {
           this.swalShow(`${res.data.message}`, 'success', 'toast');
           this.getCart();
-          // this.loadingStatus.loadingItem = '';
+          loadingStatus.loadingItem = '';
         })
         .catch((err) => {
           this.swalShow(`${err.response.data.message}`, 'error');
+          loadingStatus.loadingItem = '';
         });
     },
     // 刪除購物車單一品項
     deleteCartItem(item) {
-      // this.loadingStatus = {
-      //   loadingItem: item.id,
-      //   loadingType: 'deleteItem',
-      // };
+      loadingStatus.loadingItem = item.id;
       axios
         .delete(`${VITE_APP_URL}/api/${VITE_APP_PATH}/cart/${item.id}`)
         .then((res) => {
           this.swalShow(`購物車${res.data.message}`, 'success', 'toast');
-          // alert(res.data.message);
           this.getCart();
-          // this.loadingStatus.loadingItem = '';
+          loadingStatus.loadingItem = '';
         })
         .catch((err) => {
           this.swalShow(`${err.response.data.message}`, 'error');
-          // alert(err.response.data.message);
+          loadingStatus.loadingItem = '';
         });
     },
     // 清空購物車
     deleteCart() {
-      // this.loadingStatus.loadingType = 'deleteCarts';
+      loadingStatus.loadingItem = 'deleteCart';
       axios
         .delete(`${VITE_APP_URL}/api/${VITE_APP_PATH}/carts`)
         .then(() => {
           this.swalShow('已清空購物車', 'success', 'toast');
           this.getCart();
-          // this.loadingStatus.loadingType = '';
+          loadingStatus.loadingItem = '';
         })
         .catch((err) => {
           this.swalShow(`${err.response.data.message}`, 'error');
-          // alert(err.response.data.message);
+          loadingStatus.loadingItem = '';
         });
     },
   },

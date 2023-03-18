@@ -22,15 +22,20 @@
       >
         <swiper-slide v-for="product in products" :key="product.id">
             <div class="mt-2 mb-2 text-center">
-                <div class="card h-100 py-2 shadow-sm overflow-hidden boxTranslate">
-                <img
-                    :src="product.imageUrl"
-                    class="card-img-top w-75 mx-auto object-fit-cover"
-                    alt="pizza"
-                    height="200"
-                />
+                <div class="card h-100 py-2 shadow-sm overflow-hidden">
+                  <router-link :to="`/product/${product.id}`" >
+                    <img
+                        :src="product.imageUrl"
+                        class="card-img-top w-75 mx-auto object-fit-cover"
+                        alt="pizza"
+                        height="200"
+                    />
+                  </router-link>
                 <div class="card-body">
+                  <router-link :to="`/product/${product.id}`" class="text-decoration-none
+                  text-cusDarkBrown" >
                     <h5 class="card-title fw-bold">{{ product.title }}</h5>
+                  </router-link>
                     <!-- <p class="card-subtitle text-cusGray mb-1">
                     Margherita Pizza</p> 英文名-->
                     <p class="h6 card-text text-primary fw-bold mb-3">
@@ -44,7 +49,10 @@
                         type="button"
                         class="btn btn-cusDarkBrown border-0 text-nowrap px-3 px-md-4"
                         @click="() => addToCart(product.id)"
+                        :disabled="loadingItem===product.id"
                     >
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                    v-if="loadingItem===product.id"></span>
                         加入購物車
                     </button>
                     </div>
@@ -79,8 +87,9 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 
-import { mapActions } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import cartStore from '@/stores/cartStore';
+import loadingStore from '@/stores/loadingStore';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
@@ -110,6 +119,9 @@ export default {
     };
   },
   components: { Swiper, SwiperSlide },
+  computed: {
+    ...mapState(loadingStore, ['isLoading', 'loadingItem']),
+  },
   methods: {
     getProducts() {
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;

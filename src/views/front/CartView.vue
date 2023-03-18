@@ -63,23 +63,29 @@
             <tr v-for="item in cart.carts" :key="item.id">
               <td>
                 <button type="button" class="btn btn-outline-danger btn-sm"
-                @click.prevent="deleteCartItem(item)">
+                @click.prevent="deleteCartItem(item)"
+                :disabled="loadingItem===item.id">
                   <i class="fas fa-spinner fa-pulse"></i>
-                  x
+                  <i class="bi bi-trash3"></i>
                 </button>
               </td>
               <td>
-                <img
-                  :src="item.product.imageUrl"
-                  alt=""
-                  class="object-fit-cover"
-                  height="70"
-                  width="70"
-                />
+                <router-link :to="`/product/${item.product.id}`">
+                  <img
+                    :src="item.product.imageUrl"
+                    alt=""
+                    class="object-fit-cover"
+                    height="70"
+                    width="70"
+                  />
+                </router-link>
               </td>
               <td>
                 <!-- 商品名稱 -->
-                {{ item.product.title }}
+                <router-link :to="`/product/${item.product.id}`" class="text-decoration-none
+                  text-cusDarkBrown" >
+                  {{ item.product.title }}
+                </router-link>
                 <!-- <div class="text-success">
                                         已套用優惠券
                                     </div> -->
@@ -90,31 +96,19 @@
                   <div class="input-group mb-3">
                     <button type="button" class="
                     input-group-text" id="basic-addon1"
+                    :disabled="item.qty === 1 || loadingItem===item.id"
                     @click.prevent="()=>updateCartItem(item,item.qty-1)">
                       <i class="bi bi-dash"></i>
                     </button>
                     <input type="text" class="form-control text-center"
-                    :value="item.qty">
+                    :value="item.qty" readonly>
                     <button type="button" class="
                      input-group-text" id="basic-addon2"
+                     :disabled="item.qty === 99 || loadingItem===item.id"
                      @click.prevent="()=>updateCartItem(item,item.qty+1)">
-                      <i class="bi bi-plus"></i>
+                     <i class="bi bi-plus"></i>
                     </button>
                   </div>
-                  <!-- <div class="d-flex justify-content-between mb-3">
-                    <button type="button" class="btn btn-sm btn-primary text-white">-</button>
-                    <input min="1" type="number" class="form-control text-center"
-                    readonly v-model.number="item.qty">
-                    <button type="button" class="btn btn-sm btn-primary text-white">+</button>
-                  </div> -->
-                  <!-- <div class="input-group mb-3">
-                    <input min="1" type="number" class="form-control"
-                    v-model.number="item.qty"
-                    />
-                    <span class="input-group-text" id="basic-addon2">
-                      {{ item.product.unit }}
-                    </span>
-                  </div> -->
                 </div>
               </td>
               <td class="text-center">{{ item.product.price }}</td>
@@ -129,7 +123,11 @@
           <tr>
             <td colspan="2">
               <button class="btn btn-outline-danger" type="button"
-              @click.prevent="()=>deleteCart()">清空購物車</button>
+              @click.prevent="()=>deleteCart()"  :disabled="loadingItem==='deleteCart'">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                    v-if="loadingItem==='deleteCart'"></span>
+                清空購物車
+              </button>
             </td>
             <td colspan="3" class="text-end">總計</td>
             <td class="text-end">{{ cart.total }}</td>
@@ -238,7 +236,7 @@ export default {
   },
   computed: {
     ...mapState(cartStore, ['cart']),
-    ...mapState(loadingStore, ['isLoading']),
+    ...mapState(loadingStore, ['isLoading', 'loadingItem']),
   },
   methods: {
     ...mapActions(cartStore, ['getCart', 'updateCartItem', 'deleteCartItem', 'deleteCart']),

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg_texture2 mb-5">
+  <div class="bg_texture2">
     <div class="container">
       <!-- 麵包屑 -->
       <nav aria-label="breadcrumb">
@@ -124,7 +124,7 @@
       </div>
       <!-- 相關商品 -->
       <div
-        class="d-flex flex-column align-items-start justify-content-center my-3"
+        class="d-flex flex-column align-items-start justify-content-center mt-3"
       >
         <h3 class="fw-bold mt-1 border-3 border-start border-primary">
           <span class="text-primary me-3"></span>精選商品
@@ -151,6 +151,7 @@ export default {
     };
   },
   components: { SwiperTopFlavors },
+  props: ['id'],
   computed: {
     ...mapState(cartStore, ['cart']),
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
@@ -165,7 +166,7 @@ export default {
       let tempProductId = [];
       tempProductId = this.cart.carts.filter((cart) => cart.product_id === this.tempProduct.id);
       // 判斷是否有加入購物車
-      if (tempProductId === this.tempProduct.id) {
+      if (tempProductId[0] === this.tempProduct.id) {
         // 有 => 更新購物車
         this.updateCartItem(tempProductId[0], this.qty);
       } else {
@@ -175,8 +176,7 @@ export default {
     },
   },
   mounted() {
-    const { id } = this.$route.params;
-    this.getProduct(id);
+    this.getProduct(this.id);
   },
 };
 </script>

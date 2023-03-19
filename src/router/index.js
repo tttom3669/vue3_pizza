@@ -7,6 +7,7 @@ const routes = [
     children: [
       {
         path: '',
+        name: 'Home',
         component: () => import('../views/front/HomeView.vue'),
       },
       {
@@ -24,6 +25,7 @@ const routes = [
       {
         path: 'product/:id',
         component: () => import('../views/front/ProductView.vue'),
+        props: (route) => ({ id: route.params.id }),
       },
       {
         path: 'order',
@@ -53,11 +55,30 @@ const routes = [
       },
     ],
   },
+  // // 404 頁面
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   component: () => import('../views/NotFound.vue'),
+  // },
+  // 重新導向
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: {
+      name: 'Home',
+    },
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   linkActiveClass: 'active',
+  scrollBehavior() {
+    // 參數
+    // to, from 路由位置 (來源,目標)
+    // savedPosition 可以為空，如果沒有的話
+    // 始終滾動到頂部
+    return { top: 0 };
+  },
   routes,
 });
 

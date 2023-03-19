@@ -1,7 +1,6 @@
 import { defineStore, mapActions } from 'pinia';
 import axios from 'axios';
 import swalMessage from '@/stores/swalMessage';
-
 import loadingStore from './loadingStore';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
@@ -10,6 +9,7 @@ const loadingStatus = loadingStore();
 export default defineStore('products', {
   state: () => ({
     products: [],
+    tempProduct: {},
     page: {},
     productCategory: {
       披薩: ['蔬食首選', '海鮮至上', '無肉不歡', '甜食主義'],
@@ -32,6 +32,21 @@ export default defineStore('products', {
         })
         .catch((err) => {
           this.swalShow(`${err.message}`, 'error');
+          loadingStatus.isLoading = false;
+        });
+    },
+    // 取得單一產品
+    getProduct(id) {
+      loadingStatus.isLoading = true;
+      this.tempProduct = {};
+      axios
+        .get(`${VITE_APP_URL}/api/${VITE_APP_PATH}/product/${id}`)
+        .then((res) => {
+          this.tempProduct = res.data.product;
+          loadingStatus.isLoading = false;
+        }).catch((err) => {
+          this.swalShow(`${err.message}`, 'error');
+          loadingStatus.isLoading = false;
         });
     },
     changeCategory(category) {

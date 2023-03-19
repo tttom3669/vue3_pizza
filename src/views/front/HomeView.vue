@@ -2,7 +2,7 @@
   <!-- Landing 網站到達頁 -->
   <LandingPage></LandingPage>
   <!--關於我們-->
-  <div class="aboutUs py-5">
+  <div class="bg_texture1 py-5">
     <div class="container">
       <div
         class="d-flex flex-column align-items-center justify-content-center my-5"
@@ -64,7 +64,7 @@
     </div>
   </div>
   <!--商品分類-->
-  <div class="categories">
+  <div class="bg_texture2">
     <div class="container">
       <div
         class="d-flex flex-column align-items-center justify-content-center my-5"
@@ -207,28 +207,23 @@
     </div>
   </div>
   <!-- 精選口味 -->
-  <SwiperTopFlavors></SwiperTopFlavors>
+  <div class="container">
+    <div
+      class="d-flex flex-column align-items-center justify-content-center my-5"
+    >
+      <p class="fw-bold mb-n1 text-cusGray">TOP FLAVORS</p>
+      <h3 class="h1 fw-bold mt-1">
+        <span class="text-primary me-5">—</span>精選口味<span
+          class="text-primary ms-5"
+          >—</span
+        >
+      </h3>
+    </div>
+    <SwiperTopFlavors :category="'披薩'"></SwiperTopFlavors>
+  </div>
 </template>
 
 <style>
-.aboutUs {
-  background-image: url('@/assets/img/texture.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.categories {
-  background-image: url('@/assets/img/category_texture.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.meat {
-  background-image: url('@/assets/img/meet.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
 .bg-dark-gradient {
   /*線性漸層 (方向性,起始色彩, 結束色彩)*/
   background-image: linear-gradient(
@@ -245,11 +240,6 @@ import { mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
 import LandingPage from '@/components/front/LandingPage.vue';
 import SwiperTopFlavors from '@/components/front/SwiperTopFlavors.vue';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 export default {
   components: { LandingPage, SwiperTopFlavors },

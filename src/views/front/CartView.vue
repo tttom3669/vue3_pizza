@@ -16,8 +16,8 @@
               ></div>
             </div>
             <div
-              class="position-absolute top-0 start-0
-              text-white translate-middle btn btn-sm btn-primary rounded-pill"
+              class="position-absolute top-0
+              start-0 text-white translate-middle btn btn-sm btn-primary rounded-pill"
               style="width: 2rem; height: 2rem"
             >
               1
@@ -62,9 +62,12 @@
           <template v-if="cart.carts">
             <tr v-for="item in cart.carts" :key="item.id">
               <td>
-                <button type="button" class="btn btn-outline-danger btn-sm"
-                @click.prevent="deleteCartItem(item)"
-                :disabled="loadingItem===item.id">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  @click.prevent="deleteCartItem(item)"
+                  :disabled="loadingItem === item.id"
+                >
                   <i class="fas fa-spinner fa-pulse"></i>
                   <i class="bi bi-trash3"></i>
                 </button>
@@ -82,8 +85,10 @@
               </td>
               <td>
                 <!-- 商品名稱 -->
-                <router-link :to="`/product/${item.product.id}`" class="text-decoration-none
-                  text-cusDarkBrown" >
+                <router-link
+                  :to="`/product/${item.product.id}`"
+                  class="text-decoration-none text-cusDarkBrown"
+                >
                   {{ item.product.title }}
                 </router-link>
                 <!-- <div class="text-success">
@@ -94,19 +99,29 @@
                 <div class="input-group input-group-sm">
                   <!-- 商品數量/單位 -->
                   <div class="input-group mb-3">
-                    <button type="button" class="
-                    input-group-text" id="basic-addon1"
-                    :disabled="item.qty === 1 || loadingItem===item.id"
-                    @click.prevent="()=>updateCartItem(item,item.qty-1)">
+                    <button
+                      type="button"
+                      class="input-group-text"
+                      id="basic-addon1"
+                      :disabled="item.qty === 1 || loadingItem === item.id"
+                      @click.prevent="() => updateCartItem(item, item.qty - 1)"
+                    >
                       <i class="bi bi-dash"></i>
                     </button>
-                    <input type="text" class="form-control text-center"
-                    :value="item.qty" readonly>
-                    <button type="button" class="
-                     input-group-text" id="basic-addon2"
-                     :disabled="item.qty === 99 || loadingItem===item.id"
-                     @click.prevent="()=>updateCartItem(item,item.qty+1)">
-                     <i class="bi bi-plus"></i>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      :value="item.qty"
+                      readonly
+                    />
+                    <button
+                      type="button"
+                      class="input-group-text"
+                      id="basic-addon2"
+                      :disabled="item.qty === 99 || loadingItem === item.id"
+                      @click.prevent="() => updateCartItem(item, item.qty + 1)"
+                    >
+                      <i class="bi bi-plus"></i>
                     </button>
                   </div>
                 </div>
@@ -122,10 +137,18 @@
         <tfoot>
           <tr>
             <td colspan="2">
-              <button class="btn btn-outline-danger" type="button"
-              @click.prevent="()=>deleteCart()"  :disabled="loadingItem==='deleteCart'">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                    v-if="loadingItem==='deleteCart'"></span>
+              <button
+                class="btn btn-outline-danger"
+                type="button"
+                @click.prevent="() => deleteCart()"
+                :disabled="loadingItem === 'deleteCart'"
+              >
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                  v-if="loadingItem === 'deleteCart'"
+                ></span>
                 清空購物車
               </button>
             </td>
@@ -139,90 +162,27 @@
         </tfoot>
       </table>
     </div>
-    <!-- <div class="my-5 row justify-content-center">
-      <v-form
-        ref="form"
-        class="col-md-6"
-        v-slot="{ errors }"
-        @submit="onSubmit"
-      >
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <v-field
-            id="email"
-            name="email"
-            type="email"
-            class="form-control"
-            :class="{ 'is-invalid': errors['email'] }"
-            placeholder="請輸入 Email"
-            rules="email|required"
-            v-model="user.email"
-          ></v-field>
-          <error-message name="email" class="invalid-feedback"></error-message>
-        </div>
-
-        <div class="mb-3">
-          <label for="name" class="form-label">收件人姓名</label>
-          <v-field
-            id="name"
-            name="姓名"
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': errors['姓名'] }"
-            placeholder="請輸入姓名"
-            rules="required"
-            v-model="user.name"
-          ></v-field>
-          <error-message name="姓名" class="invalid-feedback"></error-message>
-        </div>
-
-        <div class="mb-3">
-          <label for="tel" class="form-label">收件人電話</label>
-          <v-field
-            id="tel"
-            name="電話"
-            type="tel"
-            class="form-control"
-            :class="{ 'is-invalid': errors['電話'] }"
-            placeholder="請輸入電話"
-            :rules="isPhone"
-            v-model="user.tel"
-          ></v-field>
-          <error-message name="電話" class="invalid-feedback"></error-message>
-        </div>
-
-        <div class="mb-3">
-          <label for="address" class="form-label">收件人地址</label>
-          <v-field
-            id="address"
-            name="地址"
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': errors['地址'] }"
-            placeholder="請輸入地址"
-            rules="required"
-            v-model="user.address"
-          ></v-field>
-          <error-message name="地址" class="invalid-feedback"></error-message>
-        </div>
-
-        <div class="mb-3">
-          <label for="message" class="form-label">留言</label>
-          <textarea
-            id="message"
-            class="form-control"
-            cols="30"
-            rows="10"
-            v-model="user.message"
-          ></textarea>
-        </div>
-        <div class="text-end">
-          <button type="submit" class="btn btn-danger">送出訂單</button>
-        </div>
-      </v-form>
-    </div> -->
+    <div class="row flex-column justify-content-end flex-sm-row gy-3 mb-3">
+      <div class="col-2">
+        <button type="button" class="btn btn-cusDarkBrown text-white w-100">
+          <router-link class="text-decoration-none text-white" to="/products">
+            返回購物
+          </router-link>
+        </button>
+      </div>
+      <div class="col-2">
+        <button
+          type="button"
+          class="btn btn btn-primary w-100 text-white"
+        >
+          <router-link class="text-decoration-none text-white" to="/order">
+            確認送出
+          </router-link>
+        </button>
+      </div>
+    </div>
   </div>
-  <VueLoading v-model:active="isLoading"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
 </template>
 
 <script>
@@ -239,7 +199,12 @@ export default {
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
   },
   methods: {
-    ...mapActions(cartStore, ['getCart', 'updateCartItem', 'deleteCartItem', 'deleteCart']),
+    ...mapActions(cartStore, [
+      'getCart',
+      'updateCartItem',
+      'deleteCartItem',
+      'deleteCart',
+    ]),
   },
   mounted() {
     this.getCart();

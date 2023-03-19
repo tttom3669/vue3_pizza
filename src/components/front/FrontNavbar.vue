@@ -51,69 +51,67 @@
               :class="{ cartHeight: cart.carts?.length >= 4 }"
             >
               <h6 class="dropdown-header">購物車</h6>
-              <table class="table" v-if="cart.carts">
-                <tr
-                  v-for="item in cart.carts"
-                  class="border"
-                  :key="item.id"
-                  style="width: 300px"
-                >
-                  <td>
-                    <img
-                      :src="item.product.imageUrl"
-                      alt=""
-                      class="object-fit-cover"
-                      height="70"
-                      width="70"
-                    />
-                  </td>
-                  <td class="p-2">
-                    <div class="d-flex flex-column">
-                      <div class="text-nowrap mb-1">
-                        {{ item.product.title }}
+              <div class="d-flex flex-column justify-content-center align-items-center">
+                <table class="table" v-if="cart.carts">
+                  <tr
+                    v-for="item in cart.carts"
+                    class="border"
+                    :key="item.id"
+                    style="width: 300px"
+                  >
+                    <td>
+                      <img
+                        :src="item.product.imageUrl"
+                        alt=""
+                        class="object-fit-cover"
+                        height="70"
+                        width="70"
+                      />
+                    </td>
+                    <td class="p-2">
+                      <div class="d-flex flex-column">
+                        <div class="text-nowrap mb-1">
+                          <router-link :to="`/product/${item.product.id}`"
+                          class="text-decoration-none text-cusDarkBrown"
+                          @click.prevent="()=>getProduct(item.product.id)">
+                          {{ item.product.title }}
+                          </router-link>
+                        </div>
+                        <div class="text-nowrap mb-1">
+                          NT$ {{ item.product.price }} / {{ item.product.unit }}
+                        </div>
+                        <!-- 商品數量 -->
+                        <select
+                          class="form-select form-select-sm"
+                          v-model="item.qty"
+                          @change="() => updateCartItem(item, item.qty)"
+                        >
+                          <option :value="i" v-for="i in 99" :key="i + 'num'">
+                            {{ i }}
+                          </option>
+                        </select>
                       </div>
-                      <div class="text-nowrap mb-1">
-                        NT${{ item.product.price }} / {{ item.product.unit }}
-                      </div>
-                      <!-- 商品數量 -->
-                      <select
-                        class="form-select form-select-sm"
-                        v-model="item.qty"
-                        @change="() => updateCartItem(item, item.qty)"
+                    </td>
+                    <td class="text-nowrap p-2">NT$ {{ item.total }}</td>
+                    <td class="p-2">
+                      <div
+                        type="button"
+                        @click.prevent="() => deleteCartItem(item)"
                       >
-                        <option :value="i" v-for="i in 99" :key="i + 'num'">
-                          {{ i }}
-                        </option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="text-end p-2">{{ item.total }}</td>
-                  <td class="p-2">
-                    <div
-                      type="button"
-                      @click.prevent="() => deleteCartItem(item)"
-                    >
-                      <i class="bi bi-trash3"></i>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <router-link type="button" class="btn btn-primary text-white w-75 ms-5" to="/cart">
-                  結帳去
-              </router-link>
-              <template v-if="cart.carts?.length == 0">
-                <p class="h6 text-nowrap p-3">您的購物車目前是空的喔</p>
-              </template>
+                        <i class="bi bi-trash3"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <router-link type="button" class="btn btn-primary text-white w-75" to="/cart">
+                    結帳去
+                </router-link>
+                <template v-if="cart.carts?.length == 0">
+                  <p class="h6 text-nowrap p-3">您的購物車目前是空的喔</p>
+                </template>
+              </div>
             </div>
           </div>
-          <!-- <router-link class="nav-item nav-link position-relative" to="/cart"
-            ><i class="bi bi-bag"></i>
-            <span
-            class="badge rounded-pill bg-danger
-            position-absolute top-0 start-100 translate-middle"
-            >{{ cart.carts?.length }}</span
-            >
-          </router-link> -->
         </div>
       </div>
     </div>
@@ -132,11 +130,13 @@
 import NavOffcanvas from '@/components/front/NavOffcanvas.vue';
 import { mapState, mapActions } from 'pinia';
 import cartStore from '@/stores/cartStore';
+import productsStore from '@/stores/productsStore';
 
 export default {
   components: { NavOffcanvas },
   methods: {
     ...mapActions(cartStore, ['getCart', 'updateCartItem', 'deleteCartItem']),
+    ...mapActions(productsStore, ['getProduct']),
   },
   computed: {
     ...mapState(cartStore, ['cart']),

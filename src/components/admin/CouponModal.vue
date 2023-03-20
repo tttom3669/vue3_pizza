@@ -59,6 +59,7 @@
               class="form-control"
               id="price"
               min="0"
+              max="99"
               v-model.number="tempCoupon.percent"
               placeholder="請輸入折扣百分比"
             />
@@ -130,10 +131,10 @@ export default {
       const dateAndTime = new Date(this.tempCoupon.due_date * 1000)
         .toISOString()
         .split('T');
-      [this.dute_date] = dateAndTime;
+      [this.due_date] = dateAndTime;
     },
-    dute_date() {
-      this.tempCoupon.dute_date = Math.floor(new Date(this.due_date) / 1000);
+    due_date() {
+      this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
     },
   },
   methods: {

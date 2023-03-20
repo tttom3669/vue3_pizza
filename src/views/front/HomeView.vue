@@ -77,7 +77,7 @@
           >
         </h3>
       </div>
-      <div class="row d-flex flex-md-row flex-column g-4" data-aos="fade-left">
+      <div class="row d-flex flex-md-row flex-column g-4" >
         <div class="col-md-4">
           <div class="row d-flex flex-row flex-md-column g-3">
             <div class="col">

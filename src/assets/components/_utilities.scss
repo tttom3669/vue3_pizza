@@ -15,7 +15,11 @@
     background-color: var(--bs-cusBrown);
 }
 .btn-primary:hover {
+    color: white;
     background-color: #FF9F59;
+}
+.btn-outline-primary:hover{
+    color: white;
 }
 body {
     font-family: 'Noto Sans TC';

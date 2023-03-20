@@ -102,6 +102,11 @@
                       </div>
                     </td>
                   </tr>
+                  <tr>
+                    <td colspan="2" class="py-2 h5 text-cusDarkBrown fw-bold text-center">小計</td>
+                    <td colspan="2" class="py-2 h5 text-cusDarkBrown
+                    fw-bold text-nowrap">NT$ {{ cart.total }}</td>
+                  </tr>
                 </table>
                 <router-link type="button" class="btn btn-primary text-white w-75" to="/cart">
                     結帳去

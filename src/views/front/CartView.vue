@@ -155,30 +155,30 @@
             <td colspan="3" class="text-end">總計</td>
             <td class="text-end">{{ cart.total }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td colspan="5" class="text-end text-success">折扣價</td>
             <td class="text-end text-success">{{ cart.final_total }}</td>
-          </tr>
+          </tr> -->
         </tfoot>
       </table>
     </div>
     <div class="row flex-column justify-content-end flex-sm-row gy-3 mb-3">
       <div class="col-2">
+        <router-link class="text-decoration-none text-white" to="/products">
         <button type="button" class="btn btn-cusDarkBrown text-white w-100">
-          <router-link class="text-decoration-none text-white" to="/products">
             返回購物
-          </router-link>
-        </button>
+          </button>
+        </router-link>
       </div>
       <div class="col-2">
+        <router-link class="text-decoration-none text-white" to="/order">
         <button
           type="button"
           class="btn btn btn-primary w-100 text-white"
         >
-          <router-link class="text-decoration-none text-white" to="/order">
             確認送出
-          </router-link>
-        </button>
+          </button>
+        </router-link>
       </div>
     </div>
   </div>

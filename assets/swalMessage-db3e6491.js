@@ -1,1 +1,0 @@
-import{k as a}from"./index-fa1a3182.js";import{S as t}from"./sweetalert2.all-05cea6d4.js";const f=a("swalMessage",{actions:{swalShow(s,e,o="message"){o==="message"?t.fire({icon:`${e}`,title:`${s}`}):o==="toast"&&t.fire({toast:!0,position:"bottom-end",showConfirmButton:!1,icon:`${e}`,timer:3e3,title:`${s}`})}}});export{f as s};

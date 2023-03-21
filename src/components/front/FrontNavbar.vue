@@ -136,18 +136,23 @@ import NavOffcanvas from '@/components/front/NavOffcanvas.vue';
 import { mapState, mapActions } from 'pinia';
 import cartStore from '@/stores/cartStore';
 import productsStore from '@/stores/productsStore';
+import collectionStore from '@/stores/collectionStore';
 
 export default {
   components: { NavOffcanvas },
   methods: {
     ...mapActions(cartStore, ['getCart', 'updateCartItem', 'deleteCartItem']),
-    ...mapActions(productsStore, ['getProduct']),
+    ...mapActions(productsStore, ['getProduct', 'getProducts']),
+    ...mapActions(collectionStore, ['getCollection']),
   },
   computed: {
     ...mapState(cartStore, ['cart']),
+    // ...mapState(collectionStore, ['filterProducts']),
   },
   mounted() {
     this.getCart();
+    // this.getProducts();
+    // this.getCollection();
   },
 };
 </script>

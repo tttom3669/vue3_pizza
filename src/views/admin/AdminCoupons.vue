@@ -142,7 +142,6 @@ export default {
       this.$http[apiMethod](apiUrl, { data: this.tempCoupon })
         .then((res) => {
           this.getCoupons();
-          console.log(this.tempCoupon);
           this.swalShow(`${res.data.message}`, 'success', 'toast');
         })
         .catch((err) => {

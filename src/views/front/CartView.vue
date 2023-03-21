@@ -170,7 +170,7 @@
           </button>
         </router-link>
       </div>
-      <div class="col-2">
+      <div class="col-2" v-if="cart.carts.length">
         <router-link class="text-decoration-none text-white" to="/order">
         <button
           type="button"

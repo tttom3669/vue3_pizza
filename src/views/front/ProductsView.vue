@@ -52,17 +52,18 @@
                   <div
                     class="d-flex flex-row justify-content-center align-items-center"
                   >
-                    <div class="me-4" v-if="!product?.collected"
-                    @click="addToCollection(product)">
+                    <div class="me-4" v-if="collectionList?.indexOf(product.id)===-1"
+                    @click="()=>addToCollection(product)">
                       <i
                         class="bi collection"
-                        :class="{'bi-heart':!collection.hover || collection.itemID !== product.id,
-                        'bi-suit-heart-fill':collection.hover && collection.itemID === product.id}"
+                        :class="{'bi-heart':collectionList?.indexOf(product.id)===-1,
+                        'bi-suit-heart-fill':collection.hover == true
+                        && collection.itemID == product.id}"
                         @mouseover="() => (collection.hover = true, collection.itemID=product.id)"
                         @mouseout="() => (collection.hover = false, collection.itemID='')"
                       ></i>
                     </div>
-                    <div class="me-4" v-else>
+                    <div class="me-4" v-else  @click="()=>addToCollection(product)">
                       <i class="bi bi-suit-heart-fill" style="color: red;"></i>
                     </div>
                     <button
@@ -226,48 +227,31 @@ import { mapState, mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
 import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
+import collectionStore from '@/stores/collectionStore';
 import CategorySidebar from '@/components/front/CategorySidebar.vue';
 import swalMessage from '@/stores/swalMessage';
 
 export default {
   data() {
     return {
-      collection: {
-        hover: false,
-        itemID: '',
-      },
       tempProduct: {},
     };
   },
   components: { CategorySidebar },
   computed: {
     ...mapState(productsStore, ['filterProducts']),
+    ...mapState(collectionStore, ['collectionList', 'collection']),
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
   },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
+    ...mapActions(collectionStore, ['addToCollection', 'getCollection']),
     ...mapActions(productsStore, ['getProducts']),
     ...mapActions(cartStore, ['addToCart']),
-    addToCollection(product) {
-      this.tempProduct = product;
-      this.tempProduct.collected = true;
-
-      // const apiUrl = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/product/${this.tempProduct.id}`;
-      // this.isLoading = true;
-      // this.$http.put(apiUrl, { data: this.tempProduct })
-      //   .then((res) => {
-      //     this.getProducts();
-      //     console.log(res);
-      //     this.swalShow(`${res.data.message}`, 'success', 'toast');
-      //   })
-      //   .catch((err) => {
-      //     this.swalShow(`${err.response.data.message}`, 'error');
-      //     this.isLoading = false;
-      //   });
-    },
   },
   mounted() {
     this.getProducts();
+    this.getCollection();
   },
 };
 </script>

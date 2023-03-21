@@ -181,6 +181,7 @@ export default {
       this.$http.get(url).then((res) => {
         this.isLoading = false;
         this.order = res.data.order;
+        this.getCart();
       }).catch((err) => {
         this.isLoading = false;
         this.swalShow(`${err.response.data.message}`, 'error');

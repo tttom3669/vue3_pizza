@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="col-lg-7">
-        <div class="card">
+        <div class="card mt-3 mt-md-0">
           <div class="card-body">
             <h5 class="card-title">訂單資訊</h5>
             <table class="table" v-if="order">
@@ -136,7 +136,7 @@
             </table>
           </div>
         </div>
-        <div class="d-flex justify-content-end mt-3">
+        <div class="d-flex justify-content-end mt-3 mb-3">
           <button type="button" class="btn btn-primary text-white"
           @click="()=>payOrder()" v-if="!order.is_paid">
             來去付款

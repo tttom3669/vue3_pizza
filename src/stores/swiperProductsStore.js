@@ -7,13 +7,17 @@ export default defineStore('SwiperProductsStore', {
   state: () => ({
     modules: [Autoplay, Navigation, Pagination],
     swiperBreakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
       375: {
         slidesPerView: 1,
-        spaceBetween: 20,
+        spaceBetween: 16,
       },
       576: {
         slidesPerView: 2,
-        spaceBetween: 30,
+        spaceBetween: 20,
       },
       768: {
         slidesPerView: 3,

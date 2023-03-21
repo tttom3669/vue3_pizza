@@ -7,7 +7,7 @@
           <CategorySidebar></CategorySidebar>
         </div>
         <div class="col-md-10">
-          <div class="row d-flex justify-content-center g-4">
+          <div class="row d-flex justify-content-center">
             <div
               class="col-md-4 mb-2 text-center"
               v-for="product in filterProducts"

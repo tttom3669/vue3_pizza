@@ -20,7 +20,7 @@
           </li>
         </ol>
       </nav>
-      <div class="row mt-5 gx-5">
+      <div class="row mt-5">
         <div class="col-lg-4">
           <img
             :src="tempProduct.imageUrl"
@@ -28,7 +28,7 @@
             class="w-100 object-fit-cover img-fluid"
           />
         </div>
-        <div class="col-lg-8 mb-">
+        <div class="col-lg-8">
           <h3 class="fw-bold">{{ tempProduct.title }}</h3>
           <!--商品類別-->
           <span
@@ -80,8 +80,8 @@
                 <i class="bi bi-plus"></i>
               </button>
             </div>
-            <div class="row row-cols-2 flex-column flex-sm-row gy-3">
-              <div class="col">
+            <div class="row flex-column flex-sm-row gy-3">
+              <div class="col-md-6">
                 <button
                   type="button"
                   class="btn btn-cusDarkBrown text-white w-100"
@@ -97,7 +97,7 @@
                   加入購物車
                 </button>
               </div>
-              <div class="col">
+              <div class="col-md-6">
                 <button
                   type="button"
                   class="btn btn-primary  w-100 text-white"

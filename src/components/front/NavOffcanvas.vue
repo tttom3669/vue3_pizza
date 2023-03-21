@@ -20,6 +20,20 @@
     </div>
     <div class="offcanvas-body">
       <CategorySidebar></CategorySidebar>
+      <div class="list-group mt-3">
+        <!-- <router-link class="text-decoration-none list-group-item" to="/"
+          >首頁</router-link
+        > -->
+        <!-- <router-link class="text-decoration-none list-group-item" to="/"
+          >最新消息</router-link
+        > -->
+        <!-- <router-link class="text-decoration-none list-group-item" to="/products"
+          >美味菜單</router-link
+        > -->
+        <router-link class="text-decoration-none list-group-item" to="/cart"
+          >購物車</router-link
+        >
+      </div>
     </div>
   </div>
 </template>

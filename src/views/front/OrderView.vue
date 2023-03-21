@@ -1,6 +1,6 @@
 <template>
   <div class="bg_texture2">
-    <div class="container bg_texture2 mb-4">
+    <div class="container mb-4">
       <!-- 進度條 -->
       <div class="row d-flex justify-content-center mt-3">
         <div class="col-12 col-md-6">
@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-4 g-5">
+      <div class="row mt-4">
         <div class="col-md-5">
           <div class="card">
             <div class="card-body">
@@ -137,7 +137,7 @@
           </div>
         </div>
         <div class="col-md-7">
-          <h4 class="h4 text-center">訂單資訊</h4>
+          <h4 class="h4 text-center mt-3 mt-md-0">訂單資訊</h4>
           <VForm v-slot="{ errors }" @submit="createOrder">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>

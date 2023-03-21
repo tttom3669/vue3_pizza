@@ -16,8 +16,8 @@
         </h3>
       </div>
       <div
-        class="row d-flex flex-column flex-md-row flex-md-row-reverse align-items-center g-0"
-        data-aos="fade-left"
+        class="row d-flex flex-column flex-md-row flex-md-row-reverse align-items-center"
+        data-aos="fade-up"
       >
         <div class="col-md-6">
           <img
@@ -39,8 +39,8 @@
         </div>
       </div>
       <div
-        class="row flex-column flex-md-row align-items-center g-0 mt-5"
-        data-aos="fade-right"
+        class="row flex-column flex-md-row align-items-center mt-5"
+        data-aos="fade-up"
       >
         <div class="col-md-6">
           <img
@@ -77,9 +77,10 @@
           >
         </h3>
       </div>
-      <div class="row d-flex flex-md-row flex-column g-4" >
+      <!-- data-aos="fade-up" -->
+      <div class="row d-flex flex-md-row flex-column">
         <div class="col-md-4">
-          <div class="row d-flex flex-row flex-md-column g-3">
+          <div class="row d-flex flex-row flex-md-column gx-0">
             <div class="col">
               <div
                 class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
@@ -91,7 +92,7 @@
                 ></router-link>
                 <img
                   src="@/assets/img/vege.png"
-                  class="w-100 h-100 object-fit-cover bg-dark-gradient"
+                  class="w-100 h-100  object-fit-cover bg-dark-gradient"
                   alt="vegePizza"
                 />
                 <div
@@ -102,7 +103,7 @@
                 </div>
               </div>
             </div>
-            <div class="col">
+            <div class="col mt-md-4 mt-0">
               <div
                 class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
               >
@@ -137,12 +138,12 @@
             ></router-link>
             <img
               src="@/assets/img/meet.png"
-              class="w-100 object-fit-cover d-md-block d-none"
+              class="w-100 h-100 object-fit-cover d-md-block d-none"
               alt="meet"
             />
             <img
               src="@/assets/img/meet.png"
-              class="w-100 object-fit-cover d-block d-md-none"
+              class="w-100  object-fit-cover d-block d-md-none"
               height="200"
               alt="meet"
             />
@@ -155,7 +156,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="row d-flex lex-row flex-md-column g-3">
+          <div class="row d-flex lex-row flex-md-column gx-0">
             <div class="col">
               <div
                 class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
@@ -167,7 +168,7 @@
                 ></router-link>
                 <img
                   src="@/assets/img/sidemeal.png"
-                  class="w-100 object-fit-cover"
+                  class="w-100 h-100 object-fit-cover"
                   alt="sidemeal"
                 />
                 <div
@@ -178,7 +179,7 @@
                 </div>
               </div>
             </div>
-            <div class="col">
+            <div class="col mt-md-4 mt-0 ">
               <div
                 class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
               >

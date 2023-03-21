@@ -53,7 +53,7 @@
                     class="d-flex flex-row justify-content-center align-items-center"
                   >
                     <div class="me-4" v-if="collectionList?.indexOf(product.id)===-1"
-                    @click="()=>addToCollection(product)">
+                    @click="()=>updateCollection(product)">
                       <i
                         class="bi collection"
                         :class="{'bi-heart':collectionList?.indexOf(product.id)===-1,
@@ -63,7 +63,7 @@
                         @mouseout="() => (collection.hover = false, collection.itemID='')"
                       ></i>
                     </div>
-                    <div class="me-4" v-else  @click="()=>addToCollection(product)">
+                    <div class="me-4" v-else  @click="()=>updateCollection(product)">
                       <i class="bi bi-suit-heart-fill" style="color: red;"></i>
                     </div>
                     <button
@@ -245,7 +245,7 @@ export default {
   },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
-    ...mapActions(collectionStore, ['addToCollection', 'getCollection']),
+    ...mapActions(collectionStore, ['updateCollection', 'getCollection']),
     ...mapActions(productsStore, ['getProducts']),
     ...mapActions(cartStore, ['addToCart']),
   },

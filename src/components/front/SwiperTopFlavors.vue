@@ -52,7 +52,20 @@
               <div
                 class="d-flex flex-row justify-content-center align-items-center"
               >
-                <div class="me-4"><i class="bi bi-heart"></i></div>
+              <div class="me-4" v-if="collectionList?.indexOf(product.id)===-1"
+                    @click="()=>updateCollection(product)">
+                      <i
+                        class="bi collection"
+                        :class="{'bi-heart':collectionList?.indexOf(product.id)===-1,
+                        'bi-suit-heart-fill':collection.hover == true
+                        && collection.itemID == product.id}"
+                        @mouseover="() => (collection.hover = true, collection.itemID=product.id)"
+                        @mouseout="() => (collection.hover = false, collection.itemID='')"
+                      ></i>
+                    </div>
+                    <div class="me-4" v-else  @click="()=>updateCollection(product)">
+                      <i class="bi bi-suit-heart-fill" style="color: red;"></i>
+                    </div>
                 <button
                   type="button"
                   class="btn btn-cusDarkBrown border-0 text-nowrap px-3 px-md-4"
@@ -84,6 +97,7 @@ import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
 import swiperProductsStore from '@/stores/swiperProductsStore';
 import productsStore from '@/stores/productsStore';
+import collectionStore from '@/stores/collectionStore';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -92,6 +106,7 @@ import 'swiper/css/pagination';
 export default {
   components: { Swiper, SwiperSlide },
   computed: {
+    ...mapState(collectionStore, ['collectionList', 'collection']),
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
     ...mapState(swiperProductsStore, [
       'swiperBreakpoints',
@@ -100,6 +115,7 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions(collectionStore, ['updateCollection', 'getCollection']),
     ...mapActions(swiperProductsStore, ['getSwiperProducts']),
     ...mapActions(cartStore, ['addToCart']),
     ...mapActions(productsStore, ['getProduct']),
@@ -108,6 +124,7 @@ export default {
 
   mounted() {
     this.getSwiperProducts(this.category);
+    this.getCollection();
   },
 };
 </script>

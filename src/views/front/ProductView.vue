@@ -80,7 +80,7 @@
                 <i class="bi bi-plus"></i>
               </button>
             </div>
-            <div class="row flex-column flex-sm-row gy-3">
+            <div class="row row-cols-2 flex-column flex-sm-row gy-3">
               <div class="col">
                 <button
                   type="button"

@@ -32,13 +32,17 @@
                     <h5 class="card-title fw-bold">{{ product.title }}</h5>
                   </router-link>
                   <!-- <p class="card-subtitle text-cusGray mb-1">Margherita Pizza</p> 英文名-->
-                  <p class="h5 card-text text-primary fw-bold mb-3"
-                  v-if="product.price === product.origin_price">
+                  <p
+                    class="h5 card-text text-primary fw-bold mb-3"
+                    v-if="product.price === product.origin_price"
+                  >
                     NT ${{ product.price }}
                   </p>
-                  <div class="d-flex flex-row
-                  justify-content-center align-items-baseline mb-3" v-else>
-                    <div class="h5 card-text  text-primary fw-bold me-2">
+                  <div
+                    class="d-flex flex-row justify-content-center align-items-baseline mb-3"
+                    v-else
+                  >
+                    <div class="h5 card-text text-primary fw-bold me-2">
                       NT${{ product.price }}
                     </div>
                     <del class="h6 card-text me-2 text-cusGray"
@@ -48,7 +52,19 @@
                   <div
                     class="d-flex flex-row justify-content-center align-items-center"
                   >
-                    <div class="me-4"><i class="bi bi-heart"></i></div>
+                    <div class="me-4" v-if="!product?.collected"
+                    @click="addToCollection(product)">
+                      <i
+                        class="bi collection"
+                        :class="{'bi-heart':!collection.hover || collection.itemID !== product.id,
+                        'bi-suit-heart-fill':collection.hover && collection.itemID === product.id}"
+                        @mouseover="() => (collection.hover = true, collection.itemID=product.id)"
+                        @mouseout="() => (collection.hover = false, collection.itemID='')"
+                      ></i>
+                    </div>
+                    <div class="me-4" v-else>
+                      <i class="bi bi-suit-heart-fill" style="color: red;"></i>
+                    </div>
                     <button
                       type="button"
                       class="btn btn-cusDarkBrown border-0 text-nowrap px-3 px-md-4"
@@ -211,10 +227,17 @@ import productsStore from '@/stores/productsStore';
 import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
 import CategorySidebar from '@/components/front/CategorySidebar.vue';
+import swalMessage from '@/stores/swalMessage';
 
 export default {
   data() {
-    return {};
+    return {
+      collection: {
+        hover: false,
+        itemID: '',
+      },
+      tempProduct: {},
+    };
   },
   components: { CategorySidebar },
   computed: {
@@ -222,8 +245,26 @@ export default {
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
   },
   methods: {
+    ...mapActions(swalMessage, ['swalShow']),
     ...mapActions(productsStore, ['getProducts']),
     ...mapActions(cartStore, ['addToCart']),
+    addToCollection(product) {
+      this.tempProduct = product;
+      this.tempProduct.collected = true;
+
+      // const apiUrl = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/product/${this.tempProduct.id}`;
+      // this.isLoading = true;
+      // this.$http.put(apiUrl, { data: this.tempProduct })
+      //   .then((res) => {
+      //     this.getProducts();
+      //     console.log(res);
+      //     this.swalShow(`${res.data.message}`, 'success', 'toast');
+      //   })
+      //   .catch((err) => {
+      //     this.swalShow(`${err.response.data.message}`, 'error');
+      //     this.isLoading = false;
+      //   });
+    },
   },
   mounted() {
     this.getProducts();

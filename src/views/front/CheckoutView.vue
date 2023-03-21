@@ -157,6 +157,7 @@
 <script>
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
+import cartStore from '@/stores/cartStore';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
@@ -173,6 +174,7 @@ export default {
   props: ['orderId'],
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
+    ...mapActions(cartStore, ['getCart']),
     getOrder() {
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/order/${this.orderId}`;
       this.isLoading = true;
@@ -189,6 +191,7 @@ export default {
       this.isLoading = true;
       this.$http.post(url).then((res) => {
         this.getOrder();
+        this.getCart();
         this.swalShow(`${res.data.message}`, 'success', 'toast');
       }).catch((err) => {
         this.swalShow(`${err.response.data.message}`, 'error');

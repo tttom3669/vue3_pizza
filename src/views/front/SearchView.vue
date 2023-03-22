@@ -7,10 +7,17 @@
           <CategorySidebar></CategorySidebar>
         </div>
         <div class="col-md-10">
+            <div class="alert alert-primary" role="alert" v-if="searchProducts?.length">
+                搜尋 <span class="fw-bold">{{keywords}}</span> ，總共有
+                <span class="fw-bold">{{searchProducts?.length}}</span> 項搜尋結果
+            </div>
+            <div class="alert alert-primary" role="alert" v-else>
+                搜尋<span class="fw-bold">{{keywords}}</span>，找不到任何東西。請使用其他的關鍵字再試一次。
+            </div>
           <div class="row d-flex justify-content-center">
             <div
               class="col-md-4 mb-2 text-center"
-              v-for="product in filterProducts"
+              v-for="product in searchProducts"
               :key="product.id"
             >
               <div
@@ -52,19 +59,39 @@
                   <div
                     class="d-flex flex-row justify-content-center align-items-center"
                   >
-                    <div class="me-4" v-if="collectionList?.indexOf(product.id)===-1"
-                    @click="()=>updateCollection(product)">
+                    <div
+                      class="me-4"
+                      v-if="collectionList?.indexOf(product.id) === -1"
+                      @click="() => updateCollection(product)"
+                    >
                       <i
                         class="bi collection"
-                        :class="{'bi-heart':collectionList?.indexOf(product.id)===-1,
-                        'bi-suit-heart-fill':collection.hover == true
-                        && collection.itemID == product.id}"
-                        @mouseover="() => (collection.hover = true, collection.itemID=product.id)"
-                        @mouseout="() => (collection.hover = false, collection.itemID='')"
+                        :class="{
+                          'bi-heart':
+                            collectionList?.indexOf(product.id) === -1,
+                          'bi-suit-heart-fill':
+                            collection.hover == true &&
+                            collection.itemID == product.id,
+                        }"
+                        @mouseover="
+                          () => (
+                            (collection.hover = true),
+                            (collection.itemID = product.id)
+                          )
+                        "
+                        @mouseout="
+                          () => (
+                            (collection.hover = false), (collection.itemID = '')
+                          )
+                        "
                       ></i>
                     </div>
-                    <div class="me-4" v-else  @click="()=>updateCollection(product)">
-                      <i class="bi bi-suit-heart-fill" style="color: red;"></i>
+                    <div
+                      class="me-4"
+                      v-else
+                      @click="() => updateCollection(product)"
+                    >
+                      <i class="bi bi-suit-heart-fill" style="color: red"></i>
                     </div>
                     <button
                       type="button"
@@ -107,21 +134,23 @@ export default {
       tempProduct: {},
     };
   },
+  props: ['keywords'],
   components: { CategorySidebar },
   computed: {
-    ...mapState(productsStore, ['filterProducts']),
+    ...mapState(productsStore, ['searchProducts']),
     ...mapState(collectionStore, ['collectionList', 'collection']),
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
   },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
     ...mapActions(collectionStore, ['updateCollection', 'getCollection']),
-    ...mapActions(productsStore, ['getProducts']),
+    ...mapActions(productsStore, ['getProducts', 'searchItem']),
     ...mapActions(cartStore, ['addToCart']),
   },
   mounted() {
     this.getProducts();
     this.getCollection();
+    this.searchItem(this.keywords);
   },
 };
 </script>

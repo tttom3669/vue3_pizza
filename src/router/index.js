@@ -36,6 +36,11 @@ const routes = [
         component: () => import('../views/front/CheckoutView.vue'),
         props: (route) => ({ orderId: route.params.orderId }),
       },
+      {
+        path: 'search/:keywords',
+        component: () => import('../views/front/SearchView.vue'),
+        props: (route) => ({ keywords: route.params.keywords }),
+      },
     ],
   },
   {

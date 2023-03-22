@@ -16,6 +16,7 @@ export default defineStore('products', {
       副食: ['炸物', '飲料'],
     },
     filterCategory: '全部商品',
+    keyWords: '',
   }),
   actions: {
     ...mapActions(swalMessage, ['swalShow']),
@@ -52,6 +53,9 @@ export default defineStore('products', {
     changeCategory(category) {
       this.filterCategory = category;
     },
+    searchItem(keyWord) {
+      this.keyWords = keyWord;
+    },
   },
   getters: {
     filterProducts: ({ products, filterCategory }) => {
@@ -60,6 +64,12 @@ export default defineStore('products', {
         ? products
         : product.productCategory === filterCategory));
       return currentCategory;
+    },
+    searchProducts: ({ products, keyWords }) => {
+      const currentProducts = products
+        .filter((product) => ((product.productCategory.includes(keyWords)
+          || product.title.includes(keyWords) || product.category.includes(keyWords))) && keyWords !== '');
+      return currentProducts;
     },
   },
 });

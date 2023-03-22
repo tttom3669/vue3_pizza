@@ -17,10 +17,14 @@
             type="search"
             placeholder="探索美味：披薩類別"
             aria-label="Search"
+            v-model="keyword"
           />
-          <button class="btn btn-primary text-nowrap text-light" type="submit">
-            <span class="my-lg-2 mx-lg-4">搜尋</span>
-          </button>
+
+          <router-link class="text-decoration-none text-white" :to="`/search/${keyword}`">
+            <button class="btn btn-primary text-nowrap text-light" type="button">
+              <span class="my-lg-2 mx-lg-4">搜尋</span>
+            </button>
+        </router-link>
         </form>
         <div class="d-flex align-items-center">
           <span class="d-none d-lg-block">熱門口味： </span>
@@ -28,19 +32,19 @@
             type="button"
             class="btn btn-outline-primary badge rounded-pill me-2 p-2 border-white text-white"
           >
-            經典芝士
+           瑪格麗特
           </button>
           <button
             type="button"
             class="btn btn-outline-primary badge rounded-pill me-2 p-2 border-white text-white"
           >
-            香腸蘑菇
+           醬烤嫩雞
           </button>
           <button
             type="button"
             class="btn btn-outline-primary badge rounded-pill me-2 p-2 border-white text-white"
           >
-            火腿蔬菜
+           豪華海鮮
           </button>
         </div>
       </div>
@@ -59,3 +63,13 @@
   background-color: rgba(0, 0, 0, 0.32);
 }
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      keyword: '',
+    };
+  },
+};
+</script>

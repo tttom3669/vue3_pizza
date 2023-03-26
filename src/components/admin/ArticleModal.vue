@@ -226,7 +226,6 @@ export default {
   },
   mounted() {
     this.modal = new Modal(this.$refs.articleModal);
-    console.log(this.modal);
   },
 };
 </script>

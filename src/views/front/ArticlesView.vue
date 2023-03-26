@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
-import loadingStore from '@/stores/loadingStore';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
@@ -54,10 +52,10 @@ export default {
   data() {
     return {
       articles: [],
+      isLoading: false,
     };
   },
   methods: {
-    ...mapState(loadingStore, ['isLoading']),
     getArticles(page = 1) {
       this.isLoading = true;
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/articles/?page=${page}`;

@@ -28,8 +28,6 @@
   <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
 </template>
 <script>
-import { mapState } from 'pinia';
-import loadingStore from '@/stores/loadingStore';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
@@ -37,11 +35,11 @@ export default {
   data() {
     return {
       article: {},
+      isLoading: false,
     };
   },
   props: ['articleId'],
   methods: {
-    ...mapState(loadingStore, ['isLoading']),
     getArticle() {
       this.isLoading = true;
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/article/${this.articleId}`;

@@ -83,7 +83,7 @@ export default {
       page: {},
       isLoading: false,
       isNew: true, // 確認是編輯或新增所使用
-      delModalType: 'coupons',
+      delModalType: '優惠券',
     };
   },
   methods: {

@@ -24,14 +24,12 @@
           是否刪除
           <!-- 刪除商品 / 優惠券  -->
           <template
-            v-if="delModalType === 'products' || delModalType === 'coupons'"
+            v-if="delModalType !== '訂單'"
           >
             <strong class="text-danger">{{ tempItem.title }}</strong>
-            {{
-              delModalType === 'products' ? '商品' : '優惠券'
-            }}(刪除後將無法恢復)。
+            {{delModalType}}(刪除後將無法恢復)。
           </template>
-          <template v-else-if="delModalType === 'orders'">
+          <template v-else-if="delModalType === '訂單'">
             <!-- 刪除訂單 -->
             <strong class="text-danger">{{ tempItem.id }}</strong>
             訂單(刪除後將無法恢復)。

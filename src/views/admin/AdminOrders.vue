@@ -80,7 +80,7 @@
       @update-paid="updatePaid"
     ></OrderModal>
     <DelItemModal
-      ref="delProductModal"
+      ref="delOrderModal"
       :temp-item="tempOrder"
       :del-modal-type="delModalType"
       @del-item="delOrder"
@@ -105,7 +105,7 @@ export default {
       tempOrder: {},
       page: {},
       isLoading: false,
-      delModalType: 'orders',
+      delModalType: '訂單',
     };
   },
   methods: {
@@ -134,7 +134,7 @@ export default {
       } else if (status === 'delete') {
         // 刪除訂單頁面
         this.tempOrder = { ...order }; // 取得欲刪除訂單內容
-        this.$refs.delProductModal.openModal();
+        this.$refs.delOrderModal.openModal();
       }
     },
     // 更換付款狀態
@@ -160,7 +160,7 @@ export default {
     // 刪除訂單
     delOrder() {
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/order/${this.tempOrder.id}`;
-      this.$refs.delProductModal.closeModal(); // 關閉刪除頁面
+      this.$refs.delOrderModal.closeModal(); // 關閉刪除頁面
       this.isLoading = true;
       this.$http
         .delete(url)

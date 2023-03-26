@@ -21,6 +21,8 @@ import {
 import AllRules from '@vee-validate/rules';
 import { localize, setLocale } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
+// 加入 CKEditor
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import router from './router';
 import App from './App.vue';
@@ -54,6 +56,7 @@ app.use(pinia);
 app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);
+app.use(CKEditor);
 
 app.component('VueLoading', Loading); // 全域元件
 app.mount('#app');

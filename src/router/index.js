@@ -41,6 +41,15 @@ const routes = [
         component: () => import('../views/front/SearchView.vue'),
         props: (route) => ({ keywords: route.params.keywords }),
       },
+      {
+        path: 'articles',
+        component: () => import('../views/front/ArticlesView.vue'),
+      },
+      {
+        path: 'articles/:articleId',
+        component: () => import('../views/front/ArticleView.vue'),
+        props: (route) => ({ articleId: route.params.articleId }),
+      },
     ],
   },
   {

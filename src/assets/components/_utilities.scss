@@ -14,9 +14,12 @@
 .btn-cusDarkBrown:hover {
     background-color: var(--bs-cusBrown);
 }
-.btn-primary:hover {
+.btn-primary {
     color: white;
-    background-color: #FF9F59;
+    &:hover{
+        color: white;
+        background-color: #FF9F59;
+    }
 }
 .btn-outline-primary:hover{
     color: white;

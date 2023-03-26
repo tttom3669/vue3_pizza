@@ -21,7 +21,7 @@
           <router-link class="nav-item nav-link me-4 active" to="/"
             >首頁</router-link
           >
-          <router-link class="nav-item nav-link me-4" to="/"
+          <router-link class="nav-item nav-link me-4" to="/articles"
             >最新消息</router-link
           >
           <router-link class="nav-item nav-link me-4" to="/products"

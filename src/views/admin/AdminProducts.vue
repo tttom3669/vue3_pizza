@@ -92,7 +92,7 @@ export default {
       isNew: true, // 確認是編輯或新增所使用
       page: {},
       isLoading: false,
-      delModalType: 'products',
+      delModalType: '商品',
     };
   },
   components: { AdminPagination, ProductModal, DelItemModal },

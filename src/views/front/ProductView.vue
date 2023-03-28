@@ -165,7 +165,7 @@ export default {
     addToCart_Check() {
       let tempProductId = [];
       tempProductId = this.cart.carts.filter((cart) => cart.product_id === this.tempProduct.id);
-      // 判斷是否有加入購物車
+      // 判斷是否已經加入購物車
       if (tempProductId[0] === this.tempProduct.id) {
         // 有 => 更新購物車
         this.updateCartItem(tempProductId[0], this.qty);

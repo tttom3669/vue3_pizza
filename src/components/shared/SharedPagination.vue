@@ -15,15 +15,17 @@
 
         <li
           class="page-item"
-          :class="{ active: page === pages.current_page }"
+          :class="{ active: page === pages.current_page,}"
           v-for="page in pages.total_pages"
           :key="page + 'page'"
         >
+         <!-- 頁數為當前頁面不觸發換頁 -->
+         <div class="page-link" v-if="page === pages.current_page">{{ page }}</div>
           <a
             class="page-link"
             href="#"
             @click.prevent="$emit('change-page',page)"
-            >{{ page }}</a
+            v-else>{{ page }}</a
           >
         </li>
 

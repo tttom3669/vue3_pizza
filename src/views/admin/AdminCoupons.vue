@@ -48,7 +48,7 @@
       </tbody>
     </table>
     <VueLoading v-model:active="isLoading"></VueLoading>
-    <AdminPagination :pages="page" @change-page="getCoupons"></AdminPagination>
+    <SharedPagination :pages="page" @change-page="getCoupons"></SharedPagination>
     <CouponModal
       :coupon="tempCoupon"
       :is-new="isNew"
@@ -68,7 +68,7 @@
 // import AdminPagination from '@/components/admin/AdminPagination.vue';
 import DelItemModal from '@/components/admin/DelItemModal.vue';
 import CouponModal from '@/components/admin/CouponModal.vue';
-import AdminPagination from '@/components/admin/AdminPagination.vue';
+import SharedPagination from '@/components/shared/SharedPagination.vue';
 
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
@@ -91,6 +91,7 @@ export default {
     // 取得優惠券
     getCoupons(page = 1) {
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/coupons/?page=${page}`;
+      this.isLoading = true;
       this.$http
         .get(url)
         .then((res) => {
@@ -137,11 +138,11 @@ export default {
         apiMethod = 'put';
         apiUrl = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
       }
-      this.$refs.couponModal.closeModal(); // 關閉產品頁面
       this.isLoading = true;
       this.$http[apiMethod](apiUrl, { data: this.tempCoupon })
         .then((res) => {
           this.getCoupons();
+          this.$refs.couponModal.closeModal(); // 關閉產品頁面
           this.swalShow(`${res.data.message}`, 'success', 'toast');
         })
         .catch((err) => {
@@ -167,9 +168,8 @@ export default {
     },
   },
 
-  components: { CouponModal, DelItemModal, AdminPagination },
+  components: { CouponModal, DelItemModal, SharedPagination },
   mounted() {
-    this.isLoading = true;
     this.getCoupons();
   },
 };

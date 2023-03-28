@@ -108,6 +108,7 @@
                     type="button"
                     id="couponInput"
                     @click.prevent="() => addCouponCode()"
+                    :disabled="coupon_code === ''"
                   >
                     套用優惠券碼
                   </button>

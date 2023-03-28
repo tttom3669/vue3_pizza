@@ -50,7 +50,7 @@
     </table>
   </div>
   <VueLoading v-model:active="isLoading"></VueLoading>
-  <AdminPagination :pages="page" @change-page="getArticles"></AdminPagination>
+  <SharedPagination :pages="page" @change-page="getArticles"></SharedPagination>
    <!-- 新增/修改文章  Modal -->
   <ArticleModal
     ref="articleModal"
@@ -71,7 +71,7 @@ import ArticleModal from '@/components/admin/ArticleModal.vue';
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
 import DelItemModal from '@/components/admin/DelItemModal.vue';
-import AdminPagination from '@/components/admin/AdminPagination.vue';
+import SharedPagination from '@/components/shared/SharedPagination.vue';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default {
@@ -85,7 +85,7 @@ export default {
       page: {},
     };
   },
-  components: { ArticleModal, DelItemModal, AdminPagination },
+  components: { ArticleModal, DelItemModal, SharedPagination },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
     // 取得文章列表
@@ -131,10 +131,10 @@ export default {
         apiMethod = 'put';
       }
       this.isLoading = true;
-      this.$refs.articleModal.closeModal(); // 關閉產品頁面
       this.$http[apiMethod](apiUrl, { data: this.tempArticle })
         .then((res) => {
           this.getArticles();
+          this.$refs.articleModal.closeModal(); // 關閉產品頁面
           this.swalShow(`${res.data.message}`, 'success', 'toast');
         })
         .catch((err) => {

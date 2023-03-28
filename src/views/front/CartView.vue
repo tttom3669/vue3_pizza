@@ -148,7 +148,7 @@
                   class="btn btn-outline-danger"
                   type="button"
                   @click.prevent="() => deleteCart()"
-                  :disabled="loadingItem === 'deleteCart'"
+                  :disabled="loadingItem === 'deleteCart' || cart?.carts?.length === 0"
                 >
                   <span
                     class="spinner-border spinner-border-sm"

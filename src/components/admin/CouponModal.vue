@@ -22,80 +22,103 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="title">標題</label>
-            <input
-              type="text"
-              class="form-control"
-              id="title"
-              v-model="tempCoupon.title"
-              placeholder="請輸入標題"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="coupon_code">優惠碼</label>
-            <input
-              type="text"
-              class="form-control"
-              id="coupon_code"
-              v-model="tempCoupon.code"
-              placeholder="請輸入優惠碼"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="due_date">到期日</label>
-            <input
-              type="date"
-              class="form-control"
-              id="due_date"
-              v-model="due_date"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="price">折扣百分比</label>
-            <input
-              type="number"
-              class="form-control"
-              id="price"
-              min="0"
-              max="99"
-              v-model.number="tempCoupon.percent"
-              placeholder="請輸入折扣百分比"
-            />
-          </div>
-          <div class="mb-3">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                :true-value="1"
-                :false-value="0"
-                v-model="tempCoupon.is_enabled"
-                id="is_enabled"
+        <VForm v-slot="{ errors }" @submit="() => $emit('update-coupon')">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="title">標題</label>
+              <VField
+                type="text"
+                name="標題"
+                class="form-control"
+                id="title"
+                v-model="tempCoupon.title"
+                placeholder="請輸入標題"
+                :class="{ 'is-invalid': errors['標題'] }"
+                rules="required"
               />
-              <label class="form-check-label" for="is_enabled">
-                是否啟用
-              </label>
+              <ErrorMessage name="標題" class="invalid-feedback"></ErrorMessage>
+            </div>
+            <div class="mb-3">
+              <label for="coupon_code">優惠碼</label>
+              <VField
+                type="text"
+                class="form-control"
+                id="coupon_code"
+                name="優惠碼"
+                v-model="tempCoupon.code"
+                placeholder="請輸入優惠碼"
+                :class="{ 'is-invalid': errors['優惠碼'] }"
+                rules="required"
+              />
+              <ErrorMessage
+                name="優惠碼"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
+            <div class="mb-3">
+              <label for="due_date">到期日</label>
+              <VField
+                type="date"
+                class="form-control"
+                id="due_date"
+                name="到期日"
+                v-model="due_date"
+                :class="{ 'is-invalid': errors['到期日'] }"
+                :rules="dateConfirm"
+              />
+              <ErrorMessage
+                name="到期日"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
+            <div class="mb-3">
+              <label for="price">折扣百分比</label>
+              <VField
+                type="number"
+                class="form-control"
+                id="price"
+                name="折扣百分比"
+                min="0"
+                max="99"
+                v-model.number="tempCoupon.percent"
+                placeholder="請輸入折扣百分比"
+                :class="{ 'is-invalid': errors['折扣百分比'] }"
+                rules="required|min_value:0|max_value:99"
+              />
+              <ErrorMessage
+                name="折扣百分比"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  :true-value="1"
+                  :false-value="0"
+                  v-model="tempCoupon.is_enabled"
+                  id="is_enabled"
+                />
+                <label class="form-check-label" for="is_enabled">
+                  是否啟用
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            取消
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="$emit('update-coupon')"
-          >
-            {{ isNew ? '新增優惠卷' : '更新優惠券' }}
-          </button>
-        </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              取消
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ isNew ? '新增優惠卷' : '更新優惠券' }}
+            </button>
+          </div>
+        </VForm>
       </div>
     </div>
   </div>
@@ -144,9 +167,29 @@ export default {
     closeModal() {
       this.modal.hide();
     },
+    dateConfirm(date) {
+      const curDate = new Date();
+      const preDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000);
+      const beginDate = new Date(date);
+      if (preDate < beginDate) {
+        return true;
+      }
+      return '到期日已過期';
+    },
   },
   mounted() {
     this.modal = new Modal(this.$refs.couponModal);
   },
 };
 </script>
+<!-- var date = {
+  isDuringDate: function (beginDateStr, endDateStr) {
+      var curDate = new Date(),
+          beginDate = new Date(beginDateStr),
+          endDate = new Date(endDateStr);
+      if (curDate >= beginDate && curDate <= endDate) {
+          return true;
+      }
+      return false;
+  }
+} -->

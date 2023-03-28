@@ -21,14 +21,18 @@ export default defineStore('products', {
   actions: {
     ...mapActions(swalMessage, ['swalShow']),
     // 取得產品列表
-    getProducts() {
-      const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;
+    getProducts(page = 1, category = '全部商品') {
+      let url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;
+      if (category === '全部商品') {
+        url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/?page=${page}`;
+      }
       loadingStatus.isLoading = true;
       axios
         .get(url)
         .then((res) => {
           this.products = res.data.products;
           this.page = res.data.pagination; // 取得頁數
+          this.filterCategory = category;
           loadingStatus.isLoading = false;
         })
         .catch((err) => {
@@ -51,7 +55,7 @@ export default defineStore('products', {
         });
     },
     changeCategory(category) {
-      this.filterCategory = category;
+      this.getProducts(1, category);
     },
     searchItem(keyWord) {
       this.keyWords = keyWord;

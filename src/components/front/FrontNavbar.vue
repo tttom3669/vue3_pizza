@@ -37,6 +37,7 @@
             >
             <i class="bi bi-heart"></i>
               <span
+                v-if="filterProducts?.length>0"
                 class="badge rounded-pill bg-danger
                 position-absolute top-0 start-100 translate-middle"
                 >{{ filterProducts?.length }}</span
@@ -115,6 +116,7 @@
             >
               <i class="bi bi-bag"></i>
               <span
+              v-if="cart.carts?.length>0"
                 class="badge rounded-pill bg-danger
                 position-absolute top-0 start-100 translate-middle"
                 >{{ cart.carts?.length }}</span
@@ -160,9 +162,16 @@
                           v-model="item.qty"
                           @change="() => updateCartItem(item, item.qty)"
                         >
-                          <option :value="i" v-for="i in 99" :key="i + 'num'">
-                            {{ i }}
-                          </option>
+                        <template v-if="item.qty <= 20">
+                            <option :value="i" v-for="i in 20" :key="i + 'num'">
+                              {{ i }}
+                            </option>
+                        </template>
+                        <template v-else>
+                            <option :value="i" v-for="i in item.qty +5  " :key="i + 'num'">
+                              {{ i }}
+                            </option>
+                        </template>
                         </select>
                       </div>
                     </td>

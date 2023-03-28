@@ -54,7 +54,7 @@
       </tbody>
     </table>
     <VueLoading v-model:active="isLoading"></VueLoading>
-    <AdminPagination :pages="page" @change-page="getProducts"></AdminPagination>
+    <SharedPagination :pages="page" @change-page="getProducts"></SharedPagination>
     <!-- 新增/修改產品 Modal -->
     <ProductModal
       ref="productModal"
@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import AdminPagination from '@/components/admin/AdminPagination.vue';
+import SharedPagination from '@/components/shared/SharedPagination.vue';
 import ProductModal from '@/components/admin/ProductModal.vue';
 import DelItemModal from '@/components/admin/DelItemModal.vue';
 
@@ -95,7 +95,7 @@ export default {
       delModalType: '商品',
     };
   },
-  components: { AdminPagination, ProductModal, DelItemModal },
+  components: { SharedPagination, ProductModal, DelItemModal },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
     // 取得產品資料
@@ -104,6 +104,7 @@ export default {
       if (category !== '') {
         url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/products/category=${category}?&page=${page}`;
       }
+      this.isLoading = true;
       this.$http
         .get(url)
         .then((res) => {
@@ -129,11 +130,11 @@ export default {
         apiMethod = 'put';
         apiUrl = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/product/${this.tempProduct.id}`;
       }
-      this.$refs.productModal.closeModal(); // 關閉產品頁面
       this.isLoading = true;
       this.$http[apiMethod](apiUrl, { data: this.tempProduct })
         .then((res) => {
           this.getProducts(this.page.current_page); // 更新完，不會跳頁
+          this.$refs.productModal.closeModal(); // 關閉產品頁面
           this.swalShow(`${res.data.message}`, 'success', 'toast');
         })
         .catch((err) => {
@@ -187,7 +188,6 @@ export default {
     },
   },
   mounted() {
-    this.isLoading = true;
     this.getProducts();
   },
 };

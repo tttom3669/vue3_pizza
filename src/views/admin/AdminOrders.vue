@@ -73,7 +73,7 @@
       </tbody>
     </table>
     <VueLoading v-model:active="isLoading"></VueLoading>
-    <AdminPagination :pages="page" @change-page="getOrders"></AdminPagination>
+    <SharedPagination :pages="page" @change-page="getOrders"></SharedPagination>
     <OrderModal
       :order="tempOrder"
       ref="orderModal"
@@ -90,7 +90,7 @@
 
 <script>
 import OrderModal from '@/components/admin/OrderModal.vue';
-import AdminPagination from '@/components/admin/AdminPagination.vue';
+import SharedPagination from '@/components/shared/SharedPagination.vue';
 import DelItemModal from '@/components/admin/DelItemModal.vue';
 
 import { mapActions } from 'pinia';
@@ -112,6 +112,7 @@ export default {
     ...mapActions(swalMessage, ['swalShow']),
     // 取得訂單
     getOrders(currentPage = 1) {
+      this.isLoading = true;
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/admin/orders/?page=${currentPage}`;
       this.$http
         .get(url)
@@ -174,9 +175,8 @@ export default {
         });
     },
   },
-  components: { OrderModal, AdminPagination, DelItemModal },
+  components: { OrderModal, SharedPagination, DelItemModal },
   mounted() {
-    this.isLoading = true;
     this.getOrders();
   },
 };

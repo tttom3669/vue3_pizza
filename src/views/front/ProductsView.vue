@@ -89,6 +89,8 @@
       </div>
     </div>
   </div>
+  <SharedPagination :pages="page" @change-page="getProducts"
+  v-if="filterCategory==='全部商品'"></SharedPagination>
   <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
 </template>
 
@@ -100,6 +102,7 @@ import loadingStore from '@/stores/loadingStore';
 import collectionStore from '@/stores/collectionStore';
 import CategorySidebar from '@/components/front/CategorySidebar.vue';
 import swalMessage from '@/stores/swalMessage';
+import SharedPagination from '@/components/shared/SharedPagination.vue';
 
 export default {
   data() {
@@ -107,9 +110,9 @@ export default {
       tempProduct: {},
     };
   },
-  components: { CategorySidebar },
+  components: { CategorySidebar, SharedPagination },
   computed: {
-    ...mapState(productsStore, ['filterProducts']),
+    ...mapState(productsStore, ['filterProducts', 'page', 'filterCategory']),
     ...mapState(collectionStore, ['collectionList', 'collection']),
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),
   },
@@ -125,5 +128,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

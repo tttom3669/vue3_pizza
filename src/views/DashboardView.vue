@@ -1,18 +1,20 @@
 <template>
-  <AdminNavbar></AdminNavbar>
+  <AdminNavbar />
   <div class="container">
-    <AdminNavTabs></AdminNavTabs>
-    <router-view></router-view>
+    <AdminNavTabs />
+    <RouterView />
   </div>
 </template>
 <script>
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
+import { RouterView } from 'vue-router';
 import AdminNavTabs from '../components/admin/AdminNavTabs.vue';
 import AdminNavbar from '../components/admin/AdminNavbar.vue';
 
 const { VITE_APP_URL } = import.meta.env;
 export default {
+  components: { AdminNavTabs, AdminNavbar, RouterView },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),
     // 檢查登入驗證
@@ -40,7 +42,6 @@ export default {
       }
     },
   },
-  components: { AdminNavTabs, AdminNavbar },
   created() {
     this.checkLogin();
   },

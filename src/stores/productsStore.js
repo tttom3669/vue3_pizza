@@ -70,6 +70,7 @@ export default defineStore('products', {
       this.filterCategory = category;
     },
     searchItem(keyWord) {
+      loadingStatus.isLoading = true;
       this.keyWords = keyWord;
     },
   },

@@ -1,10 +1,11 @@
 <template>
-  <router-view></router-view>
+  <RouterView />
 </template>
 
 <script>
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { RouterView } from 'vue-router';
 
 export default {
   mounted() {
@@ -31,5 +32,6 @@ export default {
       anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
     });
   },
+  components: { RouterView },
 };
 </script>

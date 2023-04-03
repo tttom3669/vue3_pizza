@@ -1,6 +1,6 @@
 <template>
   <div class="bg_texture3">
-    <div class="container mb-4">
+    <div class="container mb-5">
       <!-- 進度條 -->
       <div class="row d-flex justify-content-center mt-3">
         <div class="col-12 col-md-6">

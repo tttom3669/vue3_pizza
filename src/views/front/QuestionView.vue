@@ -2,13 +2,8 @@
   <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
       <!-- 常見問題標題 -->
-      <div
-        class="d-flex flex-column align-items-start justify-content-center mt-3"
-      >
-        <h3 class="fw-bold mt-1 border-3 border-start border-primary">
-          <span class="text-cusDarkBrown ms-3">常見問題</span>
-        </h3>
-      </div>
+      <FrontHeading :title="'常見問題'" />
+       <!-- 常見問題問題集 -->
       <div class="accordion mt-3" id="accordionQuestion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
@@ -136,3 +131,11 @@
     </div>
   </div>
 </template>
+
+<script>
+import FrontHeading from '@/components/front/FrontHeading.vue';
+
+export default {
+  components: { FrontHeading },
+};
+</script>

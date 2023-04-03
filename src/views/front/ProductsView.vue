@@ -54,6 +54,7 @@ import swalMessage from '@/stores/swalMessage';
 import SharedPagination from '@/components/shared/SharedPagination.vue';
 import ProductCard from '@/components/front/ProductCard.vue';
 
+const loadingStatus = loadingStore();
 export default {
   data() {
     return {
@@ -72,6 +73,7 @@ export default {
   mounted() {
     this.getProducts();
     this.getAllProducts();
+    loadingStatus.isLoading = false;
   },
 };
 </script>

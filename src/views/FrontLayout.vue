@@ -1,16 +1,17 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
     <!-- 導覽列 -->
-    <FrontNavbar></FrontNavbar>
-    <div class="flex-grow-1" style="min-height: 600px;">
-      <router-view></router-view>
+    <FrontNavbar />
+    <div class="flex-grow-1" style="min-height: 600px">
+      <RouterView />
     </div>
     <!-- footer -->
-    <FrontFooter></FrontFooter>
+    <FrontFooter />
   </div>
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
 import FrontNavbar from '@/components/front/FrontNavbar.vue';
 import FrontFooter from '@/components/front/FrontFooter.vue';
 
@@ -18,8 +19,6 @@ export default {
   data() {
     return {};
   },
-  components: { FrontNavbar, FrontFooter },
+  components: { FrontNavbar, FrontFooter, RouterView },
 };
 </script>
-
-<style></style>

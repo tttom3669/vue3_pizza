@@ -35,21 +35,21 @@
           <span class="d-none d-lg-block">熱門口味： </span>
           <button
             type="button"
-            @click="()=>this.keyword='瑪格麗特'"
+            @click="() => (this.keyword = '瑪格麗特')"
             class="btn btn-outline-primary badge rounded-pill me-2 p-2 border-white text-white"
           >
             瑪格麗特
           </button>
           <button
             type="button"
-            @click="()=>this.keyword='醬烤嫩雞'"
+            @click="() => (this.keyword = '醬烤嫩雞')"
             class="btn btn-outline-primary badge rounded-pill me-2 p-2 border-white text-white"
           >
             醬烤嫩雞
           </button>
           <button
             type="button"
-            @click="()=>this.keyword='豪華海鮮'"
+            @click="() => (this.keyword = '豪華海鮮')"
             class="btn btn-outline-primary badge rounded-pill me-2 p-2 border-white text-white"
           >
             豪華海鮮
@@ -75,6 +75,7 @@
 </style>
 
 <script>
+
 export default {
   data() {
     return {

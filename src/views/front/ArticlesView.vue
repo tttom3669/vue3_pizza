@@ -1,7 +1,15 @@
 <template>
-  <div class="bg_texture2" style="min-height: 600px">
+  <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
-      <div class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- 最新消息標題 -->
+      <div
+        class="d-flex flex-column align-items-start justify-content-center mt-3"
+      >
+        <h3 class="fw-bold mt-1 border-3 border-start border-primary">
+          <span class="text-cusDarkBrown ms-3">最新消息</span>
+        </h3>
+      </div>
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
         <template v-for="article in articles" :key="article.id">
           <div class="col">
             <div class="card h-100">

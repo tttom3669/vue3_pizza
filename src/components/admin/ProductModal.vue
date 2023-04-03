@@ -101,22 +101,34 @@
                 </div>
               </div>
               <div class="col-sm-8">
-                <div class="mb-3">
-                  <label for="title" class="form-label">標題</label>
-                  <VField
-                    id="title"
-                    name="標題"
-                    type="text"
-                    class="form-control"
-                    placeholder="請輸入標題"
-                    v-model="tempProduct.title"
-                    :class="{ 'is-invalid': errors['標題'] }"
-                    rules="required"
-                  />
-                  <ErrorMessage
-                    name="標題"
-                    class="invalid-feedback"
-                  ></ErrorMessage>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label for="title" class="form-label">標題</label>
+                    <VField
+                      id="title"
+                      name="標題"
+                      type="text"
+                      class="form-control"
+                      placeholder="請輸入標題"
+                      v-model="tempProduct.title"
+                      :class="{ 'is-invalid': errors['標題'] }"
+                      rules="required"
+                    />
+                    <ErrorMessage
+                      name="標題"
+                      class="invalid-feedback"
+                    ></ErrorMessage>
+                  </div>
+                  <div class="col-6">
+                    <label for="enTitle" class="form-label">英文標題</label>
+                    <input
+                      id="enTitle"
+                      type="text"
+                      class="form-control"
+                      v-model="tempProduct.enTitle"
+                      placeholder="請輸入英文標題"
+                    />
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="category" class="form-label">分類</label>

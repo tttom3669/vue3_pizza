@@ -50,6 +50,14 @@ const routes = [
         component: () => import('../views/front/ArticleView.vue'),
         props: (route) => ({ articleId: route.params.articleId }),
       },
+      {
+        path: 'collection',
+        component: () => import('../views/front/CollectionView.vue'),
+      },
+      {
+        path: 'question',
+        component: () => import('../views/front/QuestionView.vue'),
+      },
     ],
   },
   {

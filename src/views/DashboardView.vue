@@ -6,13 +6,15 @@
   </div>
 </template>
 <script>
-import Swal from 'sweetalert2';
+import { mapActions } from 'pinia';
+import swalMessage from '@/stores/swalMessage';
 import AdminNavTabs from '../components/admin/AdminNavTabs.vue';
 import AdminNavbar from '../components/admin/AdminNavbar.vue';
 
 const { VITE_APP_URL } = import.meta.env;
 export default {
   methods: {
+    ...mapActions(swalMessage, ['swalShow']),
     // 檢查登入驗證
     checkLogin() {
       const token = document.cookie
@@ -29,17 +31,11 @@ export default {
             }
           })
           .catch(() => {
-            Swal.fire({
-              icon: 'error',
-              title: '沒有權限，請重新登入',
-            });
+            this.swalShow('沒有權限，請重新登入', 'error');
             this.$router.push('/login');
           });
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: '請先登入',
-        });
+        this.swalShow('請先登入', 'error');
         this.$router.push('/login');
       }
     },

@@ -9,6 +9,7 @@ const loadingStatus = loadingStore();
 export default defineStore('products', {
   state: () => ({
     products: [],
+    pageProducts: [],
     tempProduct: {},
     page: {},
     productCategory: {
@@ -20,19 +21,30 @@ export default defineStore('products', {
   }),
   actions: {
     ...mapActions(swalMessage, ['swalShow']),
-    // 取得產品列表
-    getProducts(page = 1, category = '全部商品') {
-      let url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;
-      if (category === '全部商品') {
-        url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/?page=${page}`;
-      }
+    // 取得所有產品列表
+    getAllProducts() {
+      const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;
       loadingStatus.isLoading = true;
       axios
         .get(url)
         .then((res) => {
           this.products = res.data.products;
+          loadingStatus.isLoading = false;
+        })
+        .catch((err) => {
+          this.swalShow(`${err.message}`, 'error');
+          loadingStatus.isLoading = false;
+        });
+    },
+    // 取得產品列表 (含頁數)
+    getProducts(page = 1) {
+      const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/?page=${page}`;
+      loadingStatus.isLoading = true;
+      axios
+        .get(url)
+        .then((res) => {
+          this.pageProducts = res.data.products;
           this.page = res.data.pagination; // 取得頁數
-          this.filterCategory = category;
           loadingStatus.isLoading = false;
         })
         .catch((err) => {
@@ -55,19 +67,18 @@ export default defineStore('products', {
         });
     },
     changeCategory(category) {
-      this.getProducts(1, category);
+      this.filterCategory = category;
     },
     searchItem(keyWord) {
       this.keyWords = keyWord;
     },
   },
   getters: {
-    filterProducts: ({ products, filterCategory }) => {
-      const currentCategory = products.filter((product) => (filterCategory
-      === '全部商品'
-        ? products
-        : product.productCategory === filterCategory));
-      return currentCategory;
+    filterProducts: ({ products, pageProducts, filterCategory }) => {
+      if (filterCategory === '全部商品') {
+        return pageProducts;
+      }
+      return products.filter((product) => (product.productCategory === filterCategory));
     },
     searchProducts: ({ products, keyWords }) => {
       const currentProducts = products

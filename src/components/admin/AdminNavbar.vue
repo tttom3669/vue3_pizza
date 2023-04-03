@@ -30,9 +30,14 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import swalMessage from '@/stores/swalMessage';
+
 export default {
   methods: {
+    ...mapActions(swalMessage, ['swalShow']),
     logout() {
+      this.swalShow('已登出', 'success');
       document.cookie = `yoToken=; expires=${new Date()}`;
       this.$router.push('/login');
     },

@@ -1,8 +1,10 @@
 import { defineStore, mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
 import axios from 'axios';
+import loadingStore from './loadingStore';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
+const loadingStatus = loadingStore();
 
 export default defineStore('collectionStore', {
   state: () => ({
@@ -18,14 +20,17 @@ export default defineStore('collectionStore', {
     // 取得產品列表
     getFilterProducts() {
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;
+      loadingStatus.isLoading = true;
       axios
         .get(url)
         .then((res) => {
           this.filterProducts = res.data.products
             .filter((product) => (this.collectionList.indexOf(product.id) !== -1));
+          loadingStatus.isLoading = false;
         })
         .catch((err) => {
           this.swalShow(`${err.message}`, 'error');
+          loadingStatus.isLoading = false;
         });
     },
     // 取出收藏清單

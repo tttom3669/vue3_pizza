@@ -19,10 +19,18 @@ export default defineStore('cart', {
         .get(`${VITE_APP_URL}/api/${VITE_APP_PATH}/cart`)
         .then((res) => {
           this.cart = res.data.data;
+
+          // 購物車數量超出數量 (20)
+          this.cart.carts.forEach((cart) => {
+            if (cart.qty > 20) {
+              this.fixCartItem(cart);
+            }
+          });
           loadingStatus.isLoading = false;
         })
         .catch((err) => {
           this.swalShow(`${err.response.data.message}`, 'error');
+          loadingStatus.isLoading = false;
         });
     },
     // 加入購物車
@@ -50,11 +58,30 @@ export default defineStore('cart', {
         product_id: item.product.id, // 產品的 id
         qty,
       };
-      loadingStatus.loadingItem = item.id;// 購物車的 id
+      loadingStatus.loadingItem = item.id; // 購物車的 id
       axios
         .put(`${VITE_APP_URL}/api/${VITE_APP_PATH}/cart/${item.id}`, { data })
         .then((res) => {
           this.swalShow(`${res.data.message}`, 'success', 'toast');
+          this.getCart();
+          loadingStatus.loadingItem = '';
+        })
+        .catch((err) => {
+          this.swalShow(`${err.response.data.message}`, 'error');
+          loadingStatus.loadingItem = '';
+        });
+    },
+    // 修正購物車
+    fixCartItem(item) {
+      const data = {
+        product_id: item.product_id, // 產品的 id
+        qty: 20,
+      };
+      loadingStatus.loadingItem = item.id; // 購物車的 id
+      axios
+        .put(`${VITE_APP_URL}/api/${VITE_APP_PATH}/cart/${item.id}`, { data })
+        .then(() => {
+          this.swalShow('商品超出庫存，已自動修正數量', 'warning', 'toast');
           this.getCart();
           loadingStatus.loadingItem = '';
         })

@@ -8,11 +8,13 @@ export default defineStore('swalMessage', {
         Swal.fire({
           icon: `${icon}`,
           title: `${title}`,
+          showConfirmButton: true,
+          confirmButtonColor: '#FF720C',
         });
       } else if (type === 'toast') {
         Swal.fire({
           toast: true,
-          position: 'bottom-end',
+          position: 'bottom',
           showConfirmButton: false,
           icon: `${icon}`,
           timer: 3000,

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg_texture2">
+  <div class="bg_texture3">
     <div class="container mb-4">
       <!-- 進度條 -->
       <div class="row d-flex justify-content-center mt-3">
@@ -118,6 +118,16 @@
                   NT$ {{ cart.total }}
                 </div>
                 <div
+                  class="py-2 col text-cusGray fw-bold text-start"
+                >
+                  運費
+                </div>
+                <div
+                  class="py-2 col text-cusGray fw-bold text-end"
+                >
+                  +NT$ {{ deliveryFee }}
+                </div>
+                <div
                   class="py-2 col text-success fw-bold text-start border-bottom"
                 >
                   優惠折抵
@@ -131,49 +141,32 @@
                   總計
                 </div>
                 <div class="col py-2 h5 text-cusDarkBrown fw-bold text-end">
-                  NT$ {{ cart.final_total }}
+                  NT$ {{ cart.final_total + deliveryFee}}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-7">
-          <h4 class="h4 text-center mt-3 mt-md-0">訂單資訊</h4>
+          <h4 class="h4 text-center my-3 mt-md-0">訂單資訊</h4>
           <VForm v-slot="{ errors }" @submit="createOrder">
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <VField
-                type="email"
-                name="email"
-                class="form-control"
-                id="email"
-                :class="{ 'is-invalid': errors['email'] }"
-                rules="email|required"
-                aria-describedby="emailHelp"
-                placeholder="請輸入 Email"
-                v-model="userForm.user.email"
-              />
-              <ErrorMessage
-                name="email"
-                class="invalid-feedback"
-              ></ErrorMessage>
-            </div>
-            <div class="mb-3">
-              <label for="InputUserName" class="form-label">收件人姓名</label>
-              <VField
-                type="text"
-                name="姓名"
-                class="form-control"
-                :class="{ 'is-invalid': errors['姓名'] }"
-                rules="required"
-                id="InputUserName"
-                placeholder="請輸入姓名"
-                v-model="userForm.user.name"
-              />
-              <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
-            </div>
-            <div class="mb-3">
-              <label for="InputUserTel" class="form-label">收件人電話</label>
+            <div class="row d-flex flex-row mb-3">
+              <div class="col-md-6">
+                <label for="InputUserName" class="form-label">收件人姓名</label>
+                <VField
+                  type="text"
+                  name="姓名"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors['姓名'] }"
+                  rules="required"
+                  id="InputUserName"
+                  placeholder="請輸入姓名"
+                  v-model="userForm.user.name"
+                />
+                <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
+              </div>
+              <div class="col-md-6">
+                <label for="InputUserTel" class="form-label">收件人電話</label>
               <VField
                 type="tel"
                 name="電話"
@@ -185,22 +178,61 @@
                 v-model="userForm.user.tel"
               />
               <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="InputUserAddress" class="form-label"
-                >收件人地址</label
-              >
-              <VField
-                type="text"
-                name="地址"
-                :class="{ 'is-invalid': errors['地址'] }"
-                rules="required"
-                class="form-control"
-                id="InputUserAddress"
-                placeholder="請輸入地址"
-                v-model="userForm.user.address"
-              />
-              <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                  <VField
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    id="email"
+                    :class="{ 'is-invalid': errors['email'] }"
+                    rules="email|required"
+                    aria-describedby="emailHelp"
+                    placeholder="請輸入 Email"
+                    v-model="userForm.user.email"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    class="invalid-feedback"
+                  ></ErrorMessage>
+              </div>
+              <div class="col-md-6">
+                <label for="paymentMethod" class="form-label">付款方式</label>
+                <select class="form-control" name="paymentMethod" id="paymentMethod"
+                v-model="userForm.user.paymentMethod">
+                  <option value="信用卡">信用卡</option>
+                  <option value="現金付款">現金付款</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="InputUserAddress" class="form-label"
+                  >收件人地址</label
+                >
+                <VField
+                  type="text"
+                  name="地址"
+                  :class="{ 'is-invalid': errors['地址'] }"
+                  rules="required"
+                  class="form-control"
+                  id="InputUserAddress"
+                  placeholder="請輸入地址"
+                  v-model="userForm.user.address"
+                />
+                <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
+              </div>
+              <div class="col-md-6">
+                <label for="pickupMethod" class="form-label">取貨方式</label>
+                <select class="form-control" name="pickupMethod" id="pickupMethod"
+                v-model="userForm.user.pickupMethod">
+                  <option value="到店自取">到店自取</option>
+                  <option value="外送/宅配上門">外送/宅配上門</option>
+                </select>
+              </div>
             </div>
             <div class="mb-3">
               <label for="FormControlTextarea" class="form-label">備註</label>
@@ -213,7 +245,7 @@
               ></textarea>
             </div>
             <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary text-white">
+              <button type="submit" class="btn btn-primary text-white w-50 w-md-25">
                 下一步
               </button>
             </div>
@@ -243,15 +275,29 @@ export default {
           email: '',
           tel: '',
           address: '',
+          paymentMethod: '信用卡',
+          pickupMethod: '到店自取',
+          cartDeliveryFee: 0,
         },
         message: '',
       },
       coupon_code: '',
     };
   },
+  watch: {
+    deliveryFee() {
+      this.userForm.user.cartDeliveryFee = this.deliveryFee;
+    },
+  },
   computed: {
     ...mapState(cartStore, ['cart']),
     ...mapState(loadingStore, ['isLoading']),
+    deliveryFee() {
+      if (this.userForm.user.pickupMethod === '到店自取') {
+        return 0;
+      }
+      return this.cart.total >= 399 ? 0 : 70;
+    },
   },
   methods: {
     ...mapActions(swalMessage, ['swalShow']),

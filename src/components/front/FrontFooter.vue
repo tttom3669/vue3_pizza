@@ -1,12 +1,12 @@
 <template>
   <footer class="footer py-5 py-md-2">
     <div class="container">
-      <div class="row d-flex justify-content-between border-bottom">
-        <div class="col-md-6 text-center text-md-start">
+      <div class="row d-flex justify-content-between border-bottom border-cusBrown">
+        <div class="col-md-6 text-center text-md-start p-0">
           <img src="@/assets/img/logo2.png" class="float-center" alt="logo" />
         </div>
-        <div class="col-md-6">
-          <div class="text-white text-center text-md-end p-3">
+        <div class="col-md-6 p-0">
+          <div class="text-white text-center text-md-end py-3">
             <h5 class="text-primary">聯絡資訊</h5>
             <p>
               <a href="mailto:YoPizza@mail.com" class="text-decoration-none linkStyle"
@@ -25,11 +25,11 @@
         </div>
       </div>
       <div
-        class="row justify-content-between align-items-center flex-column flex-md-row g-1"
+        class="row justify-content-between align-items-center flex-column flex-md-row"
       >
-        <div class="col text-center text-md-start">
+        <div class="col text-center text-md-start p-0">
           <div class="py-3">
-            <router-link class="btn btn-sm btn-opacity text-white me-3" to="/login"
+            <router-link class="btn btn-sm btn-opacity text-white" to="/question"
               >常見問題</router-link
             >
             <!-- <router-link class="btn btn-sm btn-opacity text-white" to="/login">
@@ -42,12 +42,12 @@
             此專題僅供作品展示，非商業用途使用
           </p>
         </div>
-        <div class="col order-2">
+        <div class="col order-2 p-0">
           <div class="text-white text-center text-md-end mb-1">
-            <a href="#" class="linkStyle"><i class="bi bi-facebook me-3"></i></a>
-            <a href="#" class="linkStyle"><i class="bi bi-instagram me-3"></i></a>
+            <a href="#" class="linkStyle"><i class="bi bi-facebook ms-3"></i></a>
+            <a href="#" class="linkStyle"><i class="bi bi-instagram ms-3"></i></a>
             <a href="https://github.com/tttom3669/vue3_pizza" target="_blank" class="linkStyle">
-              <i class="bi bi-github me-3"></i>
+              <i class="bi bi-github ms-3"></i>
             </a>
           </div>
         </div>

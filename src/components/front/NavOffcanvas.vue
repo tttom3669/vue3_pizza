@@ -26,6 +26,18 @@
       >
         <div
           class="list-group-item"
+          :class="{ active: currentPage === '最新消息'}"
+        >
+          <router-link
+            to="/articles"
+            class="stretched-link"
+            @click="() => {changePage('最新消息');}"
+          >
+          </router-link>
+          <span class="accordion-header ms-1">最新消息</span>
+        </div>
+        <div
+          class="list-group-item"
           :class="{ active: '全部商品' === filterCategory && currentPage === '美味菜單'}"
         >
           <router-link
@@ -37,22 +49,23 @@
           <span class="accordion-header ms-1">美味菜單</span>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingTwo">
+          <h2 class="accordion-header" id="flush-headingMenu">
             <button
               class="accordion-button collapsed"
+              id="btn_flush-collapseMenu"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseTwo"
+              data-bs-target="#flush-collapseMenu"
               aria-expanded="false"
-              aria-controls="flush-collapseTwo"
+              aria-controls="flush-collapseMenu"
             >
               商品類別
             </button>
           </h2>
           <div
-            id="flush-collapseTwo"
+            id="flush-collapseMenu"
             class="accordion-collapse collapse"
-            aria-labelledby="flush-headingTwo"
+            aria-labelledby="flush-headingMenu"
           >
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
@@ -65,7 +78,8 @@
                   <router-link
                     class="stretched-link"
                     to="/products"
-                    @click="() => changeCategory(`${category}`)"
+                    @click="() => {changeCategory(`${category}`);
+                    changeCollapseStyle('flush-collapseMenu');}"
                   ></router-link>
                   {{ category }}
                 </li>
@@ -78,7 +92,8 @@
                   <router-link
                     class="stretched-link"
                     to="/products"
-                    @click="() => changeCategory(`${category}`)"
+                    @click="() => {changeCategory(`${category}`);
+                  changeCollapseStyle('flush-collapseMenu');}"
                   ></router-link>
 
                   {{ category }}
@@ -87,26 +102,6 @@
             </div>
           </div>
         </div>
-        <div class="list-group-item"
-        :class="{active : '' === filterCategory && currentPage === '購物車'}">
-          <router-link to="/cart" class="stretched-link"
-          @click="() => {changeCategory(''); changePage('購物車');}"> </router-link>
-          <span class="accordion-header ms-1">購物車</span>
-        </div>
-      </div>
-      <div class="list-group mt-3">
-        <!-- <router-link class="text-decoration-none list-group-item" to="/"
-          >首頁</router-link
-        > -->
-        <!-- <router-link class="text-decoration-none list-group-item" to="/"
-          >最新消息</router-link
-        > -->
-        <!-- <router-link class="text-decoration-none list-group-item" to="/products"
-          >美味菜單</router-link
-        > -->
-        <!-- <router-link class="text-decoration-none list-group-item" to="/cart"
-          >購物車</router-link
-        > -->
       </div>
     </div>
   </div>
@@ -129,6 +124,13 @@ export default {
     ...mapActions(productsStore, ['changeCategory']),
     changePage(page = '') {
       this.currentPage = page;
+    },
+    // 類別清單折疊
+    changeCollapseStyle(id) {
+      // 點擊商品子類別後，關閉折疊清單
+      document.getElementById(`${id}`).classList.add('collapse');
+      document.getElementById(`${id}`).classList.remove('show');
+      document.getElementById(`btn_${id}`).classList.add('collapsed');
     },
   },
 };

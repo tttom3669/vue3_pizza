@@ -2,10 +2,10 @@
   <!-- Landing 網站到達頁 -->
   <LandingPage></LandingPage>
   <!--關於我們-->
-  <div class="bg_texture1 py-5">
+  <div class="bg_texture1" style="padding:100px 0px;">
     <div class="container">
       <div
-        class="d-flex flex-column align-items-center justify-content-center my-5"
+        class="d-flex flex-column align-items-center justify-content-center mb-5"
       >
         <p class="fw-bold mb-n1 text-cusGray">ABOUT US</p>
         <h3 class="h1 fw-bold mt-1">
@@ -22,12 +22,12 @@
         <div class="col-md-6">
           <img
             src="@/assets/img/about_img_1.png"
-            class="w-100 object-fit-cover rounded"
+            class="w-100 object-fit-cover rounded-bottom-md-3 rounded-top-3"
             alt="aboutUs_1"
           />
         </div>
         <div class="col-md-6">
-          <div class="px-4 py-5 bg-white rounded">
+          <div class="px-4 py-5 bg-white rounded-bottom-3 rounded-top-md-3">
             <h5 class="text-primary fw-bold">職人堅持</h5>
             <p class="text-cusBrown">
               移植義大利的傳統職人精神，從選料、拍製餅皮、到對烤爐的要求毫不馬虎。
@@ -45,12 +45,12 @@
         <div class="col-md-6">
           <img
             src="@/assets/img/about_img_2.png"
-            class="w-100 object-fit-cover rounded"
+            class="w-100 object-fit-cover rounded-bottom-md-3 rounded-top-3"
             alt="aboutUs_2"
           />
         </div>
         <div class="col-md-6">
-          <div class="px-4 py-5 bg-white rounded">
+          <div class="px-4 py-5 bg-white rounded-bottom-3 rounded-top-md-3">
             <h5 class="text-primary fw-bold">歡聚時刻</h5>
             <p class="text-cusBrown">
               獨樂樂不如眾樂樂！我們不只提供美食，更打造好友小聚、家族聚餐、慶生、過節都適合的舒適用餐環境。
@@ -64,10 +64,10 @@
     </div>
   </div>
   <!--商品分類-->
-  <div class="bg_texture2">
+  <div class="bg_texture2" style="padding:100px 0px;">
     <div class="container">
       <div
-        class="d-flex flex-column align-items-center justify-content-center my-5"
+        class="d-flex flex-column align-items-center justify-content-center mb-5"
       >
         <p class="fw-bold mb-n1 text-cusGray">CATEGORIES</p>
         <h3 class="h1 fw-bold mt-1">
@@ -77,13 +77,13 @@
           >
         </h3>
       </div>
-      <!-- data-aos="fade-up" -->
-      <div class="row d-flex flex-md-row flex-column">
+      <div class="row d-flex flex-md-row flex-column" data-aos="fade-up">
         <div class="col-md-4">
-          <div class="row d-flex flex-row flex-md-column gx-0">
+          <div class="row d-flex flex-row flex-md-column  gx-0">
             <div class="col">
               <div
-                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0 text-white
+                border-5 h-100 position-relative overflow-hidden imgHover"
               >
                 <router-link
                   class="nav-item nav-link me-4 stretched-link"
@@ -96,16 +96,17 @@
                   alt="vegePizza"
                 />
                 <div
-                  class="position-absolute top-0 start-10 w-100 bg-dark-gradient p-2"
+                  class="position-absolute top-0 start-0 w-100 bg-dark-gradient p-3"
                 >
-                  <h5>蔬食首選</h5>
-                  <p>VEGE</p>
+                  <h5 class="fw-bold fs-2">蔬食首選</h5>
+                  <p class="fw-bold fs-6 ps-1">VEGE</p>
                 </div>
               </div>
             </div>
             <div class="col mt-md-4 mt-0">
               <div
-                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0 text-white
+                border-5 h-100 position-relative overflow-hidden imgHover"
               >
                 <router-link
                   class="nav-item nav-link me-4 stretched-link"
@@ -118,10 +119,10 @@
                   alt="seafood"
                 />
                 <div
-                  class="position-absolute top-0 start-10 w-100 bg-dark-gradient p-2"
+                  class="position-absolute top-0 start-0 w-100 bg-dark-gradient p-3"
                 >
-                  <h5>海鮮至上</h5>
-                  <p>SEA FOOD</p>
+                  <h5 class="fw-bold fs-2">海鮮至上</h5>
+                  <p class="fw-bold fs-6 ps-1">SEA FOOD</p>
                 </div>
               </div>
             </div>
@@ -129,7 +130,8 @@
         </div>
         <div class="col-md-4">
           <div
-            class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+            class="rounded-md-3 rounded-0 text-white
+            border-5 h-100 position-relative overflow-hidden imgHover"
           >
             <router-link
               class="nav-item nav-link me-4 stretched-link"
@@ -148,10 +150,10 @@
               alt="meet"
             />
             <div
-              class="position-absolute top-0 start-10 w-100 bg-dark-gradient p-2"
+              class="position-absolute top-0 start-0 w-100 bg-dark-gradient p-3"
             >
-              <h5>無肉不歡</h5>
-              <p>MEAT</p>
+              <h5 class="fw-bold fs-2">無肉不歡</h5>
+              <p class="fw-bold fs-6 ps-1">MEAT</p>
             </div>
           </div>
         </div>
@@ -159,7 +161,8 @@
           <div class="row d-flex lex-row flex-md-column gx-0">
             <div class="col">
               <div
-                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0 text-white
+                border-5 h-100 position-relative overflow-hidden imgHover"
               >
                 <router-link
                   class="nav-item nav-link me-4 stretched-link"
@@ -172,16 +175,17 @@
                   alt="sidemeal"
                 />
                 <div
-                  class="position-absolute top-0 start-10 w-100 bg-dark-gradient p-2"
+                  class="position-absolute top-0 start-0 w-100 bg-dark-gradient p-3"
                 >
-                  <h5>精緻副食</h5>
-                  <p>SIDE MEAL</p>
+                  <h5 class="fw-bold fs-2">精緻副食</h5>
+                  <p class="fw-bold fs-6 ps-1">SIDE MEAL</p>
                 </div>
               </div>
             </div>
             <div class="col mt-md-4 mt-0 ">
               <div
-                class="text-white border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0 text-white border-5
+                h-100 position-relative overflow-hidden imgHover"
               >
                 <img
                   src="@/assets/img/dessert.png"
@@ -195,10 +199,10 @@
                   @click="() => changeCategory('甜食主義')"
                 ></router-link>
                 <div
-                  class="position-absolute top-0 start-10 w-100 bg-dark-gradient p-2"
+                  class="position-absolute top-0 start-0 w-100 bg-dark-gradient p-3"
                 >
-                  <h5>甜食主義</h5>
-                  <p>DESSERT</p>
+                  <h5 class="fw-bold fs-2">甜食主義</h5>
+                  <p class="fw-bold fs-6 ps-1">DESSERT</p>
                 </div>
               </div>
             </div>
@@ -208,9 +212,9 @@
     </div>
   </div>
   <!-- 精選口味 -->
-  <div class="container">
+  <div class="container my-5">
     <div
-      class="d-flex flex-column align-items-center justify-content-center my-5"
+      class="d-flex flex-column align-items-center justify-content-center mt-5"
     >
       <p class="fw-bold mb-n1 text-cusGray">TOP FLAVORS</p>
       <h3 class="h1 fw-bold mt-1">

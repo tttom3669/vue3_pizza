@@ -1,5 +1,5 @@
 <template>
-  <div class="bg_texture2" style="min-height: 600px">
+  <div class="bg_texture3" style="min-height: 600px">
     <div class="container mb-5">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

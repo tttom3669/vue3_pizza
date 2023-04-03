@@ -11,6 +11,11 @@
 .boxTranslate:hover {
     transform: translate(5px, -5px);
 }
+// 產品卡片 hover 效果
+.cardHover:hover {
+    transform: scale(1.01);
+    box-shadow: 0 .5rem 1rem rgba(black, .15);
+}
 .btn-cusDarkBrown:hover {
     background-color: var(--bs-cusBrown);
 }
@@ -38,6 +43,12 @@ body {
 }
 
 .bg_texture2 {
+    background-image: url('@/assets/img/category_texture.png');
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.bg_texture3 {
     background-image: url('@/assets/img/category_texture.png');
     background-size: auto;
     background-position: center top;

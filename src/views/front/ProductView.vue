@@ -1,5 +1,5 @@
 <template>
-  <div class="bg_texture2">
+  <div class="bg_texture3">
     <div class="container">
       <!-- 麵包屑 -->
       <nav aria-label="breadcrumb">
@@ -29,7 +29,10 @@
           />
         </div>
         <div class="col-lg-8">
-          <h3 class="fw-bold">{{ tempProduct.title }}</h3>
+          <div class="d-flex flex-row align-items-baseline">
+            <h3 class="fw-bold">{{ tempProduct.title }}</h3>
+            <h4 class="text-cusBrown ms-3">{{ tempProduct.enTitle }}</h4>
+          </div>
           <!--商品類別-->
           <span
             class="badge bg-primary rounded-pill mb-3"
@@ -43,7 +46,7 @@
           <div class="h5" v-if="tempProduct.price === tempProduct.origin_price">
             {{ tempProduct.price }} 元
           </div>
-          <div class="d-flex flex-row align-items-center mb-2" v-else>
+          <div class="d-flex flex-row align-items-baseline mb-2" v-else>
             <div class="h5 text-cusBrown fw-bold me-2">
               NT${{ tempProduct.price }}
             </div>
@@ -52,7 +55,7 @@
             >
           </div>
 
-          <div class="w-50">
+          <div class="w-100 w-md-50">
             <!-- 商品數量/單位 -->
             <div class="input-group mb-3">
               <button
@@ -80,8 +83,8 @@
                 <i class="bi bi-plus"></i>
               </button>
             </div>
-            <div class="row flex-column flex-sm-row gy-3">
-              <div class="col-md-6">
+            <div class="row flex-row gy-3">
+              <div class="col-6">
                 <button
                   type="button"
                   class="btn btn-cusDarkBrown text-white w-100"
@@ -97,7 +100,7 @@
                   加入購物車
                 </button>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <button
                   type="button"
                   class="btn btn-primary  w-100 text-white"
@@ -127,7 +130,7 @@
         class="d-flex flex-column align-items-start justify-content-center mt-3"
       >
         <h3 class="fw-bold mt-1 border-3 border-start border-primary">
-          <span class="text-primary me-3"></span>精選商品
+          <span class="text-cusDarkBrown ms-3">精選商品</span>
         </h3>
       </div>
       <SwiperTopFlavors :category="'全部商品'"></SwiperTopFlavors>

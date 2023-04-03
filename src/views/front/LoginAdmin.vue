@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2';
+import { mapActions } from 'pinia';
+import swalMessage from '@/stores/swalMessage';
 
 const { VITE_APP_URL } = import.meta.env;
 
@@ -52,25 +53,20 @@ export default {
     };
   },
   methods: {
+    ...mapActions(swalMessage, ['swalShow']),
     // 使用者登入驗證
     login() {
       this.$http
         .post(`${VITE_APP_URL}/admin/signin`, this.user)
         .then((res) => {
-          Swal.fire({
-            icon: 'success',
-            title: `${res.data.message}`,
-          });
+          this.swalShow(`${res.data.message}`, 'success');
           const { token, expired } = res.data;
           // 把token和時效存在cookie中
           document.cookie = `yoToken=${token}; expires=${new Date(expired)};`;
           this.$router.push('/admin/products');
         })
         .catch(() => {
-          Swal.fire({
-            icon: 'error',
-            title: '帳號密碼錯誤，請重新輸入',
-          });
+          this.swalShow('帳號密碼錯誤，請重新輸入', 'error');
         });
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <div data-aos="fade-down">
+  <div>
     <swiper
       :breakpoints="swiperBreakpoints"
       :modules="modules"

@@ -1,20 +1,20 @@
 <template>
   <div class="card h-100 rounded-3 cardHover position-relative" style="margin-top: 120px">
-    <router-link :to="`/product/${product.id}`">
+    <RouterLink :to="`/product/${product.id}`">
       <img
         :src="product.imageUrl"
         class="card-img-top w-75 position-absolute top-0 start-50 translate-middle img-fluid"
-        alt="pizza"
+        :alt="product.title"
       />
-    </router-link>
+    </RouterLink>
     <div class="card-body" style="margin-top: 100px">
-      <router-link
+      <RouterLink
         :to="`/product/${product.id}`"
         @click.prevent="() => getProduct(product.id)"
         class="text-decoration-none text-cusDarkBrown text-nowrap"
       >
         <h5 class="card-title fw-bold">{{ product.title }}</h5>
-      </router-link>
+      </RouterLink>
       <!-- 英文名 -->
       <p class="card-subtitle text-cusBrown mb-1" style="height:24px">{{product.enTitle}}</p>
       <div
@@ -86,9 +86,11 @@ import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
 import collectionStore from '@/stores/collectionStore';
 import productsStore from '@/stores/productsStore';
+import { RouterLink } from 'vue-router';
 
 export default {
   props: ['product'],
+  components: { RouterLink },
   methods: {
     ...mapActions(cartStore, ['addToCart']),
     ...mapActions(collectionStore, ['getCollection', 'updateCollection']),

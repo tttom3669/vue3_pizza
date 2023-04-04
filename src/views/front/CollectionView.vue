@@ -16,15 +16,18 @@
         style="margin-top: 100px"
       >
         <div class="text-center my-5 fw-bold text-cusBrown fs-4">
-            <i class="bi bi-bag-heart"></i>
+          <i class="bi bi-bag-heart"></i>
           您的收藏清單目前是空的喔
         </div>
         <div class="w-100 text-center">
-          <router-link class="text-decoration-none text-white" to="/products">
-            <button type="button" class="btn btn-cusDarkBrown text-white w-md-25 w-50">
+          <RouterLink class="text-decoration-none text-white" to="/products">
+            <button
+              type="button"
+              class="btn btn-cusDarkBrown text-white w-md-25 w-50"
+            >
               返回購物
             </button>
-          </router-link>
+          </RouterLink>
         </div>
       </div>
       <div class="mt-4 mb-5" v-if="filterProducts">
@@ -54,7 +57,7 @@
           <div class="col-md-2 col-4 py-2">
             <img
               :src="product.imageUrl"
-              alt=""
+              :alt="product.title"
               class="object-fit-cover"
               height="70"
               width="70"
@@ -63,13 +66,13 @@
           <div class="col-md-2 col-4">
             <div class="d-flex flex-column justify-content-center">
               <div class="text-nowrap mb-1">
-                <router-link
+                <RouterLink
                   :to="`/product/${product.id}`"
                   class="text-decoration-none fw-bold text-cusDarkBrown"
                   @click.prevent="() => getProduct(product.id)"
                 >
                   {{ product.title }}
-                </router-link>
+                </RouterLink>
               </div>
               <div class="text-nowrap mb-1 d-md-none d-block">
                 NT$ {{ product.price }} / {{ product.unit }}
@@ -79,7 +82,7 @@
           <div class="col-2 d-md-block d-none">
             {{ product.productCategory }}
           </div>
-          <div class="col-2 d-md-block d-none ">
+          <div class="col-2 d-md-block d-none">
             <div class="text-nowrap mb-1">
               NT$ {{ product.price }} / {{ product.unit }}
             </div>
@@ -103,77 +106,10 @@
             </div>
           </div>
         </div>
-        <!-- <table class="table bg-white align-middle" v-if="filterProducts">
-          <thead>
-            <tr>
-              <th></th>
-              <th>品名</th>
-              <th>分類</th>
-              <th>價格</th>
-              <th>購買</th>
-              <th class="text-center">取消收藏</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="product in filterProducts"
-              class="border"
-              :key="product.id"
-              style="width: 300px"
-            >
-              <td>
-                <img
-                  :src="product.imageUrl"
-                  alt=""
-                  class="object-fit-cover"
-                  height="70"
-                  width="70"
-                />
-              </td>
-              <td class="p-2">
-                <div class="text-nowrap mb-1">
-                  <router-link
-                    :to="`/product/${product.id}`"
-                    class="text-decoration-none fw-bold text-cusDarkBrown"
-                    @click.prevent="() => getProduct(product.id)"
-                  >
-                    {{ product.title }}
-                  </router-link>
-                </div>
-              </td>
-              <td class="p-2">
-                {{ product.productCategory }}
-              </td>
-              <td>
-                <div class="text-nowrap mb-1">
-                  NT$ {{ product.price }} / {{ product.unit }}
-                </div>
-              </td>
-              <td class="p-2">
-                <div
-                  type="button"
-                  class="navBarLink"
-                  @click.prevent="() => addToCart(product.id)"
-                >
-                  <i class="bi bi-bag-plus"></i>
-                </div>
-              </td>
-              <td class="p-2 text-center">
-                <div
-                  type="button"
-                  class="navBarLink"
-                  @click.prevent="() => updateCollection(product)"
-                >
-                  <i class="bi bi-trash3"></i>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table> -->
       </div>
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 
 <script>
@@ -181,8 +117,10 @@ import { mapState, mapActions } from 'pinia';
 import collectionStore from '@/stores/collectionStore';
 import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
+import { RouterLink } from 'vue-router';
 
 export default {
+  components: { RouterLink },
   methods: {
     ...mapActions(collectionStore, ['getCollection', 'updateCollection']),
     ...mapActions(cartStore, ['addToCart']),

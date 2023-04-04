@@ -2,7 +2,7 @@
   <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
       <!-- 常見問題標題 -->
-      <FrontHeading :title="'常見問題'" />
+      <FrontHeading :title="'常見問題'" class="mt-3"/>
        <!-- 常見問題問題集 -->
       <div class="accordion mt-3" id="accordionQuestion">
         <div class="accordion-item">

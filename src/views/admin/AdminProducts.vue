@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="text-end mt-4">
-      <button class="btn btn-primary" @click="openModal('create')">建立新的產品</button>
+      <button  type="button" class="btn btn-primary" @click="openModal('create')">
+        建立新的產品
+      </button>
     </div>
     <table class="table mt-4">
       <thead>
@@ -53,8 +55,8 @@
         </tr>
       </tbody>
     </table>
-    <VueLoading v-model:active="isLoading"></VueLoading>
-    <SharedPagination :pages="page" @change-page="getProducts"></SharedPagination>
+    <VueLoading v-model:active="isLoading" />
+    <SharedPagination :pages="page" @change-page="getProducts" />
     <!-- 新增/修改產品 Modal -->
     <ProductModal
       ref="productModal"
@@ -62,14 +64,14 @@
       :is-new="isNew"
       @update-product="updateProduct"
       @create-images="createImages"
-    ></ProductModal>
+    />
     <!-- 刪除產品 Modal -->
     <DelItemModal
       ref="delProductModal"
       :temp-item="tempProduct"
       :del-modal-type="delModalType"
       @del-item="delProduct"
-    ></DelItemModal>
+    />
   </div>
 </template>
 <script>

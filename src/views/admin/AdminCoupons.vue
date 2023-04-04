@@ -31,12 +31,14 @@
           <td>
             <div class="btn-group">
               <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openModal('edit', coupon)"
               >
                 編輯
               </button>
               <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openModal('delete', coupon)"
               >
@@ -47,20 +49,20 @@
         </tr>
       </tbody>
     </table>
-    <VueLoading v-model:active="isLoading"></VueLoading>
-    <SharedPagination :pages="page" @change-page="getCoupons"></SharedPagination>
+    <VueLoading v-model:active="isLoading" />
+    <SharedPagination :pages="page" @change-page="getCoupons" />
     <CouponModal
       :coupon="tempCoupon"
       :is-new="isNew"
       ref="couponModal"
       @update-coupon="updateCoupon"
-    ></CouponModal>
+    />
     <DelItemModal
       ref="delCouponModal"
       :temp-item="tempCoupon"
       :del-modal-type="delModalType"
       @del-item="delCoupon"
-    ></DelItemModal>
+    />
   </div>
 </template>
 

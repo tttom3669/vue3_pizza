@@ -2,13 +2,8 @@
   <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
       <!-- 最新消息標題 -->
-      <div
-        class="d-flex flex-column align-items-start justify-content-center mt-3"
-      >
-        <h3 class="fw-bold mt-1 border-3 border-start border-primary">
-          <span class="text-cusDarkBrown ms-3">最新消息</span>
-        </h3>
-      </div>
+      <FrontHeading :title="'最新消息'" class="mt-3" />
+      <!-- 文章 -->
       <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
         <template v-for="article in articles" :key="article.id">
           <div class="col">
@@ -17,6 +12,7 @@
                 <div class="col-md-5">
                   <img
                     :src="article.imageUrl"
+                    :alt="article.title"
                     class="card-img-top h-100 w-100 object-fit-cover"
                   />
                 </div>
@@ -36,12 +32,12 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <router-link
+                    <RouterLink
                       :to="`/articles/${article.id}`"
                       class="btn btn-outline-primary"
                     >
                       文章頁面
-                    </router-link>
+                    </RouterLink>
                   </div>
                 </div>
               </div>
@@ -51,10 +47,15 @@
       </div>
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <SharedPagination :pages="page" @change-page="getArticles" />
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 
 <script>
+import FrontHeading from '@/components/front/FrontHeading.vue';
+import { RouterLink } from 'vue-router';
+import SharedPagination from '@/components/shared/SharedPagination.vue';
+
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
 export default {
@@ -62,14 +63,17 @@ export default {
     return {
       articles: [],
       isLoading: false,
+      page: {},
     };
   },
+  components: { FrontHeading, RouterLink, SharedPagination },
   methods: {
     getArticles(page = 1) {
       this.isLoading = true;
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/articles/?page=${page}`;
       this.$http.get(url).then((res) => {
         this.articles = res.data.articles;
+        this.page = res.data.pagination; // 取得頁數
         this.isLoading = false;
       });
     },

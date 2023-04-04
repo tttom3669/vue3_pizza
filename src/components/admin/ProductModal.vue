@@ -49,7 +49,11 @@
                       @change="uploadFile"
                     />
                   </div>
-                  <img class="img-fluid" :src="tempProduct.imageUrl" />
+                  <img
+                    class="img-fluid"
+                    :src="tempProduct.imageUrl"
+                    alt="tempProductImage"
+                  />
                 </div>
                 <div>
                   <h3 class="mb-3">多圖新增</h3>
@@ -67,10 +71,11 @@
                         placeholder="請輸入圖片連結"
                         v-model="tempProduct.imagesUrl[key]"
                       />
-                      <img class="img-fluid" :src="image" />
+                      <img class="img-fluid" :src="image" :alt="key + 'img'" />
                     </div>
                     <!--根據多圖陣列長度、內容，切換顯示新增圖片、刪除圖片-->
                     <button
+                      type="button"
                       class="btn btn-outline-primary btn-sm d-block w-100"
                       @click="$emit('createImages')"
                       v-if="
@@ -82,6 +87,7 @@
                     </button>
 
                     <button
+                      type="button"
                       class="btn btn-outline-danger btn-sm mt-2 d-block w-100"
                       @click="tempProduct.imagesUrl.pop()"
                       v-if="tempProduct.imagesUrl.length"
@@ -92,6 +98,7 @@
                   <!--存放多圖網址的變數若未初始化為陣列則使顯示此區塊 -->
                   <template v-else>
                     <button
+                      type="button"
                       class="btn btn-outline-primary btn-sm d-block w-100"
                       @click="$emit('createImages', 'init')"
                     >
@@ -114,10 +121,7 @@
                       :class="{ 'is-invalid': errors['標題'] }"
                       rules="required"
                     />
-                    <ErrorMessage
-                      name="標題"
-                      class="invalid-feedback"
-                    ></ErrorMessage>
+                    <ErrorMessage name="標題" class="invalid-feedback" />
                   </div>
                   <div class="col-6">
                     <label for="enTitle" class="form-label">英文標題</label>
@@ -142,10 +146,7 @@
                     :class="{ 'is-invalid': errors['分類'] }"
                     rules="required"
                   />
-                  <ErrorMessage
-                    name="分類"
-                    class="invalid-feedback"
-                  ></ErrorMessage>
+                  <ErrorMessage name="分類" class="invalid-feedback" />
                 </div>
                 <div class="row">
                   <div class="mb-3 col-md-6">
@@ -183,10 +184,7 @@
                       :class="{ 'is-invalid': errors['單位'] }"
                       rules="required"
                     />
-                    <ErrorMessage
-                      name="單位"
-                      class="invalid-feedback"
-                    ></ErrorMessage>
+                    <ErrorMessage name="單位" class="invalid-feedback" />
                   </div>
                 </div>
 
@@ -204,10 +202,7 @@
                       :class="{ 'is-invalid': errors['原價'] }"
                       rules="required|min_value:0"
                     />
-                    <ErrorMessage
-                      name="原價"
-                      class="invalid-feedback"
-                    ></ErrorMessage>
+                    <ErrorMessage name="原價" class="invalid-feedback" />
                   </div>
                   <div class="mb-3 col-md-6">
                     <label for="price" class="form-label">售價</label>
@@ -222,10 +217,7 @@
                       :class="{ 'is-invalid': errors['售價'] }"
                       rules="required|min_value:0"
                     />
-                    <ErrorMessage
-                      name="售價"
-                      class="invalid-feedback"
-                    ></ErrorMessage>
+                    <ErrorMessage name="售價" class="invalid-feedback" />
                   </div>
                 </div>
                 <hr />

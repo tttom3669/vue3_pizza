@@ -2,58 +2,9 @@
   <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
       <!-- 進度條 -->
-      <div class="row d-flex justify-content-center mt-3">
-        <div class="col-12 col-md-6">
-          <div class="col">
-            <div class="position-relative m-4">
-              <div class="progress" style="height: 1px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 50%"
-                  aria-valuenow="50"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div
-                class="position-absolute top-0 start-0
-                text-white translate-middle btn btn-sm btn-primary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                1
-              </div>
-              <div
-                class="position-absolute top-0 start-50
-                text-white translate-middle btn btn-sm btn-secondary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                2
-              </div>
-              <div
-                class="position-absolute top-0 start-100
-                text-white translate-middle btn btn-sm btn-secondary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                3
-              </div>
-            </div>
-          </div>
-          <div class="col d-flex justify-content-between text-primary fw-bold">
-            <span class="ms-n1">確認購買</span>
-            <span class="text-secondary">填寫資料</span>
-            <span class="text-secondary me-n1">完成訂單</span>
-          </div>
-        </div>
-      </div>
+      <ProgressBar :stage="1" class="mt-3"/>
       <!-- 購物車標題 -->
-      <div
-        class="d-flex flex-column align-items-start justify-content-center mt-3"
-      >
-        <h3 class="fw-bold mt-1 border-3 border-start border-primary">
-          <span class="text-cusDarkBrown ms-3">購物車</span>
-        </h3>
-      </div>
+      <FrontHeading :title="'購物車'" class="mt-3"/>
       <!--購物車未有商品-->
       <div
         class="d-flex flex-column justify-content-center align-items-center"
@@ -65,14 +16,14 @@
           您的購物車目前是空的喔
         </div>
         <div class="w-100 text-center">
-          <router-link class="text-decoration-none text-white" to="/products">
+          <RouterLink class="text-decoration-none text-white" to="/products">
             <button
               type="button"
               class="btn btn-cusDarkBrown text-white w-md-25 w-50"
             >
               返回購物
             </button>
-          </router-link>
+          </RouterLink>
         </div>
       </div>
       <div class="mt-4 mb-5" v-else>
@@ -106,34 +57,32 @@
           </div>
           <!-- 產品圖片 -->
           <div class="col-2 col-md-1 order-1 order-md-2">
-            <router-link :to="`/product/${item.product.id}`">
+            <RouterLink :to="`/product/${item.product.id}`">
               <img
                 :src="item.product.imageUrl"
-                alt=""
+                :alt="item.product.title"
                 class="object-fit-cover"
                 height="70"
                 width="70"
               />
-            </router-link>
+            </RouterLink>
           </div>
           <div class="col-8 col-md-4 order-2 order-md-3">
             <!-- 商品名稱 -->
             <div class="d-flex flex-column text-nowrap">
-              <router-link
+              <RouterLink
                 :to="`/product/${item.product.id}`"
                 class="text-decoration-none text-cusDarkBrown text"
               >
                 {{ item.product.title }}
-              </router-link>
+              </RouterLink>
               <div>NT$ {{ item.product.price }} / {{ item.product.unit }}</div>
             </div>
           </div>
           <div class="col order-4 my-3">
             <div class="input-group input-group-sm">
               <!-- 商品數量/單位 -->
-              <div
-                class="d-flex justify-content-center flex-nowrap"
-              >
+              <div class="d-flex justify-content-center flex-nowrap">
                 <button
                   type="button"
                   class="btn btn-outline-primary"
@@ -146,7 +95,7 @@
                 <input
                   type="number"
                   class="form-control text-center hide-arrows"
-                  :value = "item.qty"
+                  :value="item.qty"
                   readonly
                 />
                 <button
@@ -196,23 +145,23 @@
         v-if="cart?.carts?.length"
       >
         <div class="col-md-2 col-6">
-          <router-link class="text-decoration-none text-white" to="/products">
+          <RouterLink class="text-decoration-none text-white" to="/products">
             <button type="button" class="btn btn-cusDarkBrown text-white w-100">
               返回購物
             </button>
-          </router-link>
+          </RouterLink>
         </div>
         <div class="col-md-2 col-6">
-          <router-link class="text-decoration-none text-white" to="/order">
+          <RouterLink class="text-decoration-none text-white" to="/order">
             <button type="button" class="btn btn btn-primary w-100 text-white">
               確認送出
             </button>
-          </router-link>
+          </RouterLink>
         </div>
       </div>
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 
 <style>
@@ -222,18 +171,21 @@
 .clickBtn:hover {
   color: var(--bs-primary);
 }
-
 </style>
 
 <script>
 import { mapState, mapActions } from 'pinia';
 import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
+import ProgressBar from '@/components/front/ProgressBar.vue';
+import FrontHeading from '@/components/front/FrontHeading.vue';
+import { RouterLink } from 'vue-router';
 
 export default {
   data() {
     return {};
   },
+  components: { ProgressBar, FrontHeading, RouterLink },
   computed: {
     ...mapState(cartStore, ['cart']),
     ...mapState(loadingStore, ['isLoading', 'loadingItem']),

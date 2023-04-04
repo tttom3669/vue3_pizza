@@ -14,7 +14,7 @@
           <img
             src="@/assets/img/local_pizza.png"
             class="d-none d-lg-block object-fit-contain me-1"
-            alt=""
+            alt="landingPizzaImg"
           />
           <VField
             class="form-control me-2"

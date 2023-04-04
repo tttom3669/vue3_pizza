@@ -72,19 +72,15 @@
         </template>
       </tbody>
     </table>
-    <VueLoading v-model:active="isLoading"></VueLoading>
-    <SharedPagination :pages="page" @change-page="getOrders"></SharedPagination>
-    <OrderModal
-      :order="tempOrder"
-      ref="orderModal"
-      @update-paid="updatePaid"
-    ></OrderModal>
+    <VueLoading v-model:active="isLoading" />
+    <SharedPagination :pages="page" @change-page="getOrders" />
+    <OrderModal :order="tempOrder" ref="orderModal" @update-paid="updatePaid" />
     <DelItemModal
       ref="delOrderModal"
       :temp-item="tempOrder"
       :del-modal-type="delModalType"
       @del-item="delOrder"
-    ></DelItemModal>
+    />
   </div>
 </template>
 

@@ -2,51 +2,10 @@
   <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
       <!-- 進度條 -->
-      <div class="row d-flex justify-content-center mt-3">
-        <div class="col-12 col-md-6">
-          <div class="col">
-            <div class="position-relative m-4">
-              <div class="progress" style="height: 1px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 50%"
-                  aria-valuenow="50"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div
-                class="position-absolute top-0 start-0
-                text-white translate-middle btn btn-sm btn-primary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                1
-              </div>
-              <div
-                class="position-absolute top-0 start-50
-                text-white translate-middle btn btn-sm btn-primary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                2
-              </div>
-              <div
-                class="position-absolute top-0 start-100
-                text-white translate-middle btn btn-sm btn-primary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                3
-              </div>
-            </div>
-          </div>
-          <div class="col d-flex justify-content-between text-primary fw-bold">
-            <span class="ms-n1">確認購買</span>
-            <span>填寫資料</span>
-            <span class="me-n1">完成訂單</span>
-          </div>
-        </div>
-      </div>
+      <ProgressBar :stage="3" />
+      <!-- 訂單 -->
       <div class="row mt-4 d-flex flex-column flex-lg-row">
+        <!-- 訂單明細 -->
         <div class="col-lg-5">
           <div class="card">
             <div class="card-body">
@@ -54,15 +13,17 @@
               <table class="table align-middle">
                 <tbody>
                   <tr v-for="item in order.products" :key="item.id">
+                    <!-- 商品圖 -->
                     <td>
                       <img
                         :src="item.product.imageUrl"
-                        alt=""
+                        :alt="item.product.title"
                         class="object-fit-cover"
                         height="70"
                         width="70"
                       />
                     </td>
+                    <!-- 商品名稱 -->
                     <td class="p-2">
                       <div class="text-nowrap">
                         {{ item.product.title }}
@@ -77,26 +38,21 @@
                 </tbody>
               </table>
               <div class="row row-cols-2 d-flex justify-content-between">
-                <div
-                    class="pb-2 col text-cusGray fw-bold text-start"
-                  >
-                    運費
-                  </div>
-                  <div
-                    class="pb-2 col text-cusGray fw-bold text-end"
-                  >
-                    +NT$ {{  order.user.cartDeliveryFee }}
-                  </div>
+                <div class="pb-2 col text-cusGray fw-bold text-start">運費</div>
+                <div class="pb-2 col text-cusGray fw-bold text-end">
+                  +NT$ {{ order.user.cartDeliveryFee }}
+                </div>
                 <div class="col py-2 h5 text-cusDarkBrown fw-bold text-start">
                   總金額
                 </div>
                 <div class="col py-2 h5 text-cusDarkBrown fw-bold text-end">
-                  NT$ {{ order.total + order.user.cartDeliveryFee}}
+                  NT$ {{ order.total + order.user.cartDeliveryFee }}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- 訂單資訊-->
         <div class="col-lg-7">
           <div class="card mt-3 mt-md-0">
             <div class="card-body">
@@ -165,22 +121,24 @@
               來去付款
             </button>
             <button type="button" class="btn btn-primary text-white" v-else>
-              <router-link to="/" class="text-decoration-none text-white">
+              <RouterLink to="/" class="text-decoration-none text-white">
                 返回首頁
-              </router-link>
+              </RouterLink>
             </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 
 <script>
 import { mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
 import cartStore from '@/stores/cartStore';
+import ProgressBar from '@/components/front/ProgressBar.vue';
+import { RouterLink } from 'vue-router';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
@@ -194,6 +152,7 @@ export default {
       isLoading: false,
     };
   },
+  components: { ProgressBar, RouterLink },
   props: ['orderId'],
   methods: {
     ...mapActions(swalMessage, ['swalShow']),

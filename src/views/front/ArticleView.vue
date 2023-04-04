@@ -4,7 +4,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <router-link to="/articles">最新消息</router-link>
+            <RouterLink  to="/articles">最新消息</RouterLink>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
             {{ article.title }}
@@ -21,15 +21,21 @@
             -
             <small class="text-muted">作者：{{ article.author }}</small>
           </p>
-          <img :src="article.imageUrl" alt="" class="img-fluid mb-3" />
-          <div v-html="article.content"></div>
+          <img
+            :src="article.imageUrl"
+            :alt="article.title"
+            class="img-fluid mb-3"
+          />
+          <div v-html="article.content" />
         </article>
       </div>
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 <script>
+import { RouterLink } from 'vue-router';
+
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
 export default {
@@ -39,6 +45,7 @@ export default {
       isLoading: false,
     };
   },
+  components: { RouterLink },
   props: ['articleId'],
   methods: {
     getArticle() {

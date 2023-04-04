@@ -7,9 +7,9 @@
   >
     <div class="offcanvas-header">
       <h5 id="offcanvasRightLabel">
-        <router-link class="navbar-brand" to="/">
+        <RouterLink class="navbar-brand" to="/">
           <img src="@/assets/img/logo1.png" alt="logo" />
-        </router-link>
+        </RouterLink>
       </h5>
       <button
         type="button"
@@ -28,24 +28,24 @@
           class="list-group-item"
           :class="{ active: currentPage === '最新消息'}"
         >
-          <router-link
+          <RouterLink
             to="/articles"
             class="stretched-link"
             @click="() => {changePage('最新消息');}"
           >
-          </router-link>
+          </RouterLink>
           <span class="accordion-header ms-1">最新消息</span>
         </div>
         <div
           class="list-group-item"
           :class="{ active: '全部商品' === filterCategory && currentPage === '美味菜單'}"
         >
-          <router-link
+          <RouterLink
             to="/products"
             class="stretched-link"
             @click="() => {changeCategory('全部商品'); changePage('美味菜單');}"
           >
-          </router-link>
+          </RouterLink>
           <span class="accordion-header ms-1">美味菜單</span>
         </div>
         <div class="accordion-item">
@@ -75,12 +75,12 @@
                   :key="category"
                   :class="{ active: category === filterCategory }"
                 >
-                  <router-link
+                  <RouterLink
                     class="stretched-link"
                     to="/products"
                     @click="() => {changeCategory(`${category}`);
                     changeCollapseStyle('flush-collapseMenu');}"
-                  ></router-link>
+                  ></RouterLink>
                   {{ category }}
                 </li>
                 <li
@@ -89,18 +89,30 @@
                   :key="category"
                   :class="{ active: category === filterCategory }"
                 >
-                  <router-link
+                  <RouterLink
                     class="stretched-link"
                     to="/products"
                     @click="() => {changeCategory(`${category}`);
                   changeCollapseStyle('flush-collapseMenu');}"
-                  ></router-link>
+                  ></RouterLink>
 
                   {{ category }}
                 </li>
               </ul>
             </div>
           </div>
+        </div>
+        <div
+          class="list-group-item"
+          :class="{ active: currentPage === '常見問題'}"
+        >
+          <RouterLink
+            to="/question"
+            class="stretched-link"
+            @click="() => {changePage('常見問題');}"
+          >
+          </RouterLink>
+          <span class="accordion-header ms-1">常見問題</span>
         </div>
       </div>
     </div>
@@ -110,6 +122,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
+import { RouterLink } from 'vue-router';
 
 export default {
   data() {
@@ -117,6 +130,7 @@ export default {
       currentPage: '',
     };
   },
+  components: { RouterLink },
   computed: {
     ...mapState(productsStore, ['productCategory', 'filterCategory']),
   },

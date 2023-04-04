@@ -5,14 +5,14 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <router-link to="/" class="text-decoration-none">首頁</router-link>
+            <RouterLink to="/" class="text-decoration-none">首頁</RouterLink>
           </li>
           <li class="breadcrumb-item">
-            <router-link
+            <RouterLink
               to="/products"
               @click="() => changeCategory(`${tempProduct.productCategory}`)"
               class="text-decoration-none"
-              >{{ tempProduct.productCategory }}</router-link
+              >{{ tempProduct.productCategory }}</RouterLink
             >
           </li>
           <li class="breadcrumb-item" aria-current="page">
@@ -20,6 +20,7 @@
           </li>
         </ol>
       </nav>
+      <!-- 產品 -->
       <div class="row mt-5">
         <div class="col-lg-4">
           <img
@@ -107,7 +108,7 @@
                   @click.prevent="() => addToCart_Check()"
                   :disabled="loadingItem === tempProduct.id"
                 >
-                  <router-link
+                  <RouterLink
                     class="text-decoration-none text-white"
                     to="/cart"
                   >
@@ -118,7 +119,7 @@
                       v-if="loadingItem === tempProduct.id"
                     ></span>
                     立刻購買
-                  </router-link>
+                  </RouterLink>
                 </button>
               </div>
             </div>
@@ -133,10 +134,10 @@
           <span class="text-cusDarkBrown ms-3">精選商品</span>
         </h3>
       </div>
-      <SwiperTopFlavors :category="'全部商品'"></SwiperTopFlavors>
+      <SwiperTopFlavors :category="'全部商品'" />
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 <script>
 import { mapState, mapActions } from 'pinia';
@@ -145,6 +146,7 @@ import cartStore from '@/stores/cartStore';
 import loadingStore from '@/stores/loadingStore';
 import swalMessage from '@/stores/swalMessage';
 import SwiperTopFlavors from '@/components/front/SwiperTopFlavors.vue';
+import { RouterLink } from 'vue-router';
 
 export default {
   data() {
@@ -153,7 +155,7 @@ export default {
       productId: '',
     };
   },
-  components: { SwiperTopFlavors },
+  components: { SwiperTopFlavors, RouterLink },
   props: ['id'],
   computed: {
     ...mapState(cartStore, ['cart']),

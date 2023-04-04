@@ -2,78 +2,38 @@
   <div class="bg_texture3">
     <div class="container mb-5">
       <!-- 進度條 -->
-      <div class="row d-flex justify-content-center mt-3">
-        <div class="col-12 col-md-6">
-          <div class="col">
-            <div class="position-relative m-4">
-              <div class="progress" style="height: 1px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 50%"
-                  aria-valuenow="50"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div
-                class="position-absolute top-0 start-0
-                text-white translate-middle btn btn-sm btn-primary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                1
-              </div>
-              <div
-                class="position-absolute top-0 start-50
-                text-white translate-middle btn btn-sm btn-primary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                2
-              </div>
-              <div
-                class="position-absolute top-0 start-100
-                text-white translate-middle btn btn-sm btn-secondary rounded-pill"
-                style="width: 2rem; height: 2rem"
-              >
-                3
-              </div>
-            </div>
-          </div>
-          <div class="col d-flex justify-content-between text-primary fw-bold">
-            <span class="ms-n1">確認購買</span>
-            <span>填寫資料</span>
-            <span class="text-secondary me-n1">完成訂單</span>
-          </div>
-        </div>
-      </div>
+      <ProgressBar :stage="2" />
+      <!-- 訂單 -->
       <div class="row mt-4">
+        <!-- 訂單明細 -->
         <div class="col-md-5">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">訂單明細</h5>
-
               <table class="table align-middle" v-if="cart.carts">
                 <tbody>
                   <tr v-for="item in cart.carts" :key="item.id">
+                    <!-- 商品圖 -->
                     <td>
                       <img
                         :src="item.product.imageUrl"
-                        alt=""
+                        :alt="item.product.title"
                         class="object-fit-cover"
                         height="70"
                         width="70"
                       />
                     </td>
+                    <!-- 商品名稱 -->
                     <td class="p-2">
                       <div class="d-flex flex-column">
                         <div class="text-nowrap mb-1">
-                          <router-link
+                          <RouterLink
                             :to="`/product/${item.product.id}`"
                             class="text-decoration-none text-cusDarkBrown"
                             @click.prevent="() => getProduct(item.product.id)"
                           >
                             {{ item.product.title }}
-                          </router-link>
+                          </RouterLink>
                         </div>
                         <div class="text-nowrap mb-1">
                           NT$ {{ item.product.price }} / {{ item.product.unit }}
@@ -94,6 +54,7 @@
                 </tbody>
               </table>
               <div class="row row-cols-2 d-flex justify-content-between">
+                <!-- 優惠券 -->
                 <div class="input-group mb-3">
                   <input
                     type="text"
@@ -113,20 +74,17 @@
                     套用優惠券碼
                   </button>
                 </div>
+                <!-- 小計 -->
                 <div class="py-2 col text-cusGray fw-bold text-start">小計</div>
                 <div class="py-2 col text-cusGray fw-bold text-end">
                   NT$ {{ cart.total }}
                 </div>
-                <div
-                  class="py-2 col text-cusGray fw-bold text-start"
-                >
-                  運費
-                </div>
-                <div
-                  class="py-2 col text-cusGray fw-bold text-end"
-                >
+                <!-- 運費 -->
+                <div class="py-2 col text-cusGray fw-bold text-start">運費</div>
+                <div class="py-2 col text-cusGray fw-bold text-end">
                   +NT$ {{ deliveryFee }}
                 </div>
+                <!-- 優惠折抵 -->
                 <div
                   class="py-2 col text-success fw-bold text-start border-bottom"
                 >
@@ -137,16 +95,18 @@
                 >
                   -NT$ {{ cart.final_total - cart.total }}
                 </div>
+                <!-- 總計 -->
                 <div class="col py-2 h5 text-cusDarkBrown fw-bold text-start">
                   總計
                 </div>
                 <div class="col py-2 h5 text-cusDarkBrown fw-bold text-end">
-                  NT$ {{ cart.final_total + deliveryFee}}
+                  NT$ {{ cart.final_total + deliveryFee }}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- 訂單(收件人)資訊 -->
         <div class="col-md-7">
           <h4 class="h4 text-center my-3 mt-md-0">訂單資訊</h4>
           <VForm v-slot="{ errors }" @submit="createOrder">
@@ -163,46 +123,47 @@
                   placeholder="請輸入姓名"
                   v-model="userForm.user.name"
                 />
-                <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
+                <ErrorMessage name="姓名" class="invalid-feedback" />
               </div>
               <div class="col-md-6">
                 <label for="InputUserTel" class="form-label">收件人電話</label>
-              <VField
-                type="tel"
-                name="電話"
-                class="form-control"
-                :class="{ 'is-invalid': errors['電話'] }"
-                rules="required|min:8|max:10"
-                id="InputUserTel"
-                placeholder="請輸入電話"
-                v-model="userForm.user.tel"
-              />
-              <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
+                <VField
+                  type="tel"
+                  name="電話"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors['電話'] }"
+                  rules="required|min:8|max:10"
+                  id="InputUserTel"
+                  placeholder="請輸入電話"
+                  v-model="userForm.user.tel"
+                />
+                <ErrorMessage name="電話" class="invalid-feedback" />
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>
-                  <VField
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    id="email"
-                    :class="{ 'is-invalid': errors['email'] }"
-                    rules="email|required"
-                    aria-describedby="emailHelp"
-                    placeholder="請輸入 Email"
-                    v-model="userForm.user.email"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    class="invalid-feedback"
-                  ></ErrorMessage>
+                <VField
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  id="email"
+                  :class="{ 'is-invalid': errors['email'] }"
+                  rules="email|required"
+                  aria-describedby="emailHelp"
+                  placeholder="請輸入 Email"
+                  v-model="userForm.user.email"
+                />
+                <ErrorMessage name="email" class="invalid-feedback" />
               </div>
               <div class="col-md-6">
                 <label for="paymentMethod" class="form-label">付款方式</label>
-                <select class="form-control" name="paymentMethod" id="paymentMethod"
-                v-model="userForm.user.paymentMethod">
+                <select
+                  class="form-control"
+                  name="paymentMethod"
+                  id="paymentMethod"
+                  v-model="userForm.user.paymentMethod"
+                >
                   <option value="信用卡">信用卡</option>
                   <option value="現金付款">現金付款</option>
                 </select>
@@ -223,12 +184,16 @@
                   placeholder="請輸入地址"
                   v-model="userForm.user.address"
                 />
-                <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
+                <ErrorMessage name="地址" class="invalid-feedback" />
               </div>
               <div class="col-md-6">
                 <label for="pickupMethod" class="form-label">取貨方式</label>
-                <select class="form-control" name="pickupMethod" id="pickupMethod"
-                v-model="userForm.user.pickupMethod">
+                <select
+                  class="form-control"
+                  name="pickupMethod"
+                  id="pickupMethod"
+                  v-model="userForm.user.pickupMethod"
+                >
                   <option value="到店自取">到店自取</option>
                   <option value="外送/宅配上門">外送/宅配上門</option>
                 </select>
@@ -245,7 +210,10 @@
               ></textarea>
             </div>
             <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary text-white w-50 w-md-25">
+              <button
+                type="submit"
+                class="btn btn-primary text-white w-50 w-md-25"
+              >
                 下一步
               </button>
             </div>
@@ -262,6 +230,8 @@ import cartStore from '@/stores/cartStore';
 import { mapState, mapActions } from 'pinia';
 import swalMessage from '@/stores/swalMessage';
 import loadingStore from '@/stores/loadingStore';
+import ProgressBar from '@/components/front/ProgressBar.vue';
+import { RouterLink } from 'vue-router';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 const loadingStatus = loadingStore();
@@ -284,6 +254,7 @@ export default {
       coupon_code: '',
     };
   },
+  components: { ProgressBar, RouterLink },
   watch: {
     deliveryFee() {
       this.userForm.user.cartDeliveryFee = this.deliveryFee;

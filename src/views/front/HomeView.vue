@@ -1,8 +1,8 @@
 <template>
   <!-- Landing 網站到達頁 -->
-  <LandingPage></LandingPage>
+  <LandingPage />
   <!--關於我們-->
-  <div class="bg_texture1" style="padding:100px 0px;">
+  <div class="bg_texture1" style="padding: 100px 0px">
     <div class="container">
       <div
         class="d-flex flex-column align-items-center justify-content-center mb-5"
@@ -64,7 +64,7 @@
     </div>
   </div>
   <!--商品分類-->
-  <div class="bg_texture2" style="padding:100px 0px;">
+  <div class="bg_texture2" style="padding: 100px 0px">
     <div class="container">
       <div
         class="d-flex flex-column align-items-center justify-content-center mb-5"
@@ -79,20 +79,20 @@
       </div>
       <div class="row d-flex flex-md-row flex-column" data-aos="fade-up">
         <div class="col-md-4">
-          <div class="row d-flex flex-row flex-md-column  gx-0">
+          <div class="row d-flex flex-row flex-md-column gx-0">
             <div class="col">
               <div
-                class="rounded-md-3 rounded-0 text-white
-                border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0
+                text-white border-5 h-100 position-relative overflow-hidden imgHover"
               >
-                <router-link
+                <RouterLink
                   class="nav-item nav-link me-4 stretched-link"
                   to="/products"
                   @click="() => changeCategory('蔬食首選')"
-                ></router-link>
+                />
                 <img
                   src="@/assets/img/vege.png"
-                  class="w-100 h-100  object-fit-cover bg-dark-gradient"
+                  class="w-100 h-100 object-fit-cover bg-dark-gradient"
                   alt="vegePizza"
                 />
                 <div
@@ -105,14 +105,14 @@
             </div>
             <div class="col mt-md-4 mt-0">
               <div
-                class="rounded-md-3 rounded-0 text-white
-                border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0
+                text-white border-5 h-100 position-relative overflow-hidden imgHover"
               >
-                <router-link
+                <RouterLink
                   class="nav-item nav-link me-4 stretched-link"
                   to="/products"
                   @click="() => changeCategory('海鮮至上')"
-                ></router-link>
+                />
                 <img
                   src="@/assets/img/seafood.png"
                   class="w-100 h-100 object-fit-cover"
@@ -130,14 +130,14 @@
         </div>
         <div class="col-md-4">
           <div
-            class="rounded-md-3 rounded-0 text-white
-            border-5 h-100 position-relative overflow-hidden imgHover"
+            class="rounded-md-3 rounded-0
+            text-white border-5 h-100 position-relative overflow-hidden imgHover"
           >
-            <router-link
+            <RouterLink
               class="nav-item nav-link me-4 stretched-link"
               to="/products"
               @click="() => changeCategory('無肉不歡')"
-            ></router-link>
+            />
             <img
               src="@/assets/img/meet.png"
               class="w-100 h-100 object-fit-cover d-md-block d-none"
@@ -145,7 +145,7 @@
             />
             <img
               src="@/assets/img/meet.png"
-              class="w-100  object-fit-cover d-block d-md-none"
+              class="w-100 object-fit-cover d-block d-md-none"
               height="200"
               alt="meet"
             />
@@ -161,14 +161,14 @@
           <div class="row d-flex lex-row flex-md-column gx-0">
             <div class="col">
               <div
-                class="rounded-md-3 rounded-0 text-white
-                border-5 h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0
+                text-white border-5 h-100 position-relative overflow-hidden imgHover"
               >
-                <router-link
+                <RouterLink
                   class="nav-item nav-link me-4 stretched-link"
                   to="/products"
                   @click="() => changeCategory('炸物')"
-                ></router-link>
+                />
                 <img
                   src="@/assets/img/sidemeal.png"
                   class="w-100 h-100 object-fit-cover"
@@ -182,10 +182,10 @@
                 </div>
               </div>
             </div>
-            <div class="col mt-md-4 mt-0 ">
+            <div class="col mt-md-4 mt-0">
               <div
-                class="rounded-md-3 rounded-0 text-white border-5
-                h-100 position-relative overflow-hidden imgHover"
+                class="rounded-md-3 rounded-0
+                text-white border-5 h-100 position-relative overflow-hidden imgHover"
               >
                 <img
                   src="@/assets/img/dessert.png"
@@ -193,11 +193,11 @@
                   alt="dessertPizza"
                   to="/products"
                 />
-                <router-link
+                <RouterLink
                   class="stretched-link"
                   to="/products"
                   @click="() => changeCategory('甜食主義')"
-                ></router-link>
+                />
                 <div
                   class="position-absolute top-0 start-0 w-100 bg-dark-gradient p-3"
                 >
@@ -224,7 +224,7 @@
         >
       </h3>
     </div>
-    <SwiperTopFlavors :category="'披薩'"></SwiperTopFlavors>
+    <SwiperTopFlavors :category="'披薩'" />
   </div>
 </template>
 
@@ -237,7 +237,6 @@
     rgb(0, 0, 0, 0) 80%
   );
 }
-
 </style>
 
 <script>
@@ -245,9 +244,10 @@ import { mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
 import LandingPage from '@/components/front/LandingPage.vue';
 import SwiperTopFlavors from '@/components/front/SwiperTopFlavors.vue';
+import { RouterLink } from 'vue-router';
 
 export default {
-  components: { LandingPage, SwiperTopFlavors },
+  components: { LandingPage, SwiperTopFlavors, RouterLink },
   methods: {
     ...mapActions(productsStore, ['changeCategory']),
   },

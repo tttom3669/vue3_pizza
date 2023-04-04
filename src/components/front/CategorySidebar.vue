@@ -8,12 +8,11 @@
       class="list-group-item"
       :class="{ active: '全部商品' === filterCategory }"
     >
-      <router-link
+      <RouterLink
         to="/products"
         class="stretched-link"
         @click="() => changeCategory('全部商品')"
-      >
-      </router-link>
+      />
       <span class="accordion-header ms-1">全部商品</span>
     </div>
     <div class="accordion-item">
@@ -44,7 +43,7 @@
               :key="category"
               :class="{ active: category === filterCategory }"
             >
-              <router-link
+              <RouterLink
                 class="stretched-link"
                 to="/products"
                 @click="
@@ -53,7 +52,7 @@
                     changeCollapseStyle();
                   }
                 "
-              ></router-link>
+              />
 
               {{ category }}
             </li>
@@ -89,7 +88,7 @@
               :key="category"
               :class="{ active: category === filterCategory }"
             >
-              <router-link
+              <RouterLink
                 class="stretched-link"
                 to="/products"
                 @click="
@@ -98,7 +97,7 @@
                     changeCollapseStyle();
                   }
                 "
-              ></router-link>
+              />
 
               {{ category }}
             </li>
@@ -112,6 +111,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
+import { RouterLink } from 'vue-router';
 
 export default {
   data() {
@@ -119,6 +119,7 @@ export default {
       isCollapse: false,
     };
   },
+  components: { RouterLink },
   computed: {
     ...mapState(productsStore, ['productCategory', 'filterCategory']),
   },

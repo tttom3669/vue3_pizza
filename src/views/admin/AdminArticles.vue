@@ -39,8 +39,11 @@
               >
                 編輯
               </button>
-              <button class="btn btn-outline-danger btn-sm" type="button"
-              @click="() =>openModal('delete', article)">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                type="button"
+                @click="() => openModal('delete', article)"
+              >
                 刪除
               </button>
             </div>
@@ -49,22 +52,22 @@
       </tbody>
     </table>
   </div>
-  <VueLoading v-model:active="isLoading"></VueLoading>
-  <SharedPagination :pages="page" @change-page="getArticles"></SharedPagination>
-   <!-- 新增/修改文章  Modal -->
+  <VueLoading v-model:active="isLoading" />
+  <SharedPagination :pages="page" @change-page="getArticles" />
+  <!-- 新增/修改文章  Modal -->
   <ArticleModal
     ref="articleModal"
     :is-new="isNew"
     :article="tempArticle"
     @update-article="updateArticle"
-  ></ArticleModal>
-   <!-- 刪除文章 Modal -->
-   <DelItemModal
-      ref="delArticleModal"
-      :temp-item="tempArticle"
-      :del-modal-type="delModalType"
-      @del-item="delArticle"
-    ></DelItemModal>
+  />
+  <!-- 刪除文章 Modal -->
+  <DelItemModal
+    ref="delArticleModal"
+    :temp-item="tempArticle"
+    :del-modal-type="delModalType"
+    @del-item="delArticle"
+  />
 </template>
 <script>
 import ArticleModal from '@/components/admin/ArticleModal.vue';
@@ -148,10 +151,12 @@ export default {
       this.isLoading = true;
       this.$refs.delArticleModal.closeModal();
       this.$http
-        .delete(url).then((res) => {
+        .delete(url)
+        .then((res) => {
           this.getArticles();
           this.swalShow(`${res.data.message}`, 'success', 'toast');
-        }).catch((err) => {
+        })
+        .catch((err) => {
           this.isLoading = false;
           this.swalShow(`${err.response.data.message}`, 'error');
         });

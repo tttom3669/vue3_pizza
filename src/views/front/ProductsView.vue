@@ -4,18 +4,12 @@
       <div class="row d-flex flex-row justify-content-between my-5">
         <div class="col-md-2 d-lg-block d-none">
           <!-- 商品分類 -->
-          <CategorySidebar></CategorySidebar>
+          <CategorySidebar />
         </div>
         <div class="col-lg-9">
           <!-- 最新消息標題 -->
-      <div
-        class="d-flex flex-column align-items-start justify-content-center"
-      >
-        <h3 class="fw-bold mt-1 border-3 border-start border-primary">
-          <span class="text-cusDarkBrown ms-3">{{ filterCategory === '全部商品'
-          ? '全部商品': filterCategory }}</span>
-        </h3>
-      </div>
+          <FrontHeading :title="filterCategory === '全部商品' ? '全部商品' : filterCategory" />
+          <!-- 產品列表 -->
           <div
             class="row d-flex justify-content-center justify-content-md-start"
           >
@@ -25,7 +19,7 @@
               :key="product.id"
             >
               <div class="mx-5 mx-sm-4 my-2">
-                <ProductCard :product="product"></ProductCard>
+                <ProductCard :product="product" />
               </div>
             </div>
           </div>
@@ -35,14 +29,14 @@
                 :pages="page"
                 @change-page="getProducts"
                 v-if="filterCategory === '全部商品'"
-              ></SharedPagination>
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <VueLoading v-model:active="isLoading" :loader="'dots'"></VueLoading>
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 
 <script>
@@ -53,6 +47,7 @@ import CategorySidebar from '@/components/front/CategorySidebar.vue';
 import swalMessage from '@/stores/swalMessage';
 import SharedPagination from '@/components/shared/SharedPagination.vue';
 import ProductCard from '@/components/front/ProductCard.vue';
+import FrontHeading from '@/components/front/FrontHeading.vue';
 
 const loadingStatus = loadingStore();
 export default {
@@ -61,7 +56,12 @@ export default {
       tempProduct: {},
     };
   },
-  components: { CategorySidebar, SharedPagination, ProductCard },
+  components: {
+    CategorySidebar,
+    SharedPagination,
+    ProductCard,
+    FrontHeading,
+  },
   computed: {
     ...mapState(productsStore, ['filterProducts', 'page', 'filterCategory']),
     ...mapState(loadingStore, ['isLoading']),

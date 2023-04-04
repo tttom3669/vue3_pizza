@@ -38,19 +38,23 @@
                     :class="{ 'is-invalid': errors['標題'] }"
                     rules="required"
                   />
-                  <ErrorMessage
-                    name="標題"
-                    class="invalid-feedback"
-                  ></ErrorMessage>
+                  <ErrorMessage name="標題" class="invalid-feedback" />
                 </div>
-                <div class="mb-3">
-                  <label for="image" class="form-label">輸入圖片網址</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="image"
-                    v-model="tempArticle.imageUrl"
-                    placeholder="請輸入圖片連結"
+                <div class="mb-2">
+                  <div class="mb-3">
+                    <label for="image" class="form-label">輸入圖片網址</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="image"
+                      v-model="tempArticle.imageUrl"
+                      placeholder="請輸入圖片連結"
+                    />
+                  </div>
+                  <img
+                    class="img-fluid"
+                    :src="tempArticle.imageUrl"
+                    alt="tempArticleImage"
                   />
                 </div>
                 <div class="mb-3">
@@ -65,10 +69,7 @@
                     :class="{ 'is-invalid': errors['作者'] }"
                     rules="required"
                   />
-                  <ErrorMessage
-                    name="作者"
-                    class="invalid-feedback"
-                  ></ErrorMessage>
+                  <ErrorMessage name="作者" class="invalid-feedback" />
                 </div>
                 <div class="mb-3">
                   <label for="create_at">文章建立日期</label>
@@ -164,12 +165,7 @@
             >
               取消
             </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              確認
-            </button>
+            <button type="submit" class="btn btn-primary">確認</button>
           </div>
         </VForm>
       </div>

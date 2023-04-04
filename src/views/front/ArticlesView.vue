@@ -33,7 +33,7 @@
                   </div>
                   <div class="card-footer">
                     <RouterLink
-                      :to="`/articles/${article.id}`"
+                      :to="`/article/${article.id}`"
                       class="btn btn-outline-primary"
                     >
                       文章頁面

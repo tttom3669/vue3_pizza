@@ -12,7 +12,7 @@
         </ol>
       </nav>
       <div class="row justify-content-center">
-        <article class="col-8">
+        <article class="col-md-8">
           <h2>{{ article.title }}</h2>
           <p>
             <small class="text-muted">{{

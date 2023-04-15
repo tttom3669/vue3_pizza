@@ -1,6 +1,8 @@
-# Vue Template
+# YO'S PIZZA 披薩電商網站
 
-## Project setup
+## Demo：https://tttom3669.github.io/vue3_pizza/#/
+
+### Project setup
 
 ```
 npm install

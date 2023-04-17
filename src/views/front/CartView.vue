@@ -70,19 +70,14 @@
           <div class="col-8 col-md-4 order-2 order-md-3">
             <!-- 商品名稱 -->
             <div class="d-flex flex-column text-nowrap">
-              <RouterLink
-                :to="`/product/${item.product.id}`"
-                class="text-decoration-none text-cusDarkBrown text"
-              >
                 {{ item.product.title }}
-              </RouterLink>
               <div>NT$ {{ item.product.price }} / {{ item.product.unit }}</div>
             </div>
           </div>
           <div class="col order-4 my-3">
             <div class="input-group input-group-sm">
               <!-- 商品數量/單位 -->
-              <div class="d-flex justify-content-center flex-nowrap">
+              <div class="d-flex justify-content-center flex-nowrap w-100">
                 <button
                   type="button"
                   class="btn btn-outline-primary"
@@ -94,16 +89,26 @@
                 </button>
                 <input
                   type="number"
-                  class="form-control text-center hide-arrows"
-                  :value="item.qty"
-                  readonly
+                  class="form-control text-center hide-arrows mx-2"
+                  min="1"
+                  max="20"
+                  v-model="item.qty"
+                  oninput="if(value<1)value=1; if(value>20) value=20;"
+                  @blur.prevent="() =>{
+                    if(item.qty < 1){
+                      item.qty = 1;
+                    } else if (item.qty > 20){
+                      item.qty = 20;
+                    }else{
+                      updateCartItem(item, item.qty)
+                    }}"
                 />
                 <button
                   type="button"
                   class="btn btn-outline-primary"
                   id="basic-addon2"
                   :disabled="item.qty >= 20 || loadingItem === item.id"
-                  @click.prevent="() => updateCartItem(item, item.qty + 1)"
+                  @click.prevent="() =>  updateCartItem(item, item.qty + 1)"
                 >
                   <i class="bi bi-plus"></i>
                 </button>
@@ -171,6 +176,14 @@
 .clickBtn:hover {
   color: var(--bs-primary);
 }
+
+/* Chrome, Safari, Edge, Opera */
+.hide-arrows::-webkit-outer-spin-button,
+.hide-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 </style>
 
 <script>

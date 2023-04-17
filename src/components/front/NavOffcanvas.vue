@@ -2,6 +2,7 @@
   <div
     class="offcanvas offcanvas-end"
     tabindex="-1"
+    ref="offcanvas"
     id="offcanvasRight"
     aria-labelledby="offcanvasRightLabel"
   >
@@ -31,7 +32,7 @@
           <RouterLink
             to="/articles"
             class="stretched-link"
-            @click="() => {changePage('最新消息');}"
+            @click="() => {changePage('最新消息'); closeOffcanvas();}"
           >
           </RouterLink>
           <span class="accordion-header ms-1">最新消息</span>
@@ -43,7 +44,7 @@
           <RouterLink
             to="/products"
             class="stretched-link"
-            @click="() => {changeCategory('全部商品'); changePage('美味菜單');}"
+            @click="() => {changeCategory('全部商品'); changePage('美味菜單'); closeOffcanvas();}"
           >
           </RouterLink>
           <span class="accordion-header ms-1">美味菜單</span>
@@ -70,7 +71,7 @@
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
                 <li
-                  class="list-group-item"
+                  class="list-group-item rounded-3"
                   v-for="category in productCategory['披薩']"
                   :key="category"
                   :class="{ active: category === filterCategory }"
@@ -79,12 +80,12 @@
                     class="stretched-link"
                     to="/products"
                     @click="() => {changeCategory(`${category}`);
-                    changeCollapseStyle('flush-collapseMenu');}"
+                    changeCollapseStyle('flush-collapseMenu'); closeOffcanvas();}"
                   ></RouterLink>
                   {{ category }}
                 </li>
                 <li
-                  class="list-group-item"
+                  class="list-group-item rounded-3"
                   v-for="category in productCategory['副食']"
                   :key="category"
                   :class="{ active: category === filterCategory }"
@@ -93,7 +94,7 @@
                     class="stretched-link"
                     to="/products"
                     @click="() => {changeCategory(`${category}`);
-                  changeCollapseStyle('flush-collapseMenu');}"
+                  changeCollapseStyle('flush-collapseMenu'); closeOffcanvas();}"
                   ></RouterLink>
 
                   {{ category }}
@@ -109,7 +110,7 @@
           <RouterLink
             to="/question"
             class="stretched-link"
-            @click="() => {changePage('常見問題');}"
+            @click="() => {changePage('常見問題'); closeOffcanvas();}"
           >
           </RouterLink>
           <span class="accordion-header ms-1">常見問題</span>
@@ -123,11 +124,13 @@
 import { mapState, mapActions } from 'pinia';
 import productsStore from '@/stores/productsStore';
 import { RouterLink } from 'vue-router';
+import { Offcanvas } from 'bootstrap';
 
 export default {
   data() {
     return {
       currentPage: '',
+      myOffcanvas: '',
     };
   },
   components: { RouterLink },
@@ -139,6 +142,9 @@ export default {
     changePage(page = '') {
       this.currentPage = page;
     },
+    closeOffcanvas() {
+      this.myOffcanvas.hide();
+    },
     // 類別清單折疊
     changeCollapseStyle(id) {
       // 點擊商品子類別後，關閉折疊清單
@@ -146,6 +152,9 @@ export default {
       document.getElementById(`${id}`).classList.remove('show');
       document.getElementById(`btn_${id}`).classList.add('collapsed');
     },
+  },
+  mounted() {
+    this.myOffcanvas = new Offcanvas(this.$refs.offcanvas);
   },
 };
 </script>

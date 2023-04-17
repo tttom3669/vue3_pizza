@@ -49,7 +49,7 @@
                 @click="
                   () => {
                     changeCategory(`${category}`);
-                    changeCollapseStyle();
+                    changeCollapseStyle('flush-collapsePizza');
                   }
                 "
               />
@@ -94,11 +94,10 @@
                 @click="
                   () => {
                     changeCategory(`${category}`);
-                    changeCollapseStyle();
+                    changeCollapseStyle('flush-collapseSideMeal');
                   }
                 "
               />
-
               {{ category }}
             </li>
           </ul>
@@ -126,14 +125,18 @@ export default {
   methods: {
     ...mapActions(productsStore, ['changeCategory']),
     // 類別清單折疊
-    changeCollapseStyle() {
+    changeCollapseStyle(target) {
+      let id = '';
+      // 保留當下開啟折疊清單，關閉其餘折疊清單
+      if (target === 'flush-collapseSideMeal') {
+        id = 'flush-collapsePizza';
+      } else {
+        id = 'flush-collapseSideMeal';
+      }
       // 點擊商品子類別後，關閉折疊清單
-      const collapseAry = ['flush-collapsePizza', 'flush-collapseSideMeal'];
-      collapseAry.forEach((id) => {
-        document.getElementById(`${id}`).classList.add('collapse');
-        document.getElementById(`${id}`).classList.remove('show');
-        document.getElementById(`btn_${id}`).classList.add('collapsed');
-      });
+      document.getElementById(`${id}`).classList.add('collapse');
+      document.getElementById(`${id}`).classList.remove('show');
+      document.getElementById(`btn_${id}`).classList.add('collapsed');
     },
   },
 };

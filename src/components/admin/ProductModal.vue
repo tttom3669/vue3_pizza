@@ -52,7 +52,7 @@
                   <img
                     class="img-fluid"
                     :src="tempProduct.imageUrl"
-                    alt="tempProductImage"
+                    alt="主要圖片"
                   />
                 </div>
                 <div>
@@ -71,7 +71,7 @@
                         placeholder="請輸入圖片連結"
                         v-model="tempProduct.imagesUrl[key]"
                       />
-                      <img class="img-fluid" :src="image" :alt="key + 'img'" />
+                      <img class="img-fluid" :src="image" :alt="'多圖'+ (key+1)" />
                     </div>
                     <!--根據多圖陣列長度、內容，切換顯示新增圖片、刪除圖片-->
                     <button
@@ -159,7 +159,7 @@
                       aria-label="Product category select"
                       v-model="tempProduct.productCategory"
                     >
-                      <option selected disabled hidden>請選擇</option>
+                      <option selected disabled hidden>無細項分類</option>
                       <template v-if="tempProduct.category === '披薩' || isNew">
                         <option value="無肉不歡">無肉不歡</option>
                         <option value="蔬食首選">蔬食首選</option>

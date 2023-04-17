@@ -166,7 +166,7 @@ export default {
         // 帶入初始化資料
         this.tempProduct = {
           imagesUrl: [],
-          productCategory: '請選擇',
+          productCategory: '無細項分類',
         };
         this.isNew = true;
         this.$refs.productModal.openModal();

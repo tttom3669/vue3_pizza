@@ -309,6 +309,7 @@
   </nav>
   <!-- 導覽列 (行動版) -->
   <NavOffcanvas />
+  <VueLoading v-model:active="isLoading" :loader="'dots'" />
 </template>
 
 <style>
@@ -333,6 +334,7 @@ import cartStore from '@/stores/cartStore';
 import productsStore from '@/stores/productsStore';
 import collectionStore from '@/stores/collectionStore';
 import { RouterLink } from 'vue-router';
+import loadingStore from '@/stores/loadingStore';
 
 export default {
   components: { NavOffcanvas, RouterLink },
@@ -347,6 +349,7 @@ export default {
     ...mapActions(collectionStore, ['getCollection', 'updateCollection']),
   },
   computed: {
+    ...mapState(loadingStore, ['isLoading']),
     ...mapState(cartStore, ['cart']),
     ...mapState(collectionStore, ['filterProducts']),
   },

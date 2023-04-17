@@ -55,6 +55,8 @@
 import FrontHeading from '@/components/front/FrontHeading.vue';
 import { RouterLink } from 'vue-router';
 import SharedPagination from '@/components/shared/SharedPagination.vue';
+import { mapActions } from 'pinia';
+import swalMessage from '@/stores/swalMessage';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
@@ -68,14 +70,21 @@ export default {
   },
   components: { FrontHeading, RouterLink, SharedPagination },
   methods: {
+    ...mapActions(swalMessage, ['swalShow']),
     getArticles(page = 1) {
       this.isLoading = true;
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/articles/?page=${page}`;
-      this.$http.get(url).then((res) => {
-        this.articles = res.data.articles;
-        this.page = res.data.pagination; // 取得頁數
-        this.isLoading = false;
-      });
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.articles = res.data.articles;
+          this.page = res.data.pagination; // 取得頁數
+          this.isLoading = false;
+        })
+        .catch((err) => {
+          this.swalShow(`${err.response.data.message}`, 'error');
+          this.isLoading = false;
+        });
     },
   },
   mounted() {

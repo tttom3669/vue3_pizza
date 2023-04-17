@@ -39,7 +39,9 @@
         <div
           class="me-4"
           v-if="collectionList?.indexOf(product.id) === -1"
-          @click="() => updateCollection(product)"
+          @click="() => {updateCollection(product)
+          collection.hover = false; collection.itemID = ''
+          }"
         >
           <i
             class="bi collection"

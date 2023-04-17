@@ -14,7 +14,7 @@ export default defineStore('swalMessage', {
       } else if (type === 'toast') {
         Swal.fire({
           toast: true,
-          position: 'bottom',
+          position: 'top',
           showConfirmButton: false,
           icon: `${icon}`,
           timer: 3000,

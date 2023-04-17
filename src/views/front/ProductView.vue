@@ -32,7 +32,8 @@
             class="me-4 position-absolute translate-middle"
             type="button"
             v-if="collectionList?.indexOf(tempProduct.id) === -1"
-            @click="() => updateCollection(tempProduct)"
+            @click="() => {updateCollection(tempProduct)
+            collection.hover = false; collection.itemID = ''}"
             style="top: 30px; left: 30px"
           >
             <i

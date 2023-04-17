@@ -1,6 +1,7 @@
-import { defineStore } from 'pinia';
+import { defineStore, mapActions } from 'pinia';
 import axios from 'axios';
 import { Autoplay, Navigation, Pagination } from 'swiper';
+import swalMessage from '@/stores/swalMessage';
 
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default defineStore('SwiperProductsStore', {
@@ -31,16 +32,21 @@ export default defineStore('SwiperProductsStore', {
     products: [],
   }),
   actions: {
+    ...mapActions(swalMessage, ['swalShow']),
     getSwiperProducts(category = '全部商品') {
       this.products = [];
       const url = `${VITE_APP_URL}/api/${VITE_APP_PATH}/products/all`;
       if (category !== '全部商品') {
         axios.get(url).then((res) => {
           this.products = res.data.products.filter((product) => product.category === category);
+        }).catch(() => {
+          this.swalShow('輪播清單出現錯誤', 'error');
         });
       } else {
         axios.get(url).then((res) => {
           this.products = res.data.products;
+        }).catch(() => {
+          this.swalShow('輪播清單出現錯誤', 'error');
         });
       }
     },

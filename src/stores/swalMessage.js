@@ -18,6 +18,7 @@ export default defineStore('swalMessage', {
           showConfirmButton: false,
           icon: `${icon}`,
           timer: 3000,
+          timerProgressBar: true,
           title: `${title}`,
         });
       }

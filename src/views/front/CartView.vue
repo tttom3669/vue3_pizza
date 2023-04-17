@@ -99,9 +99,9 @@
                       item.qty = 1;
                     } else if (item.qty > 20){
                       item.qty = 20;
-                    }else{
+                    }
                       updateCartItem(item, item.qty)
-                    }}"
+                    }"
                 />
                 <button
                   type="button"

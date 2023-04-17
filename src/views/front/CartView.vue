@@ -33,7 +33,7 @@
           style="background-color: #ffe3ce"
         >
           <div class="col-2"></div>
-          <div class="col-md-4">商品明細</div>
+          <div class="col-md-4 text-start text-md-center">商品明細</div>
           <div class="col d-none d-md-block">數量/單位</div>
           <div class="col d-none d-md-block">小計</div>
         </div>
@@ -56,7 +56,7 @@
             </div>
           </div>
           <!-- 產品圖片 -->
-          <div class="col-2 col-md-1 order-1 order-md-2">
+          <div class="col-3 col-md-1 order-1 order-md-2">
             <RouterLink :to="`/product/${item.product.id}`">
               <img
                 :src="item.product.imageUrl"
@@ -67,11 +67,14 @@
               />
             </RouterLink>
           </div>
-          <div class="col-8 col-md-4 order-2 order-md-3">
+          <div class="col-7 col-md-4 order-2 order-md-3">
             <!-- 商品名稱 -->
             <div class="d-flex flex-column text-nowrap">
+               <div class="text-cusDarkBrown fw-bold">
                 {{ item.product.title }}
-              <div>NT$ {{ item.product.price }} / {{ item.product.unit }}</div>
+              </div>
+              <div class="text-cusBrown">
+                NT$ {{ item.product.price }} / {{ item.product.unit }}</div>
             </div>
           </div>
           <div class="col order-4 my-3">

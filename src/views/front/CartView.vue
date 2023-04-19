@@ -2,9 +2,9 @@
   <div class="bg_texture3" style="min-height: 600px">
     <div class="container">
       <!-- 進度條 -->
-      <ProgressBar :stage="1" class="mt-3"/>
+      <ProgressBar :stage="1" class="mt-3" />
       <!-- 購物車標題 -->
-      <FrontHeading :title="'購物車'" class="mt-3"/>
+      <FrontHeading :title="'購物車'" class="mt-3" />
       <!--購物車未有商品-->
       <div
         class="d-flex flex-column justify-content-center align-items-center"
@@ -38,8 +38,8 @@
           <div class="col d-none d-md-block">小計</div>
         </div>
         <div
-          class="row justify-content-center
-          bg-white border-bottom align-items-center text-cusDarkBrown text-center py-2"
+          class="row justify-content-center bg-white border-bottom
+          align-items-center text-cusDarkBrown text-center py-2"
           v-for="item in cart.carts"
           :key="item.id"
         >
@@ -70,11 +70,12 @@
           <div class="col-7 col-md-4 order-2 order-md-3">
             <!-- 商品名稱 -->
             <div class="d-flex flex-column text-nowrap">
-               <div class="text-cusDarkBrown fw-bold">
+              <div class="text-cusDarkBrown fw-bold">
                 {{ item.product.title }}
               </div>
               <div class="text-cusBrown">
-                NT$ {{ item.product.price }} / {{ item.product.unit }}</div>
+                NT$ {{ item.product.price }} / {{ item.product.unit }}
+              </div>
             </div>
           </div>
           <div class="col order-4 my-3">
@@ -97,21 +98,26 @@
                   max="20"
                   v-model="item.qty"
                   oninput="if(value<1)value=1; if(value>20) value=20;"
-                  @blur.prevent="() =>{
-                    if(item.qty < 1){
-                      item.qty = 1;
-                    } else if (item.qty > 20){
-                      item.qty = 20;
+                  @focus="()=>{lastQty = item.qty;}"
+                  @blur.prevent="
+                    () => {
+                      if (item.qty < 1) {
+                        item.qty = 1;
+                      } else if (item.qty > 20) {
+                        item.qty = 20;
+                      }
+                      if(lastQty !== item.qty ){
+                        updateCartItem(item, item.qty);
+                      }
                     }
-                      updateCartItem(item, item.qty)
-                    }"
+                  "
                 />
                 <button
                   type="button"
                   class="btn btn-outline-primary"
                   id="basic-addon2"
                   :disabled="item.qty >= 20 || loadingItem === item.id"
-                  @click.prevent="() =>  updateCartItem(item, item.qty + 1)"
+                  @click.prevent="() => updateCartItem(item, item.qty + 1)"
                 >
                   <i class="bi bi-plus"></i>
                 </button>
@@ -186,7 +192,6 @@
   -webkit-appearance: none;
   margin: 0;
 }
-
 </style>
 
 <script>
@@ -199,7 +204,9 @@ import { RouterLink } from 'vue-router';
 
 export default {
   data() {
-    return {};
+    return {
+      lastQty: '',
+    };
   },
   components: { ProgressBar, FrontHeading, RouterLink },
   computed: {
